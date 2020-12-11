@@ -28,7 +28,7 @@
                     .UseConsoleLog()
                     .AddCluster(
                         cluster => cluster
-                            .WithBrokers(new[] { "localhost:9092" })
+                            .WithBrokers(new[] { "192.168.8.4:9092" })
                             .EnableAdminMessages("kafka-flow.admin", Guid.NewGuid().ToString())
                             .AddProducer(
                                 producerName,
