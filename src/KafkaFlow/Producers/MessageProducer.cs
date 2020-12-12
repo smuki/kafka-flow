@@ -248,11 +248,19 @@ namespace KafkaFlow.Producers
 
         private static Message<byte[], byte[]> CreateMessage(IMessageContext context)
         {
+            var headers = new Confluent.Kafka.Headers();
+
+            foreach (var header in context.Headers)
+            {
+                headers.Add(header.Value != null
+                    ? new Header(header.Key, header.Value)
+                    : new Header(header.Key, null));
+            }
             return new Message<byte[], byte[]>
             {
                 Key = context.PartitionKey,
                 Value = GetMessageContent(context),
-                Headers = ((MessageHeaders) context.Headers).GetKafkaHeaders(),
+                Headers = headers,
                 Timestamp = Timestamp.Default
             };
         }

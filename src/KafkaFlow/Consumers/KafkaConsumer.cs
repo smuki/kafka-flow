@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
     using Confluent.Kafka;
@@ -148,8 +149,20 @@
                             {
                                 var message = consumer.Consume(this.stopCancellationTokenSource.Token);
 
+                                var headers = new MessageHeaders();
+                                foreach (var header in message.Message.Headers)
+                                {
+                                    Console.WriteLine("header.Key=" + header.Key);
+                                    headers.Add(header.Key, header.GetValueBytes());
+                                }
+
+                                var intermediateMessage = new IntermediateMessage(headers, message.Message.Value);
+                                intermediateMessage.Topic = message.Topic;
+                                intermediateMessage.Partition = message.Partition;
+                                intermediateMessage.Offset = message.Offset;
+
                                 await this.consumerWorkerPool
-                                    .EnqueueAsync(message, this.stopCancellationTokenSource.Token)
+                                    .EnqueueAsync(intermediateMessage, this.stopCancellationTokenSource.Token)
                                     .ConfigureAwait(false);
                             }
                             catch (OperationCanceledException)

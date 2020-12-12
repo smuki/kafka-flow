@@ -16,10 +16,14 @@ namespace KafkaFlow
         {
             return new XXXTopicPartitionOffset(tpo.Topic, tpo.Partition.Value, tpo.Offset.Value);
         }
-        
+
         public static XXXTopicPartition TopicPartition(TopicPartition tp)
         {
             return new XXXTopicPartition(tp.Topic, tp.Partition.Value);
+        }
+        public static TopicPartition TopicPartition(XXXTopicPartition tp)
+        {
+            return new TopicPartition(tp.Topic, tp.Partition);
         }
         public static IReadOnlyCollection<XXXTopicPartition> TopicPartition(IReadOnlyCollection<TopicPartition> tp)
         {

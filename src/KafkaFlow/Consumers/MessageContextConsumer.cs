@@ -8,13 +8,13 @@ namespace KafkaFlow.Consumers
     {
         private readonly IConsumer<byte[], byte[]> consumer;
         private readonly IOffsetManager offsetManager;
-        private readonly ConsumeResult<byte[], byte[]> kafkaResult;
+        private readonly IntermediateMessage kafkaResult;
 
         public MessageContextConsumer(
             IConsumer<byte[], byte[]> consumer,
             string name,
             IOffsetManager offsetManager,
-            ConsumeResult<byte[], byte[]> kafkaResult,
+            IntermediateMessage kafkaResult,
             CancellationToken workerStopped)
         {
             this.Name = name;
@@ -30,16 +30,16 @@ namespace KafkaFlow.Consumers
 
         public bool ShouldStoreOffset { get; set; } = true;
 
-        public DateTime MessageTimestamp => this.kafkaResult.Message.Timestamp.UtcDateTime;
+        public DateTime MessageTimestamp => this.kafkaResult.Timestamp.UtcDateTime;
 
         public void StoreOffset()
         {
-            this.offsetManager.StoreOffset(Util.TopicPartitionOffset(this.kafkaResult.TopicPartitionOffset));
+            this.offsetManager.StoreOffset(this.kafkaResult.TopicPartitionOffset);
         }
 
         public IOffsetsWatermark GetOffsetsWatermark()
         {
-            return new OffsetsWatermark(this.consumer.GetWatermarkOffsets(this.kafkaResult.TopicPartition));
+            return new OffsetsWatermark(this.consumer.GetWatermarkOffsets(Util.TopicPartition(this.kafkaResult.TopicPartition)));
         }
 
         public void Pause()

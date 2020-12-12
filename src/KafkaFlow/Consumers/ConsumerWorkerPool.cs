@@ -2,6 +2,7 @@ namespace KafkaFlow.Consumers
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
     using Confluent.Kafka;
@@ -81,10 +82,10 @@ namespace KafkaFlow.Consumers
             this.offsetManager = null;
         }
 
-        public async Task EnqueueAsync(ConsumeResult<byte[], byte[]> message, CancellationToken stopCancellationToken = default)
+        public async Task EnqueueAsync(IntermediateMessage message, CancellationToken stopCancellationToken = default)
         {
             var worker = (IConsumerWorker) await this.distributionStrategy
-                .GetWorkerAsync(message.Message.Key, stopCancellationToken)
+                .GetWorkerAsync(Encoding.UTF8.GetBytes(message.Partition.ToString()), stopCancellationToken)
                 .ConfigureAwait(false);
 
             if (worker == null)
@@ -92,7 +93,7 @@ namespace KafkaFlow.Consumers
                 return;
             }
 
-            this.offsetManager.AddOffset(Util.TopicPartitionOffset(message.TopicPartitionOffset));
+            this.offsetManager.AddOffset(message.TopicPartitionOffset);
 
             await worker
                 .EnqueueAsync(message, stopCancellationToken)

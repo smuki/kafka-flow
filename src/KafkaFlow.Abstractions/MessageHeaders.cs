@@ -2,29 +2,30 @@ namespace KafkaFlow
 {
     using System.Collections;
     using System.Collections.Generic;
-    using Confluent.Kafka;
+    //using Confluent.Kafka;
 
     /// <summary>
     /// Collection of message headers
     /// </summary>
     public class MessageHeaders : IMessageHeaders
     {
-        private readonly Headers headers;
-
+        //private readonly Headers headers;
+        private readonly Dictionary<string, byte[]> headers;
         /// <summary>
         /// Creates a <see cref="MessageHeaders"/> instance
         /// </summary>
         /// <param name="headers"></param>
-        public MessageHeaders(Headers headers)
-        {
-            this.headers = headers;
-        }
+        //public MessageHeaders(Headers headers)
+        //{
+        //    this.headers = headers;
+        //}
 
         /// <summary>
         /// Creates a <see cref="MessageHeaders"/> instance
         /// </summary>
-        public MessageHeaders() : this(new Headers())
+        public MessageHeaders()
         {
+            headers=new Dictionary<string, byte[]>();
         }
 
         /// <summary>
@@ -43,7 +44,7 @@ namespace KafkaFlow
         /// <param name="key">The zero-based index of the element to get</param>
         public byte[] this[string key]
         {
-            get => this.headers.TryGetLastBytes(key, out var value) ? value : null;
+            get => this.headers.TryGetValue(key, out var value) ? value : null;
             set
             {
                 this.headers.Remove(key);
@@ -55,7 +56,7 @@ namespace KafkaFlow
         /// Gets all the kafka headers
         /// </summary>
         /// <returns></returns>
-        public Headers GetKafkaHeaders() => this.headers;
+        //public Headers GetKafkaHeaders() => this.headers;
 
         
         /// <summary>
@@ -66,7 +67,7 @@ namespace KafkaFlow
         {
             foreach (var header in this.headers)
             {
-                yield return new KeyValuePair<string, byte[]>(header.Key, header.GetValueBytes());
+                yield return header;
             }
         }
 

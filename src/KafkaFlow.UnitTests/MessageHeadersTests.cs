@@ -30,11 +30,17 @@ namespace KafkaFlow.UnitTests
         {
             // Arrange
             var kafkaHeaders = new Headers { { key, this.value } };
-            var messageHeaders = new MessageHeaders(kafkaHeaders);
+            var messageHeaders = new MessageHeaders();
+            messageHeaders.Add(key, this.value);
 
-            // Act
-            var result = messageHeaders.GetKafkaHeaders();
+            var result = new Confluent.Kafka.Headers();
 
+            foreach (var header in messageHeaders)
+            {
+                result.Add(header.Value != null
+                    ? new Header(header.Key, header.Value)
+                    : new Header(header.Key, null));
+            }
             // Assert
             result.Should().BeEquivalentTo(kafkaHeaders);
         }

@@ -17,7 +17,7 @@ namespace KafkaFlow.Consumers
 
         private CancellationTokenSource stopCancellationTokenSource;
 
-        private readonly Channel<ConsumeResult<byte[], byte[]>> messagesBuffer;
+        private readonly Channel<IntermediateMessage> messagesBuffer;
         private Task backgroundTask;
         private Action onMessageFinishedHandler;
 
@@ -35,13 +35,13 @@ namespace KafkaFlow.Consumers
             this.offsetManager = offsetManager;
             this.logHandler = logHandler;
             this.middlewareExecutor = middlewareExecutor;
-            this.messagesBuffer = Channel.CreateBounded<ConsumeResult<byte[], byte[]>>(configuration.BufferSize);
+            this.messagesBuffer = Channel.CreateBounded<IntermediateMessage>(configuration.BufferSize);
         }
 
         public int Id { get; }
 
         public ValueTask EnqueueAsync(
-            ConsumeResult<byte[], byte[]> message,
+            IntermediateMessage message,
             CancellationToken stopCancellationToken = default)
         {
             return this.messagesBuffer.Writer.WriteAsync(message, stopCancellationToken);
@@ -91,7 +91,7 @@ namespace KafkaFlow.Consumers
                             {
                                 if (this.configuration.AutoStoreOffsets && context.Consumer.ShouldStoreOffset)
                                 {
-                                    this.offsetManager.StoreOffset(Util.TopicPartitionOffset(message.TopicPartitionOffset));
+                                    this.offsetManager.StoreOffset(message.TopicPartitionOffset);
                                 }
 
                                 this.onMessageFinishedHandler?.Invoke();

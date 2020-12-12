@@ -1,28 +1,30 @@
 namespace KafkaFlow
 {
     using Confluent.Kafka;
+    using KafkaFlow.Consumers;
+    using System.Text;
 
     internal class ConsumerMessageContext : IMessageContext
     {
-        private readonly ConsumeResult<byte[], byte[]> result;
+        private readonly IntermediateMessage result;
 
         public ConsumerMessageContext(
             IMessageContextConsumer consumer,
-            ConsumeResult<byte[], byte[]> result,
+            IntermediateMessage result,
             int workerId,
             string groupId)
         {
             this.result = result;
             this.Consumer = consumer;
-            this.Message = result.Message.Value;
-            this.Headers = new MessageHeaders(result.Message.Headers);
+            this.Message = result.Payload;
+            this.Headers = result.Headers;
             this.WorkerId = workerId;
             this.GroupId = groupId;
         }
 
         public int WorkerId { get; }
 
-        public byte[] PartitionKey => this.result.Message.Key;
+        public byte[] PartitionKey => Encoding.UTF8.GetBytes(this.result.Partition.ToString());
 
         public object Message { get; private set; }
 
@@ -32,9 +34,9 @@ namespace KafkaFlow
 
         public string GroupId { get; }
 
-        public int? Partition => this.result.Partition.Value;
+        public int? Partition => this.result.Partition;
 
-        public long? Offset => this.result.Offset.Value;
+        public long? Offset => this.result.Offset;
 
         public IMessageContextConsumer Consumer { get; }
 
