@@ -41,7 +41,6 @@ namespace KafkaFlow.Consumers
             try
             {
                 this.consumer.Commit(Util.TopicPartitionOffset(offsets.Values));
-                Console.WriteLine("Commit##");
             }
             catch (Exception e)
             {

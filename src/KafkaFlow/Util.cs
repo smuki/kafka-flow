@@ -39,6 +39,7 @@ namespace KafkaFlow
             List<TopicPartitionOffset> xxx = new List<TopicPartitionOffset>();
             foreach (XXXTopicPartitionOffset item in tp)
             {
+                Console.WriteLine("\nTopic=" + item.Topic+ " Partition="+item.Partition + " Offset=" + item.Offset);
                 xxx.Add(new TopicPartitionOffset(item.Topic,new Partition(item.Partition),new Offset(item.Offset)));
             }
             return xxx.AsReadOnly();

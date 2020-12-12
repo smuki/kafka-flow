@@ -4,7 +4,7 @@ namespace KafkaFlow
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    internal class MiddlewareExecutor : IMiddlewareExecutor
+    public class MiddlewareExecutor : IMiddlewareExecutor
     {
         private readonly IReadOnlyList<IMessageMiddleware> middlewares;
 

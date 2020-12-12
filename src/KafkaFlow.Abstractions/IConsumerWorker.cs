@@ -2,9 +2,9 @@ namespace KafkaFlow.Consumers
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using Confluent.Kafka;
+    //using Confluent.Kafka;
 
-    internal interface IConsumerWorker : IWorker
+    public interface IConsumerWorker : IWorker
     {
         ValueTask EnqueueAsync(IntermediateMessage message, CancellationToken stopCancellationToken = default);
 
