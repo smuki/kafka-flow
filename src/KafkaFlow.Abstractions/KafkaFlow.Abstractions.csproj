@@ -8,4 +8,8 @@
     <Description>Contains all KafkaFlow extendable interfaces</Description>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.Threading.Channels" Version="4.7.1" />
+  </ItemGroup>
+
 </Project>
