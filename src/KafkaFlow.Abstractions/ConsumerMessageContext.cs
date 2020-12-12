@@ -1,10 +1,9 @@
 namespace KafkaFlow
 {
-    using Confluent.Kafka;
     using KafkaFlow.Consumers;
     using System.Text;
 
-    internal class ConsumerMessageContext : IMessageContext
+    public class ConsumerMessageContext : IMessageContext
     {
         private readonly IntermediateMessage result;
 
