@@ -9,7 +9,7 @@ namespace KafkaFlow.Consumers
     {
         Task StartAsync(
             IConsumer<byte[], byte[]> consumer,
-            IEnumerable<TopicPartition> partitions,
+            IEnumerable<XXXTopicPartition> partitions,
             CancellationToken stopCancellationToken);
 
         Task StopAsync();

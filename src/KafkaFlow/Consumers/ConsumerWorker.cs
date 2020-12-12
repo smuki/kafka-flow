@@ -91,7 +91,7 @@ namespace KafkaFlow.Consumers
                             {
                                 if (this.configuration.AutoStoreOffsets && context.Consumer.ShouldStoreOffset)
                                 {
-                                    this.offsetManager.StoreOffset(message.TopicPartitionOffset);
+                                    this.offsetManager.StoreOffset(Util.TopicPartitionOffset(message.TopicPartitionOffset));
                                 }
 
                                 this.onMessageFinishedHandler?.Invoke();

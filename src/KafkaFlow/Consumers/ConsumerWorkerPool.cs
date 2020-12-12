@@ -36,7 +36,7 @@ namespace KafkaFlow.Consumers
 
         public async Task StartAsync(
             IConsumer<byte[], byte[]> consumer,
-            IEnumerable<TopicPartition> partitions,
+            IEnumerable<XXXTopicPartition> partitions,
             CancellationToken stopCancellationToken = default)
         {
             this.offsetManager = new OffsetManager(
@@ -92,7 +92,7 @@ namespace KafkaFlow.Consumers
                 return;
             }
 
-            this.offsetManager.AddOffset(message.TopicPartitionOffset);
+            this.offsetManager.AddOffset(Util.TopicPartitionOffset(message.TopicPartitionOffset));
 
             await worker
                 .EnqueueAsync(message, stopCancellationToken)

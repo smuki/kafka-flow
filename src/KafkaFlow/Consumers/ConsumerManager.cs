@@ -17,10 +17,7 @@ namespace KafkaFlow.Consumers
 
         public void AddOrUpdate(IMessageConsumer consumer)
         {
-            this.consumers.AddOrUpdate(
-                consumer.ConsumerName,
-                consumer,
-                (x, y) => consumer);
+            this.consumers.AddOrUpdate(consumer.ConsumerName, consumer, (x, y) => consumer);
         }
     }
 }

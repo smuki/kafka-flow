@@ -34,7 +34,7 @@ namespace KafkaFlow.Consumers
 
         public void StoreOffset()
         {
-            this.offsetManager.StoreOffset(this.kafkaResult.TopicPartitionOffset);
+            this.offsetManager.StoreOffset(Util.TopicPartitionOffset(this.kafkaResult.TopicPartitionOffset));
         }
 
         public IOffsetsWatermark GetOffsetsWatermark()

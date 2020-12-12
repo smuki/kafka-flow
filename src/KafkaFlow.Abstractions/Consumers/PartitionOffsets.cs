@@ -5,7 +5,7 @@ namespace KafkaFlow.Consumers
     using System.Linq;
     using System.Runtime.CompilerServices;
 
-    internal class PartitionOffsets
+    public class PartitionOffsets
     {
         private readonly SortedSet<long> pendingOffsets = new SortedSet<long>();
         private readonly LinkedList<long> offsetsOrder = new LinkedList<long>();

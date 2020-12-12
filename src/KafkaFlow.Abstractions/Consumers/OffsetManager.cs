@@ -3,49 +3,48 @@ namespace KafkaFlow.Consumers
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Confluent.Kafka;
 
-    internal class OffsetManager : IOffsetManager, IDisposable
+    public class OffsetManager : IOffsetManager, IDisposable
     {
         private readonly IOffsetCommitter committer;
         private readonly Dictionary<(string, int), PartitionOffsets> partitionsOffsets;
 
         public OffsetManager(
             IOffsetCommitter committer,
-            IEnumerable<TopicPartition> partitions)
+            IEnumerable<XXXTopicPartition> partitions)
         {
             this.committer = committer;
             this.partitionsOffsets = partitions.ToDictionary(
-                partition => (partition.Topic, partition.Partition.Value),
+                partition => (partition.Topic, partition.Partition),
                 partition => new PartitionOffsets());
         }
 
-        public void StoreOffset(TopicPartitionOffset offset)
+        public void StoreOffset(XXXTopicPartitionOffset offset)
         {
-            if (!this.partitionsOffsets.TryGetValue((offset.Topic, offset.Partition.Value), out var offsets))
+            if (!this.partitionsOffsets.TryGetValue((offset.Topic, offset.Partition), out var offsets))
             {
                 return;
             }
 
             lock (offsets)
             {
-                if (offsets.ShouldUpdateOffset(offset.Offset.Value))
+                if (offsets.ShouldUpdateOffset(offset.Offset))
                 {
                     this.committer.StoreOffset(
-                        new TopicPartitionOffset(
-                            offset.TopicPartition,
-                            new Offset(offsets.LastOffset + 1)));
+                        new XXXTopicPartitionOffset(
+                           offset.Topic,offset.Partition,
+                           offsets.LastOffset + 1));
                 }
             }
         }
 
-        public void AddOffset(TopicPartitionOffset offset)
+        public void AddOffset(XXXTopicPartitionOffset offset)
         {
             if (this.partitionsOffsets.TryGetValue(
-                (offset.Topic, offset.Partition.Value),
+                (offset.Topic, offset.Partition),
                 out var offsets))
             {
-                offsets.AddOffset(offset.Offset.Value);
+                offsets.AddOffset(offset.Offset);
             }
         }
 

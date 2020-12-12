@@ -79,7 +79,7 @@
             this.consumerWorkerPool
                 .StartAsync(
                     consumer,
-                    partitions,
+                   Util.TopicPartition(partitions),
                     this.stopCancellationTokenSource.Token)
                 .GetAwaiter()
                 .GetResult();
