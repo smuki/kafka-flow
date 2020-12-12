@@ -39,7 +39,9 @@ namespace KafkaFlow.Consumers
 
         public IOffsetsWatermark GetOffsetsWatermark()
         {
-            return new OffsetsWatermark(this.consumer.GetWatermarkOffsets(Util.TopicPartition(this.kafkaResult.TopicPartition)));
+            WatermarkOffsets v = this.consumer.GetWatermarkOffsets(Util.TopicPartition(this.kafkaResult.TopicPartition));
+
+            return new OffsetsWatermark(v.High,v.Low);
         }
 
         public void Pause()

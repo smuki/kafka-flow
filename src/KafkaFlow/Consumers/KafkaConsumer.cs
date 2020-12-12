@@ -152,7 +152,7 @@
                                 var headers = new MessageHeaders();
                                 foreach (var header in message.Message.Headers)
                                 {
-                                    Console.WriteLine("header.Key=" + header.Key);
+                                    //Console.WriteLine("header.Key=" + header.Key);
                                     headers.Add(header.Key, header.GetValueBytes());
                                 }
 
