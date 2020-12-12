@@ -1,6 +1,6 @@
 namespace KafkaFlow
 {
-    internal class ProducerMessageContext : IMessageContext
+    public class ProducerMessageContext : IMessageContext
     {
         public ProducerMessageContext(
             object message,
