@@ -25,11 +25,7 @@ namespace KafkaFlow.Consumers
 
             this.consumer = consumer;
             this.logHandler = logHandler;
-            this.commitTimer = new Timer(
-                _ => this.CommitHandler(),
-                null,
-                autoCommitInterval,
-                autoCommitInterval);
+            this.commitTimer = new Timer( _ => this.CommitHandler(), null, autoCommitInterval, autoCommitInterval);
         }
 
         private void CommitHandler()
@@ -44,15 +40,8 @@ namespace KafkaFlow.Consumers
 
             try
             {
-                Console.WriteLine("Commit Count         : " + offsets.Count);
-                Console.WriteLine("Offsets Values Count : " + offsets.Values.Count);
-                foreach(var x in offsets.Values)
-                {
-                    Console.WriteLine(x);
-                }
                 this.consumer.Commit(Util.TopicPartitionOffset(offsets.Values));
                 Console.WriteLine("Commit##");
-
             }
             catch (Exception e)
             {
