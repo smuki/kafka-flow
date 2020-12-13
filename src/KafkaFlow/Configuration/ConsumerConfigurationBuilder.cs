@@ -7,7 +7,7 @@ namespace KafkaFlow.Configuration
     using Confluent.Kafka;
     using KafkaFlow.Consumers.DistributionStrategies;
 
-    internal sealed class ConsumerConfigurationBuilder : IConsumerConfigurationBuilder
+    public sealed class ConsumerConfigurationBuilder : IConsumerConfigurationBuilder
     {
         private readonly List<string> topics = new List<string>();
         private readonly List<Action<string>> statisticsHandlers = new List<Action<string>>();

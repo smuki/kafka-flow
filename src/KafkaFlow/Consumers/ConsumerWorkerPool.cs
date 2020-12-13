@@ -8,7 +8,7 @@ namespace KafkaFlow.Consumers
     using Confluent.Kafka;
     using KafkaFlow.Configuration;
 
-    internal class ConsumerWorkerPool : IConsumerWorkerPool
+    public class ConsumerWorkerPool : IConsumerWorkerPool
     {
         private readonly IDependencyResolver dependencyResolver;
         private readonly ConsumerConfiguration configuration;
@@ -20,6 +20,7 @@ namespace KafkaFlow.Consumers
 
         private IDistributionStrategy distributionStrategy;
         private OffsetManager offsetManager;
+        IConsumerClient consumerClient;
 
         public ConsumerWorkerPool(
             IDependencyResolver dependencyResolver,
@@ -30,19 +31,21 @@ namespace KafkaFlow.Consumers
         {
             this.dependencyResolver = dependencyResolver;
             this.configuration = configuration;
+            this.consumerClient = consumerClient;
             this.logHandler = logHandler;
             this.middlewareExecutor = middlewareExecutor;
             this.distributionStrategyFactory = distributionStrategyFactory;
         }
 
         public async Task StartAsync(
+            IConsumerClient consumerClient,
             IConsumer<byte[], byte[]> consumer,
             IEnumerable<XXXTopicPartition> partitions,
             CancellationToken stopCancellationToken = default)
         {
             this.offsetManager = new OffsetManager(
                 new OffsetCommitter(
-                    consumer,
+                    consumerClient,
                     this.configuration.AutoCommitInterval,
                     this.logHandler),
                 partitions);
@@ -54,6 +57,7 @@ namespace KafkaFlow.Consumers
                             workerId =>
                             {
                                 var worker = new ConsumerWorker(
+                                    consumerClient,
                                     consumer,
                                     workerId,
                                     this.configuration,

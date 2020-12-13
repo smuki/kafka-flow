@@ -5,7 +5,7 @@ namespace KafkaFlow.Configuration
     using Confluent.Kafka;
     using Acks = KafkaFlow.Acks;
 
-    internal class ProducerConfigurationBuilder : IProducerConfigurationBuilder
+    public class ProducerConfigurationBuilder : IProducerConfigurationBuilder
     {
         private readonly string name;
         private readonly ProducerMiddlewareConfigurationBuilder middlewareConfigurationBuilder;

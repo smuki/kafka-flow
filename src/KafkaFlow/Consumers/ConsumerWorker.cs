@@ -20,8 +20,10 @@ namespace KafkaFlow.Consumers
         private readonly Channel<IntermediateMessage> messagesBuffer;
         private Task backgroundTask;
         private Action onMessageFinishedHandler;
+        private IConsumerClient consumerClient;
 
         public ConsumerWorker(
+            IConsumerClient consumerClient,
             IConsumer<byte[], byte[]> consumer,
             int workerId,
             ConsumerConfiguration configuration,
@@ -31,6 +33,7 @@ namespace KafkaFlow.Consumers
         {
             this.Id = workerId;
             this.consumer = consumer;
+            this.consumerClient = consumerClient;
             this.configuration = configuration;
             this.offsetManager = offsetManager;
             this.logHandler = logHandler;

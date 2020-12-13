@@ -4,27 +4,26 @@ namespace KafkaFlow.Consumers
     using System.Collections.Concurrent;
     using System.Linq;
     using System.Threading;
-    using Confluent.Kafka;
 
-    internal class OffsetCommitter : IOffsetCommitter
+    public class OffsetCommitter : IOffsetCommitter
     {
-        private readonly IConsumer<byte[], byte[]> consumer;
         private readonly ILogHandler logHandler;
 
         private ConcurrentDictionary<(string, int), XXXTopicPartitionOffset> offsetsToCommit =
             new ConcurrentDictionary<(string, int), XXXTopicPartitionOffset>();
 
         private readonly Timer commitTimer;
+        IConsumerClient consumerClient;
 
         public OffsetCommitter(
-            IConsumer<byte[], byte[]> consumer,
+            IConsumerClient consumerClient,
             TimeSpan autoCommitInterval,
             ILogHandler logHandler)
         {
             Console.WriteLine("autoCommitInterval   =" + autoCommitInterval.TotalSeconds);
 
-            this.consumer = consumer;
             this.logHandler = logHandler;
+            this.consumerClient = consumerClient;
             this.commitTimer = new Timer( _ => this.CommitHandler(), null, autoCommitInterval, autoCommitInterval);
         }
 
@@ -40,7 +39,7 @@ namespace KafkaFlow.Consumers
 
             try
             {
-                this.consumer.Commit(Util.TopicPartitionOffset(offsets.Values));
+                this.consumerClient.Commit(offsets.Values);
             }
             catch (Exception e)
             {

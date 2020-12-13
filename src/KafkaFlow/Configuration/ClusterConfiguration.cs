@@ -4,7 +4,7 @@ namespace KafkaFlow.Configuration
     using System.Collections.Generic;
     using System.Linq;
 
-    internal class ClusterConfiguration
+    public class ClusterConfiguration
     {
         private readonly Func<SecurityInformation> securityInformationHandler;
         private readonly List<ProducerConfiguration> producers = new List<ProducerConfiguration>();

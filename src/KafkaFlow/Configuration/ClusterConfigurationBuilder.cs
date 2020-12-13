@@ -5,7 +5,7 @@ namespace KafkaFlow.Configuration
     using System.Linq;
     using KafkaFlow.Producers;
 
-    internal class ClusterConfigurationBuilder : IClusterConfigurationBuilder
+    public class ClusterConfigurationBuilder : IClusterConfigurationBuilder
     {
         private readonly List<ProducerConfigurationBuilder> producers = new List<ProducerConfigurationBuilder>();
         private readonly List<ConsumerConfigurationBuilder> consumers = new List<ConsumerConfigurationBuilder>();

@@ -16,8 +16,6 @@ namespace KafkaFlow.Consumers
         private static readonly SemaphoreSlim ConnectionLock = new SemaphoreSlim(initialCount: 1, maxCount: 1);
         private readonly ConsumerConfiguration configuration;
 
-        //private readonly string _groupId;
-        //private readonly KafkaOptions _kafkaOptions;
         private IConsumer<string, byte[]> _consumerClient;
         private readonly ConsumerBuilder<byte[], byte[]> consumerBuilder;
         private readonly ILogHandler logHandler;
@@ -27,9 +25,6 @@ namespace KafkaFlow.Consumers
                         ILogHandler logHandler
         )
         {
-            //_groupId = groupId;
-            //_kafkaOptions = options.Value ?? throw new ArgumentNullException(nameof(options));
-
             this.logHandler = logHandler;
             this.configuration = configuration;
             var kafkaConfig = configuration.GetKafkaConfig();
@@ -107,9 +102,9 @@ namespace KafkaFlow.Consumers
             return new IntermediateMessage(headers, consumerResult.Message.Value);
         }
 
-        public void Commit(object sender)
+        public void Commit(IEnumerable<XXXTopicPartitionOffset> offsets)
         {
-            _consumerClient.Commit((ConsumeResult<string, byte[]>)sender);
+            //_consumerClient.Commit((ConsumeResult<string, byte[]>)sender);
         }
 
         public void Reject(object sender)

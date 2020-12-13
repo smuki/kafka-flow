@@ -8,6 +8,7 @@ namespace KafkaFlow.Consumers
     internal interface IConsumerWorkerPool
     {
         Task StartAsync(
+            IConsumerClient consumerClient,
             IConsumer<byte[], byte[]> consumer,
             IEnumerable<XXXTopicPartition> partitions,
             CancellationToken stopCancellationToken);

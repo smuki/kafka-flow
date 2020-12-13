@@ -6,7 +6,7 @@ namespace KafkaFlow.Configuration
     using KafkaFlow.Consumers;
     using KafkaFlow.Producers;
 
-    internal class KafkaConfigurationBuilder : IKafkaConfigurationBuilder
+    public class KafkaConfigurationBuilder : IKafkaConfigurationBuilder
     {
         private readonly IDependencyConfigurator dependencyConfigurator;
         private readonly List<ClusterConfigurationBuilder> clusters = new List<ClusterConfigurationBuilder>();

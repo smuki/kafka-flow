@@ -34,6 +34,17 @@ namespace KafkaFlow
             }
             return xxx.AsReadOnly();
         }
+        
+        public static IEnumerable<TopicPartitionOffset> TopicPartitionOffset(IEnumerable<XXXTopicPartitionOffset> tp)
+        {
+            List<TopicPartitionOffset> xxx = new List<TopicPartitionOffset>();
+            foreach (XXXTopicPartitionOffset item in tp)
+            {
+                Console.WriteLine("\nTopic=" + item.Topic + " Partition=" + item.Partition + " Offset=" + item.Offset);
+                xxx.Add(new TopicPartitionOffset(item.Topic, new Partition(item.Partition), new Offset(item.Offset)));
+            }
+            return xxx;
+        }
         public static ICollection<TopicPartitionOffset> TopicPartitionOffset(ICollection<XXXTopicPartitionOffset> tp)
         {
             List<TopicPartitionOffset> xxx = new List<TopicPartitionOffset>();

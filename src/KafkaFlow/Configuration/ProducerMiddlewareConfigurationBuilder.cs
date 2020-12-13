@@ -2,7 +2,7 @@ namespace KafkaFlow.Configuration
 {
     using System.Collections.Generic;
 
-    internal class ProducerMiddlewareConfigurationBuilder
+    public class ProducerMiddlewareConfigurationBuilder
         : IProducerMiddlewareConfigurationBuilder
     {
         public IDependencyConfigurator DependencyConfigurator { get; }

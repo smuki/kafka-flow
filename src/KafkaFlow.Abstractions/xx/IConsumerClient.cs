@@ -13,28 +13,28 @@ namespace KafkaFlow.Consumers
     /// </summary>
     public interface IConsumerClient : IDisposable
     {
-        string BrokerAddress { get; }
+        //string BrokerAddress { get; }
 
         /// <summary>
         /// Subscribe to a set of topics to the message queue
         /// </summary>
         /// <param name="topics"></param>
-        void Subscribe(IEnumerable<string> topics);
+        //void Subscribe(IEnumerable<string> topics);
 
         /// <summary>
         /// Start listening
         /// </summary>
-        void Listening(TimeSpan timeout, CancellationToken cancellationToken);
+        //void Listening(TimeSpan timeout, CancellationToken cancellationToken);
 
         /// <summary>
         /// Manual submit message offset when the message consumption is complete
         /// </summary>
-        void Commit(object sender);
+        void Commit(IEnumerable<XXXTopicPartitionOffset> offsets);
 
         /// <summary>
         /// Reject message and resumption
         /// </summary>
-        void Reject(object sender);
+        //void Reject(object sender);
         void OnPartitionRevoked(IConsumerClient consumer, IReadOnlyCollection<XXXTopicPartitionOffset> topicPartitions);
         void OnPartitionAssigned(IConsumerClient consumer, IReadOnlyCollection<XXXTopicPartition> partitions);
     }
