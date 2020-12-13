@@ -8,6 +8,11 @@
     <Description>Contains all KafkaFlow extendable interfaces</Description>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningsAsErrors>;NU1605</WarningsAsErrors>
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="System.Threading.Channels" Version="4.7.1" />
   </ItemGroup>
