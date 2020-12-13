@@ -3,7 +3,7 @@ namespace KafkaFlow.Consumers
     using System;
     using System.Threading;
 
-    internal class MessageContextConsumer : IMessageContextConsumer
+    public class MessageContextConsumer : IMessageContextConsumer
     {
         private readonly IOffsetManager offsetManager;
         private readonly IntermediateMessage kafkaResult;
