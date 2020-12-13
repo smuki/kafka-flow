@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace KafkaFlow.Consumers
 {
@@ -40,7 +41,9 @@ namespace KafkaFlow.Consumers
         IOffsetsWatermark GetWatermarkOffsets(XXXTopicPartition offsets);
         IOffsetsWatermark QueryWatermarkOffsets(XXXTopicPartition offsets, TimeSpan timeout);
         List<XXXTopicPartitionOffset> OffsetsForTimes(IEnumerable<XXXTopicPartitionTimestamp> timestampsToSearch, TimeSpan timeout);
+        Task StartAsync();
 
+        Task StopAsync();
         /// <summary>
         /// Reject message and resumption
         /// </summary>

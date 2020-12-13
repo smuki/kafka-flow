@@ -9,7 +9,7 @@ namespace KafkaFlow.Consumers
 
     internal class ConsumerWorker : IConsumerWorker
     {
-        private readonly IConsumer<byte[], byte[]> consumer;
+        //private readonly IConsumer<byte[], byte[]> consumer;
         private readonly ConsumerConfiguration configuration;
         private readonly IOffsetManager offsetManager;
         private readonly ILogHandler logHandler;
@@ -66,7 +66,7 @@ namespace KafkaFlow.Consumers
 
                             var context = new ConsumerMessageContext(
                                 new MessageContextConsumer(
-                                    this.consumer,
+                                    this.consumerClient,
                                     this.configuration.ConsumerName,
                                     this.offsetManager,
                                     message,

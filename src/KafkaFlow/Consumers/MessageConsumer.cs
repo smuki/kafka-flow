@@ -95,9 +95,9 @@ namespace KafkaFlow.Consumers
 
         private async Task InternalRestart()
         {
-            await this.kafkaConsumer.StopAsync().ConfigureAwait(false);
+            await this.consumerClient.StopAsync().ConfigureAwait(false);
             await Task.Delay(5000).ConfigureAwait(false);
-            await this.kafkaConsumer.StartAsync().ConfigureAwait(false);
+            await this.consumerClient.StartAsync().ConfigureAwait(false);
         }
 
         public IReadOnlyList<string> Subscription => this.consumerClient.Subscription;

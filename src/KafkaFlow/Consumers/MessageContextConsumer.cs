@@ -2,16 +2,15 @@ namespace KafkaFlow.Consumers
 {
     using System;
     using System.Threading;
-    using Confluent.Kafka;
 
     internal class MessageContextConsumer : IMessageContextConsumer
     {
-        private readonly IConsumer<byte[], byte[]> consumer;
         private readonly IOffsetManager offsetManager;
         private readonly IntermediateMessage kafkaResult;
+        private readonly IConsumerClient consumerClient;
 
         public MessageContextConsumer(
-            IConsumer<byte[], byte[]> consumer,
+            IConsumerClient consumerClient,
             string name,
             IOffsetManager offsetManager,
             IntermediateMessage kafkaResult,
@@ -19,7 +18,7 @@ namespace KafkaFlow.Consumers
         {
             this.Name = name;
             this.WorkerStopped = workerStopped;
-            this.consumer = consumer;
+            this.consumerClient = consumerClient;
             this.offsetManager = offsetManager;
             this.kafkaResult = kafkaResult;
         }
@@ -39,19 +38,17 @@ namespace KafkaFlow.Consumers
 
         public IOffsetsWatermark GetOffsetsWatermark()
         {
-            WatermarkOffsets v = this.consumer.GetWatermarkOffsets(Util.TopicPartition(this.kafkaResult.TopicPartition));
-
-            return new OffsetsWatermark(v.High,v.Low);
+            return this.consumerClient.GetWatermarkOffsets(this.kafkaResult.TopicPartition);
         }
 
         public void Pause()
         {
-            this.consumer.Pause(this.consumer.Assignment);
+            this.consumerClient.Pause(this.consumerClient.Assignment);
         }
 
         public void Resume()
         {
-            this.consumer.Resume(this.consumer.Assignment);
+            this.consumerClient.Resume(this.consumerClient.Assignment);
         }
     }
 }
