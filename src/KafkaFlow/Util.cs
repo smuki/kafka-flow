@@ -25,14 +25,34 @@ namespace KafkaFlow
         {
             return new TopicPartition(tp.Topic, tp.Partition);
         }
-        public static IReadOnlyCollection<XXXTopicPartition> TopicPartition(IEnumerable<TopicPartition> tp)
+
+        public static IEnumerable<XXXTopicPartitionTimestamp> TopicPartitionTimestamp(IEnumerable<TopicPartitionTimestamp> tp)
+        {
+            List<XXXTopicPartitionTimestamp> xxx = new List<XXXTopicPartitionTimestamp>();
+            foreach (TopicPartitionTimestamp item in tp)
+            {
+                xxx.Add(new XXXTopicPartitionTimestamp(Util.TopicPartition(item.TopicPartition), item.Timestamp.UnixTimestampMs));
+            }
+            return xxx;
+        }
+        public static IEnumerable<TopicPartitionTimestamp> TopicPartitionTimestamp(IEnumerable<XXXTopicPartitionTimestamp> tp)
+        {
+            List<TopicPartitionTimestamp> xxx = new List<TopicPartitionTimestamp>();
+            foreach (XXXTopicPartitionTimestamp item in tp)
+            {
+                xxx.Add(new TopicPartitionTimestamp(Util.TopicPartition(item.TopicPartition), new Timestamp(item.Timestamp, TimestampType.CreateTime)));
+            }
+            return xxx;
+        }
+
+        public static IEnumerable<XXXTopicPartition> TopicPartition(IEnumerable<TopicPartition> tp)
         {
             List<XXXTopicPartition> xxx = new List<XXXTopicPartition>();
             foreach(TopicPartition item in tp)
             {
                 xxx.Add(new XXXTopicPartition(item.Topic, item.Partition.Value));
             }
-            return xxx.AsReadOnly();
+            return xxx;
         }
 
         public static IReadOnlyCollection<TopicPartition> TopicPartition(IEnumerable<XXXTopicPartition> tp)
@@ -65,7 +85,7 @@ namespace KafkaFlow
             }
             return xxx.AsReadOnly();
         }
-        public static IReadOnlyCollection<XXXTopicPartitionOffset> TopicPartitionOffset(ICollection<TopicPartitionOffset> tp)
+        public static IEnumerable<XXXTopicPartitionOffset> TopicPartitionOffset(IEnumerable<TopicPartitionOffset> tp)
         {
             List<XXXTopicPartitionOffset> xxx = new List<XXXTopicPartitionOffset>();
             foreach (TopicPartitionOffset item in tp)

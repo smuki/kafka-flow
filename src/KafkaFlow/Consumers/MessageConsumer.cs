@@ -9,24 +9,25 @@ namespace KafkaFlow.Consumers
 
     internal class MessageConsumer : IMessageConsumer
     {
-        private readonly IConsumer<byte[], byte[]> consumer;
+        //private readonly IConsumer<byte[], byte[]> consumer;
         private readonly KafkaConsumer kafkaConsumer;
         private readonly IConsumerWorkerPool workerPool;
         private readonly ConsumerConfiguration configuration;
         private readonly ILogHandler logHandler;
+        private readonly IConsumerClient consumerClient;
 
         public MessageConsumer(
-            IConsumer<byte[], byte[]> consumer,
-            KafkaConsumer kafkaConsumer,
-            IConsumerWorkerPool workerPool,
-            ConsumerConfiguration configuration,
-            ILogHandler logHandler)
-        {
+                        IConsumerClient consumerClient,
+                        //KafkaConsumer kafkaConsumer,
+                        IConsumerWorkerPool workerPool,
+                        ConsumerConfiguration configuration,
+                        ILogHandler logHandler)
+        { 
             this.workerPool = workerPool;
             this.configuration = configuration;
             this.logHandler = logHandler;
-            this.consumer = consumer;
-            this.kafkaConsumer = kafkaConsumer;
+            this.consumerClient = consumerClient;
+            //this.kafkaConsumer = kafkaConsumer;
         }
 
         public string ConsumerName => this.configuration.ConsumerName;
@@ -35,7 +36,7 @@ namespace KafkaFlow.Consumers
 
         public int WorkerCount => this.configuration.WorkerCount;
 
-        public async Task OverrideOffsetsAndRestartAsync(IReadOnlyCollection<TopicPartitionOffset> offsets)
+        public async Task OverrideOffsetsAndRestartAsync(IReadOnlyCollection<XXXTopicPartitionOffset> offsets)
         {
             if (offsets is null)
             {
@@ -44,10 +45,10 @@ namespace KafkaFlow.Consumers
 
             try
             {
-                this.consumer.Pause(this.consumer.Assignment);
+                this.consumerClient.Pause(this.consumerClient.Assignment);
                 await this.workerPool.StopAsync().ConfigureAwait(false);
 
-                this.consumer.Commit(offsets);
+                this.consumerClient.Commit(offsets);
 
                 await this.InternalRestart().ConfigureAwait(false);
 
@@ -63,7 +64,7 @@ namespace KafkaFlow.Consumers
             }
         }
 
-        private static object GetOffsetsLogData(IEnumerable<TopicPartitionOffset> offsets) => offsets
+        private static object GetOffsetsLogData(IEnumerable<XXXTopicPartitionOffset> offsets) => offsets
             .GroupBy(x => x.Topic)
             .Select(
                 x => new
@@ -72,8 +73,8 @@ namespace KafkaFlow.Consumers
                     Partitions = x.Select(
                         y => new
                         {
-                            Partition = y.Partition.Value,
-                            Offset = y.Offset.Value
+                            Partition = y.Partition,
+                            Offset = y.Offset
                         })
                 });
 
@@ -100,32 +101,30 @@ namespace KafkaFlow.Consumers
             await this.kafkaConsumer.StartAsync().ConfigureAwait(false);
         }
 
-        public IReadOnlyList<string> Subscription => this.consumer.Subscription;
+        public IReadOnlyList<string> Subscription => this.consumerClient.Subscription;
 
-        public IReadOnlyList<TopicPartition> Assignment => this.consumer.Assignment;
+        public IReadOnlyList<XXXTopicPartition> Assignment => this.consumerClient.Assignment;
 
-        public string MemberId => this.consumer.MemberId;
+        public string MemberId => this.consumerClient.MemberId;
 
-        public string ClientInstanceName => this.consumer.Name;
+        public string ClientInstanceName => this.consumerClient.Name;
 
-        public void Pause(IEnumerable<TopicPartition> topicPartitions) =>
-            this.consumer.Pause(topicPartitions);
+        public void Pause(IEnumerable<XXXTopicPartition> topicPartitions) =>
+            this.consumerClient.Pause(topicPartitions);
 
-        public void Resume(IEnumerable<TopicPartition> topicPartitions) =>
-            this.consumer.Resume(topicPartitions);
+        public void Resume(IEnumerable<XXXTopicPartition> topicPartitions) =>
+            this.consumerClient.Resume(topicPartitions);
 
-        public Offset GetPosition(TopicPartition topicPartition) =>
-            this.consumer.Position(topicPartition);
+        public Offset GetPosition(XXXTopicPartition topicPartition) =>
+            this.consumerClient.Position(topicPartition);
 
-        public WatermarkOffsets GetWatermarkOffsets(TopicPartition topicPartition) =>
-            this.consumer.GetWatermarkOffsets(topicPartition);
+        public IOffsetsWatermark GetWatermarkOffsets(XXXTopicPartition topicPartition) =>
+            this.consumerClient.GetWatermarkOffsets(topicPartition);
 
-        public WatermarkOffsets QueryWatermarkOffsets(TopicPartition topicPartition, TimeSpan timeout) =>
-            this.consumer.QueryWatermarkOffsets(topicPartition, timeout);
+        public IOffsetsWatermark QueryWatermarkOffsets(XXXTopicPartition topicPartition, TimeSpan timeout) =>
+            this.consumerClient.QueryWatermarkOffsets(topicPartition, timeout);
 
-        public List<TopicPartitionOffset> OffsetsForTimes(
-            IEnumerable<TopicPartitionTimestamp> topicPartitions,
-            TimeSpan timeout) =>
-            this.consumer.OffsetsForTimes(topicPartitions, timeout);
+        public List<XXXTopicPartitionOffset> OffsetsForTimes(IEnumerable<XXXTopicPartitionTimestamp> topicPartitions,TimeSpan timeout) =>
+            this.consumerClient.OffsetsForTimes(topicPartitions, timeout);
     }
 }

@@ -6,19 +6,24 @@ namespace KafkaFlow.Consumers
 {
     public class XXXTopicPartitionTimestamp
     {
-        public XXXTopicPartitionTimestamp(XXXTopicPartition tp, DateTimeOffset timestamp)
+        public XXXTopicPartitionTimestamp(XXXTopicPartition tp, long timestamp)
         {
-
+            this.Timestamp = timestamp;
+            this.TopicPartition = tp;
         }
-        public XXXTopicPartitionTimestamp(string topic, int partition, DateTimeOffset timestamp)
+        public XXXTopicPartitionTimestamp(string topic, int partition, long timestamp)
         {
+            this.Topic = topic;
+            this.Partition = partition;
+            this.Timestamp = timestamp;
+            this.TopicPartition = new XXXTopicPartition(this.Topic, this.Partition);
 
         }
         public string Topic { get; }
       
         public int Partition { get; }
       
-        public DateTimeOffset Timestamp { get; }
+        public long Timestamp { get; }
        
         public XXXTopicPartition TopicPartition { get; }
     }

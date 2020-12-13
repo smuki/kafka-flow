@@ -26,7 +26,7 @@ namespace KafkaFlow.Admin.Handlers
             var offsets = consumer.OffsetsForTimes(
                 consumer.Assignment.Select(
                     partition =>
-                        new TopicPartitionTimestamp(partition, new Timestamp(message.DateTime))),
+                        new XXXTopicPartitionTimestamp(partition, 0)),
                 TimeSpan.FromSeconds(30));
 
             return consumer.OverrideOffsetsAndRestartAsync(offsets);

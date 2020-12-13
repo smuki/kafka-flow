@@ -18,6 +18,8 @@ namespace KafkaFlow.Consumers
             this.Topic = topic;
             this.Partition = partition;
             this.Offset = offset;
+            this.TopicPartition = new XXXTopicPartition(this.Topic, this.Partition);
+
         }
         public string Topic { get; }
         public int Partition { get; }

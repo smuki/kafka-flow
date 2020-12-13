@@ -32,6 +32,14 @@ namespace KafkaFlow.Consumers
         void Commit(IEnumerable<XXXTopicPartitionOffset> offsets);
         void Pause(IEnumerable<XXXTopicPartition> offsets);
         void Resume(IEnumerable<XXXTopicPartition> offsets);
+        List<XXXTopicPartition> Assignment { get; }
+        string Name { get; }
+        string MemberId { get; }
+        IReadOnlyList<string> Subscription { get; }
+        long Position(XXXTopicPartition offsets);
+        IOffsetsWatermark GetWatermarkOffsets(XXXTopicPartition offsets);
+        IOffsetsWatermark QueryWatermarkOffsets(XXXTopicPartition offsets, TimeSpan timeout);
+        List<XXXTopicPartitionOffset> OffsetsForTimes(IEnumerable<XXXTopicPartitionTimestamp> timestampsToSearch, TimeSpan timeout);
 
         /// <summary>
         /// Reject message and resumption

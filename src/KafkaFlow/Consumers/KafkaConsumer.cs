@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Runtime.CompilerServices;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
@@ -72,6 +73,35 @@
         {
 
         }
+        public List<XXXTopicPartition> Assignment { get { return Util.TopicPartition(this.consumer.Assignment).ToList(); } }
+        public string Name { get { return this.consumer.Name; } }
+        public string MemberId { get { return this.consumer.MemberId; } }
+        public IReadOnlyList<string> Subscription { get { return this.consumer.Subscription; } }
+
+        public long Position(XXXTopicPartition offsets)
+        {
+            Console.WriteLine("Position...");
+           return this.consumer.Position(Util.TopicPartition(offsets)).Value;
+        }
+        public IOffsetsWatermark GetWatermarkOffsets(XXXTopicPartition offsets)
+        {
+            Console.WriteLine("GetWatermarkOffsets...");
+            var wm = this.consumer.GetWatermarkOffsets(Util.TopicPartition(offsets));
+            return new OffsetsWatermark(wm.High,wm.Low);
+        }
+        public IOffsetsWatermark QueryWatermarkOffsets(XXXTopicPartition offsets, TimeSpan timeout)
+        {
+            var wm = this.consumer.QueryWatermarkOffsets(Util.TopicPartition(offsets), timeout);
+            Console.WriteLine("GetWatermarkOffsets...");
+            return new OffsetsWatermark(wm.High, wm.Low);
+        }
+        public List<XXXTopicPartitionOffset> OffsetsForTimes(IEnumerable<XXXTopicPartitionTimestamp> timestampsToSearch, TimeSpan timeout)
+        {
+            var tps = this.consumer.OffsetsForTimes(Util.TopicPartitionTimestamp(timestampsToSearch), timeout);
+            return Util.TopicPartitionOffset(tps).ToList();
+            Console.WriteLine("OffsetsForTimes...");
+        }
+        
         public void Commit(IEnumerable<XXXTopicPartitionOffset> offsets)
         {
             Console.WriteLine("Commit...");
@@ -159,10 +189,8 @@
         private void CreateBackgroundTask()
         {
             consumer = this.consumerBuilder.Build();
-
             this.consumerManager.AddOrUpdate(
                 new MessageConsumer(
-                    consumer,
                     this,
                     this.consumerWorkerPool,
                     this.configuration,
