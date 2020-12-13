@@ -78,9 +78,7 @@ namespace KafkaFlow.Consumers
             this.configuration.WorkerCount = workerCount;
             await this.InternalRestart().ConfigureAwait(false);
 
-            this.logHandler.Info(
-                "KafkaFlow consumer workers changed",
-                new { workerCount });
+            this.logHandler.Info("KafkaFlow consumer workers changed", new { workerCount });
         }
 
         public async Task RestartAsync()
