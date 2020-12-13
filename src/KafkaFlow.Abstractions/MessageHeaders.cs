@@ -9,18 +9,8 @@ namespace KafkaFlow
     /// </summary>
     public class MessageHeaders : IMessageHeaders
     {
-        //private readonly Headers headers;
         private readonly Dictionary<string, byte[]> headers;
-        /// <summary>
-        /// Creates a <see cref="MessageHeaders"/> instance
-        /// </summary>
-        /// <param name="headers"></param>
-        //public MessageHeaders(Headers headers)
-        //{
-        //    this.headers = headers;
-        //}
-
-        /// <summary>
+       
         /// Creates a <see cref="MessageHeaders"/> instance
         /// </summary>
         public MessageHeaders()
@@ -51,13 +41,6 @@ namespace KafkaFlow
                 this.headers.Add(key, value);
             }
         }
-
-        /// <summary>
-        /// Gets all the kafka headers
-        /// </summary>
-        /// <returns></returns>
-        //public Headers GetKafkaHeaders() => this.headers;
-
         
         /// <summary>
         /// Gets an enumerator that iterates through <see cref="Headers"/>
