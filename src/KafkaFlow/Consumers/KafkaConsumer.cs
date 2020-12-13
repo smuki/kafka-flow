@@ -141,7 +141,6 @@
             this.consumerWorkerPool
                 .StartAsync(
                  this,
-                 consumer,
                  Util.TopicPartition(partitions),
                  this.stopCancellationTokenSource.Token)
                 .GetAwaiter()

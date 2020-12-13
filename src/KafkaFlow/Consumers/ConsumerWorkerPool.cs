@@ -5,7 +5,6 @@ namespace KafkaFlow.Consumers
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
-    using Confluent.Kafka;
     using KafkaFlow.Configuration;
 
     public class ConsumerWorkerPool : IConsumerWorkerPool
@@ -39,7 +38,6 @@ namespace KafkaFlow.Consumers
 
         public async Task StartAsync(
             IConsumerClient consumerClient,
-            IConsumer<byte[], byte[]> consumer,
             IEnumerable<XXXTopicPartition> partitions,
             CancellationToken stopCancellationToken = default)
         {
@@ -58,7 +56,6 @@ namespace KafkaFlow.Consumers
                             {
                                 var worker = new ConsumerWorker(
                                     consumerClient,
-                                    consumer,
                                     workerId,
                                     this.configuration,
                                     this.offsetManager,

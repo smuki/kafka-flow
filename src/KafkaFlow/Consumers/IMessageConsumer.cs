@@ -3,7 +3,6 @@ namespace KafkaFlow.Consumers
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Confluent.Kafka;
 
     /// <summary>
     /// Provides access to the kafka message consumer
@@ -109,7 +108,7 @@ namespace KafkaFlow.Consumers
         /// <exception cref="T:Confluent.Kafka.KafkaException">
         ///     Thrown if the request failed.
         /// </exception>
-        Offset GetPosition(XXXTopicPartition topicPartition);
+        long GetPosition(XXXTopicPartition topicPartition);
 
         /// <summary>
         ///     Get the last cached low (oldest available /

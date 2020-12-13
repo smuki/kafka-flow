@@ -4,7 +4,6 @@ namespace KafkaFlow.Consumers
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using Confluent.Kafka;
     using KafkaFlow.Configuration;
 
     internal class MessageConsumer : IMessageConsumer
@@ -115,7 +114,7 @@ namespace KafkaFlow.Consumers
         public void Resume(IEnumerable<XXXTopicPartition> topicPartitions) =>
             this.consumerClient.Resume(topicPartitions);
 
-        public Offset GetPosition(XXXTopicPartition topicPartition) =>
+        public long GetPosition(XXXTopicPartition topicPartition) =>
             this.consumerClient.Position(topicPartition);
 
         public IOffsetsWatermark GetWatermarkOffsets(XXXTopicPartition topicPartition) =>

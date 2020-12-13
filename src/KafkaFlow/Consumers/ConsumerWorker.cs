@@ -24,7 +24,6 @@ namespace KafkaFlow.Consumers
 
         public ConsumerWorker(
             IConsumerClient consumerClient,
-            IConsumer<byte[], byte[]> consumer,
             int workerId,
             ConsumerConfiguration configuration,
             IOffsetManager offsetManager,
@@ -32,7 +31,6 @@ namespace KafkaFlow.Consumers
             IMiddlewareExecutor middlewareExecutor)
         {
             this.Id = workerId;
-            this.consumer = consumer;
             this.consumerClient = consumerClient;
             this.configuration = configuration;
             this.offsetManager = offsetManager;
