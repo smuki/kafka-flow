@@ -62,14 +62,6 @@
                     }
                 });
         }
-        public void OnPartitionRevoked(IConsumerClient consumer, IReadOnlyCollection<XXXTopicPartitionOffset> topicPartitions)
-        {
-
-        }
-        public void OnPartitionAssigned(IConsumerClient consumer, IReadOnlyCollection<XXXTopicPartition> partitions)
-        {
-
-        }
         public List<XXXTopicPartition> Assignment { get { return Util.TopicPartition(this.consumer.Assignment).ToList(); } }
         public string Name { get { return this.consumer.Name; } }
         public string MemberId { get { return this.consumer.MemberId; } }
