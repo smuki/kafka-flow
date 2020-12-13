@@ -6,6 +6,7 @@ namespace KafkaFlow
     using System.Threading.Tasks;
     using KafkaFlow.Configuration;
     using KafkaFlow.Consumers;
+    using KafkaFlow.Middleware;
     using KafkaFlow.Producers;
 
     internal class KafkaBus : IKafkaBus

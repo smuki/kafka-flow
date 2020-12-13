@@ -6,6 +6,7 @@ namespace KafkaFlow.Consumers
     using System.Threading;
     using System.Threading.Tasks;
     using KafkaFlow.Configuration;
+    using KafkaFlow.Middleware;
 
     public class ConsumerWorkerPool : IConsumerWorkerPool
     {

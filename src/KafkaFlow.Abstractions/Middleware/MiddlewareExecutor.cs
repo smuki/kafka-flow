@@ -1,4 +1,4 @@
-namespace KafkaFlow
+namespace KafkaFlow.Middleware
 {
     using System;
     using System.Collections.Generic;

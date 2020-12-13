@@ -6,6 +6,7 @@ namespace KafkaFlow.Producers
     using System.Threading.Tasks;
     using Confluent.Kafka;
     using KafkaFlow.Configuration;
+    using KafkaFlow.Middleware;
 
     internal class MessageProducer : IMessageProducer, IDisposable
     {

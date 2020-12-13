@@ -5,6 +5,7 @@ namespace KafkaFlow.Consumers
     using System.Threading.Channels;
     using System.Threading.Tasks;
     using KafkaFlow.Configuration;
+    using KafkaFlow.Middleware;
 
     internal class ConsumerWorker : IConsumerWorker
     {
