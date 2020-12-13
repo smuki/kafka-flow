@@ -11,6 +11,8 @@ using Microsoft.Extensions.Options;
 
 namespace KafkaFlow.Consumers
 {
+
+    /*
     internal sealed class KafkaConsumerClient : IConsumerClient
     {
         private static readonly SemaphoreSlim ConnectionLock = new SemaphoreSlim(initialCount: 1, maxCount: 1);
@@ -145,4 +147,7 @@ namespace KafkaFlow.Consumers
             }
         }
     }
+
+    */
+
 }

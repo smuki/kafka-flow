@@ -25,7 +25,7 @@ namespace KafkaFlow
         {
             return new TopicPartition(tp.Topic, tp.Partition);
         }
-        public static IReadOnlyCollection<XXXTopicPartition> TopicPartition(IReadOnlyCollection<TopicPartition> tp)
+        public static IReadOnlyCollection<XXXTopicPartition> TopicPartition(IEnumerable<TopicPartition> tp)
         {
             List<XXXTopicPartition> xxx = new List<XXXTopicPartition>();
             foreach(TopicPartition item in tp)
@@ -34,7 +34,17 @@ namespace KafkaFlow
             }
             return xxx.AsReadOnly();
         }
-        
+
+        public static IReadOnlyCollection<TopicPartition> TopicPartition(IEnumerable<XXXTopicPartition> tp)
+        {
+            List<TopicPartition> xxx = new List<TopicPartition>();
+            foreach (var item in tp)
+            {
+                xxx.Add(new TopicPartition(item.Topic, item.Partition));
+            }
+            return xxx.AsReadOnly();
+        }
+
         public static IEnumerable<TopicPartitionOffset> TopicPartitionOffset(IEnumerable<XXXTopicPartitionOffset> tp)
         {
             List<TopicPartitionOffset> xxx = new List<TopicPartitionOffset>();

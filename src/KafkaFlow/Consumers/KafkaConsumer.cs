@@ -79,6 +79,16 @@
 
             //_consumerClient.Commit((ConsumeResult<string, byte[]>)sender);
         }
+        public void Pause(IEnumerable<XXXTopicPartition> offsets)
+        {
+            Console.WriteLine("Pause...");
+            this.consumer.Pause(Util.TopicPartition(offsets));
+        }
+        public void Resume(IEnumerable<XXXTopicPartition> offsets)
+        {
+            Console.WriteLine("Resume...");
+            this.consumer.Resume(Util.TopicPartition(offsets));
+        }
         public void Dispose()
         {
             //_consumerClient?.Dispose();

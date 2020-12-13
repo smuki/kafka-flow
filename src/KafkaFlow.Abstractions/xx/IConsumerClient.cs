@@ -30,6 +30,8 @@ namespace KafkaFlow.Consumers
         /// Manual submit message offset when the message consumption is complete
         /// </summary>
         void Commit(IEnumerable<XXXTopicPartitionOffset> offsets);
+        void Pause(IEnumerable<XXXTopicPartition> offsets);
+        void Resume(IEnumerable<XXXTopicPartition> offsets);
 
         /// <summary>
         /// Reject message and resumption
