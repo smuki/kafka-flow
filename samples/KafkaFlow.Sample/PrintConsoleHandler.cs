@@ -13,7 +13,7 @@
             {
              //   Console.WriteLine(xx);
             }
-            if (total % 100 == 0)
+            if (total % 30 == 0)
             {
                 Console.WriteLine("\n#Total = " + total);
             }
