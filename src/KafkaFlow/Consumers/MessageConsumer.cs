@@ -8,8 +8,6 @@ namespace KafkaFlow.Consumers
 
     internal class MessageConsumer : IMessageConsumer
     {
-        //private readonly IConsumer<byte[], byte[]> consumer;
-        private readonly KafkaConsumer kafkaConsumer;
         private readonly IConsumerWorkerPool workerPool;
         private readonly ConsumerConfiguration configuration;
         private readonly ILogHandler logHandler;
@@ -17,7 +15,6 @@ namespace KafkaFlow.Consumers
 
         public MessageConsumer(
                         IConsumerClient consumerClient,
-                        //KafkaConsumer kafkaConsumer,
                         IConsumerWorkerPool workerPool,
                         ConsumerConfiguration configuration,
                         ILogHandler logHandler)
@@ -26,7 +23,6 @@ namespace KafkaFlow.Consumers
             this.configuration = configuration;
             this.logHandler = logHandler;
             this.consumerClient = consumerClient;
-            //this.kafkaConsumer = kafkaConsumer;
         }
 
         public string ConsumerName => this.configuration.ConsumerName;

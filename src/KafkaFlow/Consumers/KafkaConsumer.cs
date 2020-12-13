@@ -22,12 +22,10 @@
 
         private CancellationTokenSource stopCancellationTokenSource;
         private Task backgroundTask;
-        private IConsumerClient consumerClient;
         private IConsumer<byte[], byte[]> consumer;
         public KafkaConsumer(
             ConsumerConfiguration configuration,
             IConsumerManager consumerManager,
-            //IConsumerClient consumerClient,
             ILogHandler logHandler,
             IConsumerWorkerPool consumerWorkerPool,
             CancellationToken busStopCancellationToken)
@@ -35,7 +33,6 @@
             this.configuration = configuration;
             this.consumerManager = consumerManager;
             this.logHandler = logHandler;
-            //this.consumerClient = consumerClient;
             this.consumerWorkerPool = consumerWorkerPool;
             this.busStopCancellationToken = busStopCancellationToken;
 
@@ -67,7 +64,7 @@
         }
         public void OnPartitionRevoked(IConsumerClient consumer, IReadOnlyCollection<XXXTopicPartitionOffset> topicPartitions)
         {
-            //this.OnPartitionRevoked(Util.TopicPartitionOffset(topicPartitions));
+
         }
         public void OnPartitionAssigned(IConsumerClient consumer, IReadOnlyCollection<XXXTopicPartition> partitions)
         {
@@ -106,8 +103,6 @@
         {
             Console.WriteLine("Commit...");
             this.consumer.Commit(Util.TopicPartitionOffset(offsets));
-
-            //_consumerClient.Commit((ConsumeResult<string, byte[]>)sender);
         }
         public void Pause(IEnumerable<XXXTopicPartition> offsets)
         {
@@ -211,7 +206,6 @@
                                 var headers = new MessageHeaders();
                                 foreach (var header in message.Message.Headers)
                                 {
-                                    //Console.WriteLine("header.Key=" + header.Key);
                                     headers.Add(header.Key, header.GetValueBytes());
                                 }
 
