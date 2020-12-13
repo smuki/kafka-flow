@@ -4,12 +4,10 @@ namespace KafkaFlow.Consumers
     using System.Threading;
     using System.Threading.Channels;
     using System.Threading.Tasks;
-    using Confluent.Kafka;
     using KafkaFlow.Configuration;
 
     internal class ConsumerWorker : IConsumerWorker
     {
-        //private readonly IConsumer<byte[], byte[]> consumer;
         private readonly ConsumerConfiguration configuration;
         private readonly IOffsetManager offsetManager;
         private readonly ILogHandler logHandler;
