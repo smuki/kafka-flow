@@ -5,6 +5,7 @@ namespace KafkaFlow.Configuration
     using System.ComponentModel;
     using System.Linq;
     using Confluent.Kafka;
+    using KafkaFlow.Dependency;
     using KafkaFlow.Consumers.DistributionStrategies;
 
     public sealed class ConsumerConfigurationBuilder : IConsumerConfigurationBuilder

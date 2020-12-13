@@ -1,4 +1,4 @@
-namespace KafkaFlow
+namespace KafkaFlow.Dependency
 {
     using System.Text;
 

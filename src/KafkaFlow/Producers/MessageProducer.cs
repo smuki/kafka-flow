@@ -7,6 +7,7 @@ namespace KafkaFlow.Producers
     using Confluent.Kafka;
     using KafkaFlow.Configuration;
     using KafkaFlow.Middleware;
+    using KafkaFlow.Dependency;
 
     internal class MessageProducer : IMessageProducer, IDisposable
     {

@@ -4,6 +4,7 @@ namespace KafkaFlow.Configuration
     using System.Linq;
     using KafkaFlow.Consumers;
     using KafkaFlow.Producers;
+    using KafkaFlow.Dependency;
 
     /// <summary>
     /// A class to configure KafkaFlow

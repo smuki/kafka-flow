@@ -5,6 +5,7 @@ namespace KafkaFlow.Configuration
     using System.Linq;
     using KafkaFlow.Consumers;
     using KafkaFlow.Producers;
+    using KafkaFlow.Dependency;
 
     public class KafkaConfigurationBuilder : IKafkaConfigurationBuilder
     {

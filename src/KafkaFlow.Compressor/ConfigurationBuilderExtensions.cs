@@ -1,6 +1,7 @@
 ﻿namespace KafkaFlow.Compressor
 {
     using KafkaFlow.Configuration;
+    using KafkaFlow.Dependency;
 
     /// <summary>
     /// Extension methods for <see cref="IConsumerMiddlewareConfigurationBuilder"/> and <see cref="IProducerMiddlewareConfigurationBuilder"/>.

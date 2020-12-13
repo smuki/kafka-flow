@@ -1,4 +1,4 @@
-namespace KafkaFlow
+namespace KafkaFlow.Dependency
 {
     /// <summary>
     /// Provides extension methods over <see cref="IDependencyResolver"/>

@@ -8,6 +8,7 @@
     using KafkaFlow.Serializer;
     using KafkaFlow.Serializer.ProtoBuf;
     using KafkaFlow.TypedHandler;
+    using KafkaFlow.Dependency;
 
     public static class ClusterConfigurationBuilderExtensions
     {

@@ -2,6 +2,7 @@ namespace KafkaFlow.TypedHandler
 {
     using System;
     using KafkaFlow.Configuration;
+    using KafkaFlow.Dependency;
 
     /// <summary>
     /// Extension methods over <see cref="IConsumerMiddlewareConfigurationBuilder"/>

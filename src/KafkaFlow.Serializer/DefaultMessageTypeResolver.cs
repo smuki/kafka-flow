@@ -1,6 +1,7 @@
 namespace KafkaFlow.Serializer
 {
     using System;
+    using KafkaFlow.Dependency;
 
     /// <summary>
     /// The default implementation of <see cref="IMessageTypeResolver"/>

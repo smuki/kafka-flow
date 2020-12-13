@@ -4,6 +4,7 @@ namespace KafkaFlow.UnitTests
     using Confluent.Kafka;
     using FluentAssertions;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using KafkaFlow.Dependency;
 
     [TestClass]
     public class MessageHeadersTests
