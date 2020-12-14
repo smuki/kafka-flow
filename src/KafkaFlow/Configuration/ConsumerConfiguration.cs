@@ -4,10 +4,11 @@ namespace KafkaFlow.Configuration
     using System.Collections.Generic;
     using Confluent.Kafka;
 
-    public class ConsumerConfiguration
+    public class ConsumerConfiguration: IConsumerConfiguration
     {
         private readonly ConsumerConfig consumerConfig;
         private int workerCount;
+        private readonly Dictionary<string, string> _dict = new Dictionary<string, string>();
 
         public ConsumerConfiguration(
             ConsumerConfig consumerConfig,
@@ -79,6 +80,21 @@ namespace KafkaFlow.Configuration
         public ConsumerConfig GetKafkaConfig()
         {
             return this.consumerConfig;
+        }
+        public string GetParameter(string name)
+        {
+            if (_dict.ContainsKey(name))
+            {
+                return null;
+            }
+            else
+            {
+                return _dict[name];
+            }
+        }
+        public Dictionary<string,string> GetConsumerConfig()
+        {
+            return _dict;
         }
     }
 }

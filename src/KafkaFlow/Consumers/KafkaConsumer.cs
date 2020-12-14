@@ -106,6 +106,10 @@
             Console.WriteLine("Resume...");
             this.consumer.Resume(Util.TopicPartition(offsets));
         }
+        public string GetParameter(string name)
+        {
+            return configuration.GetParameter(name);
+        }
         public void Dispose()
         {
             //_consumerClient?.Dispose();

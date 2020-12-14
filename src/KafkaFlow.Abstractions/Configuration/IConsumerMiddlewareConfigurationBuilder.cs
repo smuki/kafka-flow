@@ -45,5 +45,8 @@ namespace KafkaFlow.Configuration
         /// <returns></returns>
         IConsumerMiddlewareConfigurationBuilder AddAtBeginning<T>()
             where T : class, IMessageMiddleware;
+
+        public MiddlewareConfiguration Build();
+
     }
 }

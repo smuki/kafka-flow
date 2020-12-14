@@ -20,6 +20,7 @@ namespace KafkaFlow.Consumers
         string Name { get; }
         string MemberId { get; }
         IReadOnlyList<string> Subscription { get; }
+        string GetParameter(string name);
         long Position(XXXTopicPartition offsets);
         IOffsetsWatermark GetWatermarkOffsets(XXXTopicPartition offsets);
         IOffsetsWatermark QueryWatermarkOffsets(XXXTopicPartition offsets, TimeSpan timeout);

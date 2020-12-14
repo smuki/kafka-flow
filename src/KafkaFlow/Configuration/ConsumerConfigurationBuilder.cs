@@ -12,7 +12,8 @@ namespace KafkaFlow.Configuration
     {
         private readonly List<string> topics = new List<string>();
         private readonly List<Action<string>> statisticsHandlers = new List<Action<string>>();
-        private readonly ConsumerMiddlewareConfigurationBuilder middlewareConfigurationBuilder;
+        private readonly IConsumerMiddlewareConfigurationBuilder middlewareConfigurationBuilder;
+        private readonly Dictionary<string,string> _dict = new Dictionary<string,string>();
 
         private ConsumerConfig consumerConfig;
 
@@ -34,6 +35,12 @@ namespace KafkaFlow.Configuration
         {
             this.DependencyConfigurator = dependencyConfigurator;
             this.middlewareConfigurationBuilder = new ConsumerMiddlewareConfigurationBuilder(dependencyConfigurator);
+        }
+
+        public IConsumerConfigurationBuilder SetParameter(string name, string value)
+        {
+            _dict[name] = value;
+            return this;
         }
 
         public IConsumerConfigurationBuilder Topic(string topicName)
