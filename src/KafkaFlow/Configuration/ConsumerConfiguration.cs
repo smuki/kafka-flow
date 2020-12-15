@@ -4,11 +4,10 @@ namespace KafkaFlow.Configuration
     using System.Collections.Generic;
     using Confluent.Kafka;
 
-    public class ConsumerConfiguration: IConsumerConfiguration
+    public class ConsumerConfiguration:ConsumerParameter
     {
         private readonly ConsumerConfig consumerConfig;
         private int workerCount;
-        private readonly Dictionary<string, string> _dict = new Dictionary<string, string>();
 
         public ConsumerConfiguration(
             ConsumerConfig consumerConfig,
@@ -29,7 +28,7 @@ namespace KafkaFlow.Configuration
                 throw new ArgumentNullException(nameof(consumerConfig.GroupId));
             }
 
-            this.DistributionStrategyFactory =
+            base.DistributionStrategyFactory =
                 distributionStrategyFactory ?? throw new ArgumentNullException(nameof(distributionStrategyFactory));
             this.MiddlewareConfiguration = middlewareConfiguration ?? throw new ArgumentNullException(nameof(middlewareConfiguration));
             this.AutoStoreOffsets = autoStoreOffsets;
@@ -38,6 +37,7 @@ namespace KafkaFlow.Configuration
             this.ConsumerName = consumerName ?? Guid.NewGuid().ToString();
             this.WorkerCount = workerCount;
             this.StatisticsHandlers = statisticsHandlers;
+            this.GroupId = this.consumerConfig.GroupId;
 
             this.BufferSize = bufferSize > 0 ?
                 bufferSize :
@@ -47,54 +47,13 @@ namespace KafkaFlow.Configuration
                     "The value must be greater than 0");
         }
 
-        public Factory<IDistributionStrategy> DistributionStrategyFactory { get; }
-
-        public MiddlewareConfiguration MiddlewareConfiguration { get; }
-
         public IEnumerable<string> Topics { get; }
-
-        public string ConsumerName { get; }
-
-        public int WorkerCount
-        {
-            get => this.workerCount;
-            set =>
-                this.workerCount = value > 0 ?
-                    value :
-                    throw new ArgumentOutOfRangeException(
-                        nameof(this.WorkerCount),
-                        this.WorkerCount,
-                        $"The {nameof(this.WorkerCount)} value must be greater than 0");
-        }
-
-        public string GroupId => this.consumerConfig.GroupId;
-
-        public int BufferSize { get; }
-
-        public bool AutoStoreOffsets { get; }
-
-        public TimeSpan AutoCommitInterval { get; }
 
         public IReadOnlyList<Action<string>> StatisticsHandlers { get; }
 
         public ConsumerConfig GetKafkaConfig()
         {
             return this.consumerConfig;
-        }
-        public string GetParameter(string name)
-        {
-            if (_dict.ContainsKey(name))
-            {
-                return null;
-            }
-            else
-            {
-                return _dict[name];
-            }
-        }
-        public Dictionary<string,string> GetConsumerConfig()
-        {
-            return _dict;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace KafkaFlow.Consumers
 
     internal class ConsumerWorker : IConsumerWorker
     {
-        private readonly ConsumerConfiguration configuration;
+        private readonly ConsumerParameter configuration;
         private readonly IOffsetManager offsetManager;
         private readonly ILogHandler logHandler;
         private readonly IMiddlewareExecutor middlewareExecutor;
@@ -24,7 +24,7 @@ namespace KafkaFlow.Consumers
         public ConsumerWorker(
             IConsumerClient consumerClient,
             int workerId,
-            ConsumerConfiguration configuration,
+            ConsumerParameter configuration,
             IOffsetManager offsetManager,
             ILogHandler logHandler,
             IMiddlewareExecutor middlewareExecutor)

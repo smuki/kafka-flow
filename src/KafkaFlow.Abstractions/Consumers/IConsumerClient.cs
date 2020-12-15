@@ -1,6 +1,7 @@
 
 
 
+using KafkaFlow.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -19,8 +20,8 @@ namespace KafkaFlow.Consumers
         List<XXXTopicPartition> Assignment { get; }
         string Name { get; }
         string MemberId { get; }
+        ConsumerParameter Parameter { get; }
         IReadOnlyList<string> Subscription { get; }
-        string GetParameter(string name);
         long Position(XXXTopicPartition offsets);
         IOffsetsWatermark GetWatermarkOffsets(XXXTopicPartition offsets);
         IOffsetsWatermark QueryWatermarkOffsets(XXXTopicPartition offsets, TimeSpan timeout);

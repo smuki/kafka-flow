@@ -6,17 +6,17 @@ namespace KafkaFlow.Consumers
     using System.Threading.Tasks;
     using KafkaFlow.Configuration;
 
-    internal class MessageConsumer : IMessageConsumer
+    public class MessageConsumer : IMessageConsumer
     {
         private readonly IConsumerWorkerPool workerPool;
-        private readonly ConsumerConfiguration configuration;
+        private readonly ConsumerParameter configuration;
         private readonly ILogHandler logHandler;
         private readonly IConsumerClient consumerClient;
 
         public MessageConsumer(
                         IConsumerClient consumerClient,
                         IConsumerWorkerPool workerPool,
-                        ConsumerConfiguration configuration,
+                        ConsumerParameter configuration,
                         ILogHandler logHandler)
         { 
             this.workerPool = workerPool;

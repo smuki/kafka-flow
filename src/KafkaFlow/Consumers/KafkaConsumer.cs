@@ -64,6 +64,7 @@
         }
         public List<XXXTopicPartition> Assignment { get { return Util.TopicPartition(this.consumer.Assignment).ToList(); } }
         public string Name { get { return this.consumer.Name; } }
+        public ConsumerParameter Parameter { get { return null; } }
         public string MemberId { get { return this.consumer.MemberId; } }
         public IReadOnlyList<string> Subscription { get { return this.consumer.Subscription; } }
 
@@ -106,10 +107,7 @@
             Console.WriteLine("Resume...");
             this.consumer.Resume(Util.TopicPartition(offsets));
         }
-        public string GetParameter(string name)
-        {
-            return configuration.GetParameter(name);
-        }
+      
         public void Dispose()
         {
             //_consumerClient?.Dispose();

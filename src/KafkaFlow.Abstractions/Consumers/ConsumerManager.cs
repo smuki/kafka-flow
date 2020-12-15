@@ -3,7 +3,7 @@ namespace KafkaFlow.Consumers
     using System.Collections.Concurrent;
     using System.Collections.Generic;
 
-    internal class ConsumerManager : IConsumerManager
+    public class ConsumerManager : IConsumerManager
     {
         private readonly ConcurrentDictionary<string, IMessageConsumer> consumers =
             new ConcurrentDictionary<string, IMessageConsumer>();
