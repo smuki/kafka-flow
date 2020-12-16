@@ -5,7 +5,7 @@ namespace KafkaFlow.Configuration
     using Confluent.Kafka;
     using Acks = KafkaFlow.Acks;
 
-    public class ProducerConfiguration
+    public class ProducerConfiguration: ProducerParameter
     {
         public ProducerConfiguration(
             ClusterConfiguration cluster,
@@ -27,17 +27,7 @@ namespace KafkaFlow.Configuration
 
         public ClusterConfiguration Cluster { get; }
 
-        public string Name { get; }
-
-        public string DefaultTopic { get; }
-
         public ProducerConfig BaseProducerConfig { get; }
-
-        public Acks? Acks { get; }
-
-        public MiddlewareConfiguration MiddlewareConfiguration { get; }
-
-        public IReadOnlyList<Action<string>> StatisticsHandlers { get; }
 
         public ProducerConfig GetKafkaConfig()
         {
