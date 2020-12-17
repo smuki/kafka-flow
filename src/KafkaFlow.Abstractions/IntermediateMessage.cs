@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KafkaFlow.Producers;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,6 +15,7 @@ namespace KafkaFlow.Consumers
             this.Headers = headers ?? throw new ArgumentNullException(nameof(headers));
             this.Payload = Payload;
             this.Timestamp = DateTimeOffset.UtcNow;
+            this.Status = PersistenceStatus.NotPersisted;
         }
         public DateTimeOffset Timestamp { get; set; }
 
@@ -47,6 +49,10 @@ namespace KafkaFlow.Consumers
                 return new XXXTopicPartition(Topic, Partition);
             }
         }
+        /// <summary>
+        //     The persistence status of the message
+        /// </summary>
+        public PersistenceStatus Status { get; set; }
         /// <summary>
         ///     The partition associated with the message.
         /// </summary>
