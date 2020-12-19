@@ -92,11 +92,15 @@ namespace KafkaFlow
             {
                 headers.Add(header.Key, header.GetValueBytes());
             }
+            XXXError err= new XXXError();
+            err.IsError = message.Error.IsError;
 
             var intermediateMessage = new XXXDeliveryReport(headers, message.Message.Value);
             intermediateMessage.Topic = message.Topic;
             intermediateMessage.Partition = message.Partition;
             intermediateMessage.Offset = message.Offset;
+            intermediateMessage.Error = err;
+
             return intermediateMessage;
 
         }
