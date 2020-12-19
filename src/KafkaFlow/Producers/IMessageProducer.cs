@@ -29,7 +29,7 @@ namespace KafkaFlow.Producers
         /// <param name="message">The message object to be encoded or serialized</param>
         /// <param name="headers">The message headers</param>
         /// <returns></returns>
-        Task<DeliveryResult<byte[], byte[]>> ProduceAsync(
+        Task<XXXDeliveryResult> ProduceAsync(
             string topic,
             string partitionKey,
             object message,
@@ -42,7 +42,7 @@ namespace KafkaFlow.Producers
         /// <param name="message">The message object to be encoded or serialized</param>
         /// <param name="headers">The message headers</param>
         /// <returns></returns>
-        Task<DeliveryResult<byte[], byte[]>> ProduceAsync(
+        Task<XXXDeliveryResult> ProduceAsync(
             string partitionKey,
             object message,
             IMessageHeaders headers = null);
@@ -62,7 +62,7 @@ namespace KafkaFlow.Producers
             string partitionKey,
             object message,
             IMessageHeaders headers = null,
-            Action<DeliveryReport<byte[], byte[]>> deliveryHandler = null);
+            Action<XXXDeliveryReport> deliveryHandler = null);
 
         /// <summary>
         /// Produces a new message in the configured default topic
@@ -77,6 +77,6 @@ namespace KafkaFlow.Producers
             string partitionKey,
             object message,
             IMessageHeaders headers = null,
-            Action<DeliveryReport<byte[], byte[]>> deliveryHandler = null);
+            Action<XXXDeliveryReport> deliveryHandler = null);
     }
 }

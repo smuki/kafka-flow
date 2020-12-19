@@ -10,7 +10,7 @@ namespace KafkaFlow
     {
         public static TopicPartitionOffset TopicPartitionOffset(XXXTopicPartitionOffset tpo)
         {
-            return new TopicPartitionOffset(tpo.Topic,new Partition(tpo.Partition),new Offset(tpo.Offset));
+            return new TopicPartitionOffset(tpo.Topic, new Partition(tpo.Partition), new Offset(tpo.Offset));
         }
         public static XXXTopicPartitionOffset TopicPartitionOffset(TopicPartitionOffset tpo)
         {
@@ -48,7 +48,7 @@ namespace KafkaFlow
         public static IEnumerable<XXXTopicPartition> TopicPartition(IEnumerable<TopicPartition> tp)
         {
             List<XXXTopicPartition> xxx = new List<XXXTopicPartition>();
-            foreach(TopicPartition item in tp)
+            foreach (TopicPartition item in tp)
             {
                 xxx.Add(new XXXTopicPartition(item.Topic, item.Partition.Value));
             }
@@ -80,10 +80,41 @@ namespace KafkaFlow
             List<TopicPartitionOffset> xxx = new List<TopicPartitionOffset>();
             foreach (XXXTopicPartitionOffset item in tp)
             {
-                Console.WriteLine("\nTopic=" + item.Topic+ " Partition="+item.Partition + " Offset=" + item.Offset);
-                xxx.Add(new TopicPartitionOffset(item.Topic,new Partition(item.Partition),new Offset(item.Offset)));
+                Console.WriteLine("\nTopic=" + item.Topic + " Partition=" + item.Partition + " Offset=" + item.Offset);
+                xxx.Add(new TopicPartitionOffset(item.Topic, new Partition(item.Partition), new Offset(item.Offset)));
             }
             return xxx.AsReadOnly();
+        }
+        public static XXXDeliveryReport XXXDeliveryResult(DeliveryReport<byte[], byte[]> message)
+        {
+            var headers = new MessageHeaders();
+            foreach (var header in message.Message.Headers)
+            {
+                headers.Add(header.Key, header.GetValueBytes());
+            }
+
+            var intermediateMessage = new XXXDeliveryReport(headers, message.Message.Value);
+            intermediateMessage.Topic = message.Topic;
+            intermediateMessage.Partition = message.Partition;
+            intermediateMessage.Offset = message.Offset;
+            return intermediateMessage;
+
+        }
+
+        public static XXXDeliveryResult XXXDeliveryResult(DeliveryResult<byte[], byte[]> message)
+        {
+            var headers = new MessageHeaders();
+            foreach (var header in message.Message.Headers)
+            {
+                headers.Add(header.Key, header.GetValueBytes());
+            }
+
+            var intermediateMessage = new XXXDeliveryResult(headers, message.Message.Value);
+            intermediateMessage.Topic = message.Topic;
+            intermediateMessage.Partition = message.Partition;
+            intermediateMessage.Offset = message.Offset;
+            return intermediateMessage;
+
         }
         public static IEnumerable<XXXTopicPartitionOffset> TopicPartitionOffset(IEnumerable<TopicPartitionOffset> tp)
         {
