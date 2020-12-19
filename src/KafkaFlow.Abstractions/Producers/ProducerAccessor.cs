@@ -3,7 +3,7 @@ namespace KafkaFlow.Producers
     using System.Collections.Generic;
     using System.Linq;
 
-    internal class ProducerAccessor : IProducerAccessor
+    public class ProducerAccessor : IProducerAccessor
     {
         private readonly Dictionary<string, IMessageProducer> producers;
 

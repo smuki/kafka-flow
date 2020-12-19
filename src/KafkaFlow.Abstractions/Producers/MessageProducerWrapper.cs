@@ -2,9 +2,8 @@ namespace KafkaFlow.Producers
 {
     using System;
     using System.Threading.Tasks;
-    using Confluent.Kafka;
 
-    internal class MessageProducerWrapper<TProducer> : IMessageProducer<TProducer>
+    public class MessageProducerWrapper<TProducer> : IMessageProducer<TProducer>
     {
         private readonly IMessageProducer producer;
 

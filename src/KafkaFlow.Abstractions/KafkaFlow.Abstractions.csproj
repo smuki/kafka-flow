@@ -14,6 +14,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="XXXProduceException.cs~RF200715d.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.Threading.Channels" Version="4.7.1" />
   </ItemGroup>
 

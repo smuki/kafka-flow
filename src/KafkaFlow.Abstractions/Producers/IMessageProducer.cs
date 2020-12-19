@@ -2,7 +2,6 @@ namespace KafkaFlow.Producers
 {
     using System;
     using System.Threading.Tasks;
-    using Confluent.Kafka;
 
     /// <summary>
     /// Provides access to the kafka message producer
