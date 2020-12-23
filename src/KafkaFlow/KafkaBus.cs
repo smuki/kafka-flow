@@ -18,20 +18,22 @@ namespace KafkaFlow
         private readonly IConsumerManager consumerManager;
         private readonly ILogHandler logHandler;
         private readonly IList<KafkaConsumer> consumers = new List<KafkaConsumer>();
-        private readonly IConfiguration _config;
+        private readonly IConfiguration config;
 
         public KafkaBus(
             IDependencyResolver dependencyResolver,
             IConsumerManager consumerManager,
             IProducerAccessor accessor,
             ILogHandler logHandler,
-            KafkaConfiguration configuration)
+            //IConfiguration config,
+        KafkaConfiguration configuration)
         {
             this.dependencyResolver = dependencyResolver;
             this.configuration = configuration;
             this.consumerManager = consumerManager;
             this.logHandler = logHandler;
             this.Producers = accessor;
+            //this.config = config;
         }
 
         public IConsumerAccessor Consumers => this.consumerManager;
@@ -40,9 +42,6 @@ namespace KafkaFlow
 
         public async Task StartAsync(CancellationToken stopCancellationToken = default)
         {
-
-           
-
             foreach (var consumerConfiguration in this.configuration.Clusters.SelectMany(cl => cl.Consumers))
             {
                 var dependencyScope = this.dependencyResolver.CreateScope();
