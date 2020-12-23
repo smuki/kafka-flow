@@ -3,7 +3,7 @@ namespace KafkaFlow.Configuration
     using System;
     using System.Collections.Generic;
 
-    public class ProducerParameter
+    public class EventProducer
     {
         public string Name { get; set; }
 

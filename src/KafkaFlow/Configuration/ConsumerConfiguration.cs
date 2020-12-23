@@ -4,7 +4,7 @@ namespace KafkaFlow.Configuration
     using System.Collections.Generic;
     using Confluent.Kafka;
 
-    public class ConsumerConfiguration:ConsumerParameter
+    public class ConsumerConfiguration:EventConsumer
     {
         private readonly ConsumerConfig consumerConfig;
         private int workerCount;

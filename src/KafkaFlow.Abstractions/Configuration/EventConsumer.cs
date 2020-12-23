@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace KafkaFlow.Configuration
 {
-    public class ConsumerParameter
+    public class EventConsumer
     {
         public string Topic { get; set; }
         public string GroupId { get; set; }
@@ -17,7 +18,15 @@ namespace KafkaFlow.Configuration
         public Factory<IDistributionStrategy> DistributionStrategyFactory { get; set; }
 
         public MiddlewareConfiguration MiddlewareConfiguration { get; set; }
+        public EventConsumer Build(IConfigurationSection config)
+        {
 
+            IConfigurationSection consumer = config.GetSection("consumer");
+
+            this.Topic = config["topic"];
+
+            return this;
+        }
         public void SetParameter(string name, string value)
         {
             _dict[name] = value;

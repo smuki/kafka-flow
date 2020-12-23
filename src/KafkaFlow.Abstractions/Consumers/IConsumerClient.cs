@@ -20,7 +20,7 @@ namespace KafkaFlow.Consumers
         List<XXXTopicPartition> Assignment { get; }
         string Name { get; }
         string MemberId { get; }
-        ConsumerParameter Parameter { get; }
+        EventConsumer Parameter { get; }
         IReadOnlyList<string> Subscription { get; }
         long Position(XXXTopicPartition offsets);
         IOffsetsWatermark GetWatermarkOffsets(XXXTopicPartition offsets);

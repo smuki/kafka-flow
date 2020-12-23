@@ -5,7 +5,7 @@ namespace KafkaFlow.Configuration
     using Confluent.Kafka;
     using Acks = KafkaFlow.Acks;
 
-    public class ProducerConfiguration: ProducerParameter
+    public class ProducerConfiguration: EventProducer
     {
         public ProducerConfiguration(
             ClusterConfiguration cluster,
