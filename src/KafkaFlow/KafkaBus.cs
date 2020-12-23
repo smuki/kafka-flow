@@ -1,5 +1,6 @@
 namespace KafkaFlow
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
@@ -8,6 +9,7 @@ namespace KafkaFlow
     using KafkaFlow.Consumers;
     using KafkaFlow.Middleware;
     using KafkaFlow.Producers;
+    using Microsoft.Extensions.Configuration;
 
     internal class KafkaBus : IKafkaBus
     {
@@ -16,6 +18,7 @@ namespace KafkaFlow
         private readonly IConsumerManager consumerManager;
         private readonly ILogHandler logHandler;
         private readonly IList<KafkaConsumer> consumers = new List<KafkaConsumer>();
+        private readonly IConfiguration _config;
 
         public KafkaBus(
             IDependencyResolver dependencyResolver,
@@ -37,6 +40,9 @@ namespace KafkaFlow
 
         public async Task StartAsync(CancellationToken stopCancellationToken = default)
         {
+
+           
+
             foreach (var consumerConfiguration in this.configuration.Clusters.SelectMany(cl => cl.Consumers))
             {
                 var dependencyScope = this.dependencyResolver.CreateScope();
