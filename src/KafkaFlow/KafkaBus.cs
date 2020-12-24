@@ -7,7 +7,6 @@ namespace KafkaFlow
     using System.Threading.Tasks;
     using KafkaFlow.Configuration;
     using KafkaFlow.Consumers;
-    using KafkaFlow.Middleware;
     using KafkaFlow.Producers;
     using Microsoft.Extensions.Configuration;
 
@@ -25,7 +24,7 @@ namespace KafkaFlow
             IConsumerManager consumerManager,
             IProducerAccessor accessor,
             ILogHandler logHandler,
-            //IConfiguration config,
+        //IConfiguration config,
         KafkaConfiguration configuration)
         {
             this.dependencyResolver = dependencyResolver;
@@ -39,7 +38,10 @@ namespace KafkaFlow
         public IConsumerAccessor Consumers => this.consumerManager;
 
         public IProducerAccessor Producers { get; }
-
+        public async Task Initialize(CancellationToken stopCancellationToken = default)
+        {
+            await Task.CompletedTask;
+        }
         public async Task StartAsync(CancellationToken stopCancellationToken = default)
         {
             foreach (var consumerConfiguration in this.configuration.Clusters.SelectMany(cl => cl.Consumers))
