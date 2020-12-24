@@ -20,7 +20,6 @@ namespace KafkaFlow.Consumers
 
         private IDistributionStrategy distributionStrategy;
         private OffsetManager offsetManager;
-        IConsumerClient consumerClient;
 
         public ConsumerWorkerPool(
             IDependencyResolver dependencyResolver,
@@ -29,9 +28,7 @@ namespace KafkaFlow.Consumers
         {
             this.dependencyResolver = dependencyResolver;
             this.configuration = configuration;
-            this.consumerClient = consumerClient;
             this.logHandler = logHandler;
-
 
             var middlewares = configuration.MiddlewareConfiguration.Factories
                 .Select(factory => factory(dependencyResolver))
