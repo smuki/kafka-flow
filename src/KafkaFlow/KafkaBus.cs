@@ -46,10 +46,6 @@ namespace KafkaFlow
             {
                 var dependencyScope = this.dependencyResolver.CreateScope();
 
-                var middlewares = consumerConfiguration.MiddlewareConfiguration.Factories
-                    .Select(factory => factory(dependencyScope.Resolver))
-                    .ToList();
-
                 var consumerWorkerPool = new ConsumerWorkerPool(
                     dependencyScope.Resolver,
                     consumerConfiguration,
