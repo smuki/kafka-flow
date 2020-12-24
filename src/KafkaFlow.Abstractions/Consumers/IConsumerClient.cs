@@ -14,6 +14,7 @@ namespace KafkaFlow.Consumers
     /// </summary>
     public interface IConsumerClient : IDisposable
     {
+        void Initialize(EventConsumer eventConsumer);
         void Commit(IEnumerable<XXXTopicPartitionOffset> offsets);
         void Pause(IEnumerable<XXXTopicPartition> offsets);
         void Resume(IEnumerable<XXXTopicPartition> offsets);
