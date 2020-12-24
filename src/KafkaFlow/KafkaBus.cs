@@ -53,8 +53,7 @@ namespace KafkaFlow
                 var consumerWorkerPool = new ConsumerWorkerPool(
                     dependencyScope.Resolver,
                     consumerConfiguration,
-                    this.logHandler,
-                    new MiddlewareExecutor(middlewares)
+                    this.logHandler
                     );
 
                 var consumer = new KafkaConsumer(
