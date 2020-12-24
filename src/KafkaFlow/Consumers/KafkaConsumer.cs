@@ -8,7 +8,7 @@
     using Confluent.Kafka;
     using KafkaFlow.Configuration;
 
-    internal class KafkaConsumer: IConsumerClient
+    public class KafkaConsumer: IConsumerClient
     {
         private readonly ConsumerConfiguration configuration;
         private readonly IConsumerManager consumerManager;
@@ -65,7 +65,10 @@
         public EventConsumer Parameter { get { return null; } }
         public string MemberId { get { return this.consumer.MemberId; } }
         public IReadOnlyList<string> Subscription { get { return this.consumer.Subscription; } }
+        public void Initialize(EventConsumer eventConsumer)
+        {
 
+        }
         public long Position(XXXTopicPartition offsets)
         {
             Console.WriteLine("Position...");
