@@ -26,15 +26,14 @@ namespace KafkaFlow.Consumers
             IDependencyResolver dependencyResolver,
             EventConsumer configuration,
             ILogHandler logHandler,
-            IMiddlewareExecutor middlewareExecutor,
-            Factory<IDistributionStrategy> distributionStrategyFactory)
+            IMiddlewareExecutor middlewareExecutor)
         {
             this.dependencyResolver = dependencyResolver;
             this.configuration = configuration;
             this.consumerClient = consumerClient;
             this.logHandler = logHandler;
             this.middlewareExecutor = middlewareExecutor;
-            this.distributionStrategyFactory = distributionStrategyFactory;
+            this.distributionStrategyFactory = configuration.DistributionStrategyFactory;
         }
 
         public async Task StartAsync(

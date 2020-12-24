@@ -54,8 +54,8 @@ namespace KafkaFlow
                     dependencyScope.Resolver,
                     consumerConfiguration,
                     this.logHandler,
-                    new MiddlewareExecutor(middlewares),
-                    consumerConfiguration.DistributionStrategyFactory);
+                    new MiddlewareExecutor(middlewares)
+                    );
 
                 var consumer = new KafkaConsumer(
                     consumerConfiguration,
