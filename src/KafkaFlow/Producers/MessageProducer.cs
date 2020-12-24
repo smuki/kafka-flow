@@ -46,8 +46,7 @@ namespace KafkaFlow.Producers
 
             XXXDeliveryResult report = null;
 
-            await this.middlewareExecutor
-                .Execute(
+            await this.middlewareExecutor.Execute(
                     new ProducerMessageContext(
                         message,
                         messageKey,
@@ -56,7 +55,7 @@ namespace KafkaFlow.Producers
                     async context =>
                     {
                         report = await this
-                            .InternalProduceAsync((ProducerMessageContext) context)
+                            .InternalProduceAsync((ProducerMessageContext)context)
                             .ConfigureAwait(false);
                     })
                 .ConfigureAwait(false);
