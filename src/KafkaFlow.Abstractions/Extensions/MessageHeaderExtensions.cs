@@ -26,9 +26,10 @@ namespace KafkaFlow.Dependency
         /// <param name="headers">The <see cref="IMessageHeaders"/> object that this method was called on.</param>
         /// <param name="key">The header key</param>
         /// <returns>The retrieved string header value</returns>
-        public static string GetString(this IMessageHeaders headers, string key) =>
-            headers.GetString(key, Encoding.UTF8);
-
+        public static string GetString(this IMessageHeaders headers, string key)
+        {
+            return headers.GetString(key, Encoding.UTF8);
+        }
         /// <summary>
         /// Sets a header value as string
         /// </summary>
@@ -54,10 +55,9 @@ namespace KafkaFlow.Dependency
         public static void SetString(
             this IMessageHeaders headers,
             string key,
-            string value) =>
-            headers.SetString(
-                key,
-                value,
-                Encoding.UTF8);
+            string value)
+        {
+            headers.SetString(key, value, Encoding.UTF8);
+        }
     }
 }
