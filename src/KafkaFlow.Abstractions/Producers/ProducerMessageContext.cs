@@ -39,6 +39,9 @@ namespace KafkaFlow
             this.Message = message;
         }
 
-        public IMessageContext Clone() => (IMessageContext) this.MemberwiseClone();
+        public IMessageContext Clone()
+        {
+            return (IMessageContext)this.MemberwiseClone();
+        }
     }
 }
