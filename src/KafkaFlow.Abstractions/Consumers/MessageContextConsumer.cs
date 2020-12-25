@@ -1,5 +1,6 @@
 namespace KafkaFlow.Consumers
 {
+    using KafkaFlow.Configuration;
     using System;
     using System.Threading;
 
@@ -8,15 +9,19 @@ namespace KafkaFlow.Consumers
         private readonly IOffsetManager offsetManager;
         private readonly IntermediateMessage kafkaResult;
         private readonly IConsumerClient consumerClient;
+        private EventConsumer configuration;
 
         public MessageContextConsumer(
             IConsumerClient consumerClient,
-            string name,
             IOffsetManager offsetManager,
             IntermediateMessage kafkaResult,
             CancellationToken workerStopped)
         {
-            this.Name = name;
+            this.configuration = configuration;
+            if (consumerClient != null)
+            {
+                this.Name = consumerClient.ConsumerName;
+            }
             this.WorkerStopped = workerStopped;
             this.consumerClient = consumerClient;
             this.offsetManager = offsetManager;
@@ -45,7 +50,6 @@ namespace KafkaFlow.Consumers
         {
             this.consumerClient.Pause(this.consumerClient.Assignment);
         }
-
         public void Resume()
         {
             this.consumerClient.Resume(this.consumerClient.Assignment);
