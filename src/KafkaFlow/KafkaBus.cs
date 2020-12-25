@@ -72,17 +72,13 @@ namespace KafkaFlow
         }
         public async Task StartAsync(CancellationToken stopCancellationToken = default)
         {
-           await this.Initialize(stopCancellationToken);
+            await this.Initialize(stopCancellationToken);
 
             foreach (var consumerConfiguration in this.configuration.Clusters.SelectMany(cl => cl.Consumers))
             {
                 var dependencyScope = this.dependencyResolver.CreateScope();
 
-                var consumerWorkerPool = new ConsumerWorkerPool(
-                    dependencyScope.Resolver,
-                    consumerConfiguration,
-                    this.logHandler
-                    );
+                var consumerWorkerPool = new ConsumerWorkerPool(dependencyScope.Resolver, consumerConfiguration, this.logHandler);
 
                 var consumer = new KafkaConsumer(
                     consumerConfiguration,
