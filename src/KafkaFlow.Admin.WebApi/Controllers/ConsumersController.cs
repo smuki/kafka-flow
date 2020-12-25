@@ -25,7 +25,7 @@ namespace KafkaFlow.Admin.WebApi.Controllers
         [ProducesResponseType(typeof(IEnumerable<IMessageConsumer>), 200)]
         public IActionResult Get([FromRoute] string groupId)
         {
-            return this.Ok(this.consumers.All.Where(x => x.GroupId == groupId));
+            return this.Ok(this.consumers.Consumers.Where(x => x.GroupId == groupId));
         }
 
         [HttpGet]
@@ -36,7 +36,7 @@ namespace KafkaFlow.Admin.WebApi.Controllers
             [FromRoute] string groupId,
             [FromRoute] string consumerName)
         {
-            var consumer = this.consumers.All
+            var consumer = this.consumers.Consumers
                 .FirstOrDefault(x => x.GroupId == groupId && x.ConsumerName == consumerName);
 
             if (consumer is null)
@@ -55,7 +55,7 @@ namespace KafkaFlow.Admin.WebApi.Controllers
             [FromRoute] string groupId,
             [FromRoute] string consumerName)
         {
-            var consumer = this.consumers.All
+            var consumer = this.consumers.Consumers
                 .FirstOrDefault(x => x.GroupId == groupId && x.ConsumerName == consumerName);
 
             if (consumer is null)
@@ -80,7 +80,7 @@ namespace KafkaFlow.Admin.WebApi.Controllers
             [FromRoute] string groupId,
             [FromRoute] string consumerName)
         {
-            var consumer = this.consumers.All
+            var consumer = this.consumers.Consumers
                 .FirstOrDefault(x => x.GroupId == groupId && x.ConsumerName == consumerName);
 
             if (consumer is null)
@@ -105,7 +105,7 @@ namespace KafkaFlow.Admin.WebApi.Controllers
             [FromRoute] string groupId,
             [FromRoute] string consumerName)
         {
-            var consumer = this.consumers.All
+            var consumer = this.consumers.Consumers
                 .FirstOrDefault(x => x.GroupId == groupId && x.ConsumerName == consumerName);
 
             if (consumer is null)
@@ -137,7 +137,7 @@ namespace KafkaFlow.Admin.WebApi.Controllers
                 return this.BadRequest();
             }
 
-            var consumer = this.consumers.All
+            var consumer = this.consumers.Consumers
                 .FirstOrDefault(x => x.GroupId == groupId && x.ConsumerName == consumerName);
 
             if (consumer is null)
@@ -169,7 +169,7 @@ namespace KafkaFlow.Admin.WebApi.Controllers
                 return this.BadRequest();
             }
 
-            var consumer = this.consumers.All
+            var consumer = this.consumers.Consumers
                 .FirstOrDefault(x => x.GroupId == groupId && x.ConsumerName == consumerName);
 
             if (consumer is null)
@@ -202,7 +202,7 @@ namespace KafkaFlow.Admin.WebApi.Controllers
                 return this.BadRequest();
             }
 
-            var consumer = this.consumers.All
+            var consumer = this.consumers.Consumers
                 .FirstOrDefault(x => x.GroupId == groupId && x.ConsumerName == consumerName);
 
             if (consumer is null)

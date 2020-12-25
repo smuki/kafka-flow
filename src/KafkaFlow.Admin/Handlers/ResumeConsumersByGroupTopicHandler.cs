@@ -14,7 +14,7 @@ namespace KafkaFlow.Admin.Handlers
 
         public Task Handle(IMessageContext context, ResumeConsumersByGroupTopic message)
         {
-            var consumers = this.consumerAccessor.All.Where(x => x.GroupId == message.GroupId);
+            var consumers = this.consumerAccessor.Consumers.Where(x => x.GroupId == message.GroupId);
 
             foreach (var consumer in consumers)
             {

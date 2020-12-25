@@ -92,7 +92,7 @@
                         break;
 
                     case "pause":
-                        foreach (var consumer in consumers.All)
+                        foreach (var consumer in consumers.Consumers)
                         {
                             consumer.Pause(consumer.Assignment);
                         }
@@ -102,7 +102,7 @@
                         break;
 
                     case "resume":
-                        foreach (var consumer in consumers.All)
+                        foreach (var consumer in consumers.Consumers)
                         {
                             consumer.Resume(consumer.Assignment);
                         }

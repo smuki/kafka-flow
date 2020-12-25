@@ -8,12 +8,24 @@ namespace KafkaFlow.Consumers
         private readonly ConcurrentDictionary<string, IMessageConsumer> consumers =
             new ConcurrentDictionary<string, IMessageConsumer>();
 
-        public IMessageConsumer GetConsumer(string name) =>
-            this.consumers.TryGetValue(name, out var consumer) ? consumer : null;
-
-        public IEnumerable<IMessageConsumer> All => this.consumers.Values;
-
-        public IMessageConsumer this[string name] => this.GetConsumer(name);
+        public IMessageConsumer GetConsumer(string name)
+        {
+            return this.consumers.TryGetValue(name, out var consumer) ? consumer : null;
+        }
+        public IEnumerable<IMessageConsumer> Consumers
+        {
+            get
+            {
+                return this.consumers.Values;
+            }
+        }
+        public IMessageConsumer this[string name]
+        {
+            get
+            {
+                return this.GetConsumer(name);
+            }
+        }
 
         public void AddOrUpdate(IMessageConsumer consumer)
         {

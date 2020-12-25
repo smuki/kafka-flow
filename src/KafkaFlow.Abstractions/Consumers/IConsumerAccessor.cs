@@ -17,7 +17,7 @@ namespace KafkaFlow.Consumers
         /// <summary>
         /// Returns all configured consumers
         /// </summary>
-        IEnumerable<IMessageConsumer> All { get; }
+        IEnumerable<IMessageConsumer> Consumers { get; }
 
         /// <summary>
         /// Gets a consumer by its name

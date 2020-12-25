@@ -28,7 +28,7 @@ namespace KafkaFlow.Admin.WebApi.Controllers
         public IActionResult Get()
         {
             return this.Ok(
-                this.consumers.All
+                this.consumers.Consumers
                     .GroupBy(x => x.GroupId)
                     .Select(
                         x => new GroupResponse
