@@ -71,7 +71,7 @@ namespace KafkaFlow.Consumers
                 .ConfigureAwait(false);
 
             this.distributionStrategy = this.distributionStrategyFactory(this.dependencyResolver);
-            this.distributionStrategy.Init(this.workers.AsReadOnly());
+            this.distributionStrategy.Initialize(this.workers.AsReadOnly());
         }
 
         public async Task StopAsync()
