@@ -19,7 +19,6 @@ namespace KafkaFlow.Microsoft.DependencyInjection
             InstanceLifetime lifetime)
         {
             this.services.Add(ServiceDescriptor.Describe(serviceType, implementationType, ParseLifetime(lifetime)));
-
             return this;
         }
 
