@@ -51,9 +51,7 @@ namespace KafkaFlow.Consumers
                 partitions);
 
             await Task.WhenAll(
-                    Enumerable
-                        .Range(0, this.configuration.WorkerCount)
-                        .Select(
+                    Enumerable.Range(0, this.configuration.WorkerCount).Select(
                             workerId =>
                             {
                                 var worker = new ConsumerWorker(
