@@ -15,10 +15,7 @@ namespace KafkaFlow.Middleware
 
         public Task Execute(IMessageContext context, Func<IMessageContext, Task> nextOperation)
         {
-            return this.ExecuteDefinition(
-                0,
-                context,
-                nextOperation);
+            return this.ExecuteDefinition(0, context, nextOperation);
         }
 
         private Task ExecuteDefinition(
@@ -32,12 +29,7 @@ namespace KafkaFlow.Middleware
             }
 
             return this.middlewares[index]
-                .Invoke(
-                    context,
-                    nextContext => this.ExecuteDefinition(
-                        index + 1,
-                        nextContext.Clone(),
-                        nextOperation));
+                .Invoke(context, nextContext => this.ExecuteDefinition(index + 1, nextContext.Clone(), nextOperation));
         }
     }
 }
