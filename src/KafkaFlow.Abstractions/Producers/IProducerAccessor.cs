@@ -24,7 +24,7 @@ namespace KafkaFlow.Producers
         /// <summary>
         /// Returns all configured producers
         /// </summary>
-        IEnumerable<IMessageProducer> All { get; }
+        IEnumerable<IMessageProducer> Producers { get; }
 
         /// <summary>
         /// Gets a producer by its name
