@@ -66,7 +66,6 @@
             get {
                 if (this.Parameter==null)
                 {
-                    //Console.WriteLine(this.GetType().FullName);
                     return this.GetType().FullName;
                 }
                 else
