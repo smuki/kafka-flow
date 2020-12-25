@@ -68,8 +68,7 @@ namespace KafkaFlow.Consumers
 
                             try
                             {
-                                await this.middlewareExecutor.Execute(context, con => Task.CompletedTask)
-                                    .ConfigureAwait(false);
+                                await this.middlewareExecutor.Execute(context, con => Task.CompletedTask).ConfigureAwait(false);
                             }
                             catch (Exception ex)
                             {
