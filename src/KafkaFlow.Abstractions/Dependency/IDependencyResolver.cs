@@ -21,5 +21,6 @@ namespace KafkaFlow
         /// <returns>The retrieved object</returns>
         object Resolve(Type type);
         T Resolve<T>(string name);
+        T Resolve<T>();
     }
 }
