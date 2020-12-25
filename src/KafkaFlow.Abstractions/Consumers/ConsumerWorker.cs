@@ -49,8 +49,7 @@ namespace KafkaFlow.Consumers
 
         public Task StartAsync(CancellationToken stopCancellationToken)
         {
-            this.stopCancellationTokenSource =
-                CancellationTokenSource.CreateLinkedTokenSource(stopCancellationToken);
+            this.stopCancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(stopCancellationToken);
 
             this.backgroundTask = Task.Factory.StartNew(
                 async () =>
@@ -59,32 +58,22 @@ namespace KafkaFlow.Consumers
                     {
                         try
                         {
-                            var message = await this.messagesBuffer.Reader
-                                .ReadAsync(this.stopCancellationTokenSource.Token)
-                                .ConfigureAwait(false);
+                            var message = await this.messagesBuffer.Reader.ReadAsync(this.stopCancellationTokenSource.Token).ConfigureAwait(false);
 
                             var context = new ConsumerMessageContext(
-                                new MessageContextConsumer(
-                                    this.consumerClient,
-                                    this.offsetManager,
-                                    message,
-                                    this.stopCancellationTokenSource.Token),
+                                new MessageContextConsumer(this.consumerClient, this.offsetManager, message, this.stopCancellationTokenSource.Token),
                                 message,
                                 this.Id,
                                 this.configuration.GroupId);
 
                             try
                             {
-                                await this.middlewareExecutor
-                                    .Execute(context, con => Task.CompletedTask)
+                                await this.middlewareExecutor.Execute(context, con => Task.CompletedTask)
                                     .ConfigureAwait(false);
                             }
                             catch (Exception ex)
                             {
-                                this.logHandler.Error(
-                                    "Error executing consumer",
-                                    ex,
-                                    context);
+                                this.logHandler.Error("Error executing consumer", ex, context);
                             }
                             finally
                             {
