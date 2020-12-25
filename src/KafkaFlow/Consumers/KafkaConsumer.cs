@@ -13,7 +13,7 @@
         private readonly ConsumerConfiguration configuration;
         private readonly IConsumerManager consumerManager;
         private readonly ILogHandler logHandler;
-        private readonly IConsumerWorkerPool consumerWorkerPool;
+        private readonly IConsumerWorkerPool workerPool;
         private readonly CancellationToken busStopCancellationToken;
 
         private readonly ConsumerBuilder<byte[], byte[]> consumerBuilder;
@@ -31,7 +31,7 @@
             this.configuration = configuration;
             this.consumerManager = consumerManager;
             this.logHandler = logHandler;
-            this.consumerWorkerPool = consumerWorkerPool;
+            this.workerPool = consumerWorkerPool;
             this.busStopCancellationToken = busStopCancellationToken;
 
             var kafkaConfig = configuration.GetKafkaConfig();
@@ -129,29 +129,21 @@
         {
             this.logHandler.Warning("Partitions revoked", this.GetConsumerLogInfo(topicPartitions.Select(x => x.TopicPartition)));
 
-            this.consumerWorkerPool.StopAsync().GetAwaiter().GetResult();
+            this.workerPool.StopAsync().GetAwaiter().GetResult();
         }
 
         private void OnPartitionAssigned(IConsumer<byte[], byte[]> consumer, IReadOnlyCollection<TopicPartition> partitions)
         {
             this.logHandler.Info("Partitions assigned", this.GetConsumerLogInfo(partitions));
 
-            this.consumerWorkerPool
-                .StartAsync(
-                 this,
-                 Util.TopicPartition(partitions),
-                 this.stopCancellationTokenSource.Token)
-                .GetAwaiter()
-                .GetResult();
+            this.workerPool.StartAsync(this, Util.TopicPartition(partitions), this.stopCancellationTokenSource.Token).GetAwaiter().GetResult();
         }
 
         private object GetConsumerLogInfo(IEnumerable<TopicPartition> partitions) => new
         {
             this.configuration.GroupId,
             this.configuration.ConsumerName,
-            Topics = partitions
-                .GroupBy(x => x.Topic)
-                .Select(
+            Topics = partitions.GroupBy(x => x.Topic).Select(
                     x => new
                     {
                         x.First().Topic,
@@ -171,7 +163,7 @@
 
         public async Task StopAsync()
         {
-            await this.consumerWorkerPool.StopAsync().ConfigureAwait(false);
+            await this.workerPool.StopAsync().ConfigureAwait(false);
 
             if (this.stopCancellationTokenSource.Token.CanBeCanceled)
             {
@@ -185,7 +177,7 @@
         private void CreateBackgroundTask()
         {
             consumer = this.consumerBuilder.Build();
-            this.consumerManager.AddOrUpdate(new MessageConsumer(this, this.consumerWorkerPool, this.configuration, this.logHandler));
+            this.consumerManager.AddOrUpdate(new MessageConsumer(this, this.workerPool, this.configuration, this.logHandler));
 
             consumer.Subscribe(this.configuration.Topics);
 
@@ -211,9 +203,7 @@
                                 intermediateMessage.Partition = message.Partition;
                                 intermediateMessage.Offset = message.Offset;
 
-                                await this.consumerWorkerPool
-                                    .EnqueueAsync(intermediateMessage, this.stopCancellationTokenSource.Token)
-                                    .ConfigureAwait(false);
+                                await this.workerPool.EnqueueAsync(intermediateMessage, this.stopCancellationTokenSource.Token).ConfigureAwait(false);
                             }
                             catch (OperationCanceledException)
                             {
@@ -223,7 +213,7 @@
                             {
                                 this.logHandler.Error("Kafka fatal error occurred. Trying to restart in 5 seconds", ex, null);
 
-                                await this.consumerWorkerPool.StopAsync().ConfigureAwait(false);
+                                await this.workerPool.StopAsync().ConfigureAwait(false);
                                 _ = Task
                                     .Delay(5000, this.stopCancellationTokenSource.Token)
                                     .ContinueWith(t => this.CreateBackgroundTask());
