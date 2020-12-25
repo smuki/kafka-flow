@@ -13,7 +13,7 @@ namespace KafkaFlow
         /// Initializes the distribution strategy, this method is called when a consumer is started
         /// </summary>
         /// <param name="workers">List of workers to be initialized</param>
-        void Init(IReadOnlyList<IWorker> workers);
+        void Initialize(IReadOnlyList<IWorker> workers);
 
         /// <summary>
         /// Gets an available worker to process the message
