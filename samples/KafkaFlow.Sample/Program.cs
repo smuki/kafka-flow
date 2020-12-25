@@ -83,12 +83,9 @@
                     case var _ when int.TryParse(input, out var count):
                         for (var i = 0; i < count; i++)
                         {
-                            producers[producerName]
-                                .Produce(
-                                    Guid.NewGuid().ToString(),
-                                    new TestMessage { Text = $"Message: {Guid.NewGuid()}" });
+                            var msg = new TestMessage { Text = $"Message: {Guid.NewGuid()}" };
+                            producers[producerName].Produce(Guid.NewGuid().ToString(), msg);
                         }
-
                         break;
 
                     case "pause":
@@ -96,7 +93,6 @@
                         {
                             consumer.Pause(consumer.Assignment);
                         }
-
                         Console.WriteLine("Consumer paused");
 
                         break;
@@ -106,7 +102,6 @@
                         {
                             consumer.Resume(consumer.Assignment);
                         }
-
                         Console.WriteLine("Consumer resumed");
 
                         break;
