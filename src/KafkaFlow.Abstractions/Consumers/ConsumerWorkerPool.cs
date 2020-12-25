@@ -43,12 +43,7 @@ namespace KafkaFlow.Consumers
             IEnumerable<XXXTopicPartition> partitions,
             CancellationToken stopCancellationToken = default)
         {
-            this.offsetManager = new OffsetManager(
-                new OffsetCommitter(
-                    consumerClient,
-                    this.configuration.AutoCommitInterval,
-                    this.logHandler),
-                partitions);
+            this.offsetManager = new OffsetManager(new OffsetCommitter(consumerClient, this.configuration.AutoCommitInterval, this.logHandler), partitions);
 
             await Task.WhenAll(
                     Enumerable.Range(0, this.configuration.WorkerCount).Select(
@@ -85,7 +80,7 @@ namespace KafkaFlow.Consumers
 
         public async Task EnqueueAsync(IntermediateMessage message, CancellationToken stopCancellationToken = default)
         {
-            var worker = (IConsumerWorker) await this.distributionStrategy
+            var worker = (IConsumerWorker)await this.distributionStrategy
                 .GetWorkerAsync(Encoding.UTF8.GetBytes(message.Partition.ToString()), stopCancellationToken)
                 .ConfigureAwait(false);
 
@@ -96,9 +91,7 @@ namespace KafkaFlow.Consumers
 
             this.offsetManager.AddOffset(message.TopicPartitionOffset);
 
-            await worker
-                .EnqueueAsync(message, stopCancellationToken)
-                .ConfigureAwait(false);
+            await worker.EnqueueAsync(message, stopCancellationToken).ConfigureAwait(false);
         }
     }
 }
