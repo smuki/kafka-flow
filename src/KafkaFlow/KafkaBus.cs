@@ -45,7 +45,7 @@ namespace KafkaFlow
             //{
 
                 var dependencyScope = this.dependencyResolver.CreateScope();
-                EventConsumer vconsumerConfiguration = new EventConsumer();
+                ConsumerSetting vconsumerConfiguration = new ConsumerSetting();
 
                 //var consumerWorkerPool = new ConsumerWorkerPool(
                 //    dependencyScope.Resolver,

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace KafkaFlow.Configuration
 {
-    public class EventConsumer
+    public class ConsumerSetting
     {
         public string Topic { get; set; }
         public string GroupId { get; set; }
@@ -18,7 +18,7 @@ namespace KafkaFlow.Configuration
         public Factory<IDistributionStrategy> DistributionStrategyFactory { get; set; }
 
         public MiddlewareConfiguration MiddlewareConfiguration { get; set; }
-        public EventConsumer Build(IConfigurationSection config)
+        public ConsumerSetting Build(IConfigurationSection config)
         {
 
             IConfigurationSection consumer = config.GetSection("consumer");

@@ -74,10 +74,10 @@
                 }
             } 
         }
-        public EventConsumer Parameter { get { return null; } }
+        public ConsumerSetting Parameter { get { return null; } }
         public string MemberId { get { return this.consumer.MemberId; } }
         public IReadOnlyList<string> Subscription { get { return this.consumer.Subscription; } }
-        public void Initialize(EventConsumer eventConsumer)
+        public void Initialize(ConsumerSetting eventConsumer)
         {
 
         }

@@ -11,7 +11,7 @@ namespace KafkaFlow.Consumers
     public class ConsumerWorkerPool : IConsumerWorkerPool
     {
         private readonly IDependencyResolver dependencyResolver;
-        private readonly EventConsumer configuration;
+        private readonly ConsumerSetting configuration;
         private readonly ILogHandler logHandler;
         private readonly IMiddlewareExecutor middlewareExecutor;
         private readonly Factory<IDistributionStrategy> distributionStrategyFactory;
@@ -23,7 +23,7 @@ namespace KafkaFlow.Consumers
 
         public ConsumerWorkerPool(
             IDependencyResolver dependencyResolver,
-            EventConsumer configuration,
+            ConsumerSetting configuration,
             ILogHandler logHandler)
         {
             this.dependencyResolver = dependencyResolver;

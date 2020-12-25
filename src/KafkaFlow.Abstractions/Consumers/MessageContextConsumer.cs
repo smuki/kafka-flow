@@ -9,7 +9,7 @@ namespace KafkaFlow.Consumers
         private readonly IOffsetManager offsetManager;
         private readonly IntermediateMessage kafkaResult;
         private readonly IConsumerClient consumerClient;
-        private EventConsumer configuration;
+        private ConsumerSetting configuration;
 
         public MessageContextConsumer(
             IConsumerClient consumerClient,

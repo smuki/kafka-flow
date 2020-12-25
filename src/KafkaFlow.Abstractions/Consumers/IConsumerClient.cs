@@ -14,7 +14,7 @@ namespace KafkaFlow.Consumers
     /// </summary>
     public interface IConsumerClient : IDisposable
     {
-        void Initialize(EventConsumer eventConsumer);
+        void Initialize(ConsumerSetting eventConsumer);
         void Commit(IEnumerable<XXXTopicPartitionOffset> offsets);
         void Pause(IEnumerable<XXXTopicPartition> offsets);
         void Resume(IEnumerable<XXXTopicPartition> offsets);
@@ -22,7 +22,7 @@ namespace KafkaFlow.Consumers
         string Name { get; }
         string MemberId { get; }
         string ConsumerName { get; }
-        EventConsumer Parameter { get; }
+        ConsumerSetting Parameter { get; }
         IReadOnlyList<string> Subscription { get; }
         long Position(XXXTopicPartition offsets);
         IOffsetsWatermark GetWatermarkOffsets(XXXTopicPartition offsets);

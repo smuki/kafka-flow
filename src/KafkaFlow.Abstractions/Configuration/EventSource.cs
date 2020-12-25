@@ -9,7 +9,7 @@ namespace KafkaFlow.Configuration
     {
         private readonly Func<SecurityInformation> securityInformationHandler;
         private readonly List<EventProducer> producers = new List<EventProducer>();
-        private readonly List<EventConsumer> consumers = new List<EventConsumer>();
+        private readonly List<ConsumerSetting> consumers = new List<ConsumerSetting>();
         private IConfiguration config;
 
         public EventSource(
@@ -35,9 +35,9 @@ namespace KafkaFlow.Configuration
 
         public IReadOnlyCollection<EventProducer> Producers => this.producers.AsReadOnly();
 
-        public IReadOnlyCollection<EventConsumer> Consumers => this.consumers.AsReadOnly();
+        public IReadOnlyCollection<ConsumerSetting> Consumers => this.consumers.AsReadOnly();
 
-        public void AddConsumers(IEnumerable<EventConsumer> configurations) => this.consumers.AddRange(configurations);
+        public void AddConsumers(IEnumerable<ConsumerSetting> configurations) => this.consumers.AddRange(configurations);
 
         public void AddProducers(IEnumerable<EventProducer> configurations) => this.producers.AddRange(configurations);
 
