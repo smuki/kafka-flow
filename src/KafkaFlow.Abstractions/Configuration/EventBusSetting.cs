@@ -5,21 +5,21 @@ namespace KafkaFlow.Configuration
     using System.Collections.Generic;
     using System.Linq;
 
-    public class EventSource
+    public class EventBusSetting
     {
         private readonly Func<SecurityInformation> securityInformationHandler;
-        private readonly List<EventProducer> producers = new List<EventProducer>();
+        private readonly List<ProducerSetting> producers = new List<ProducerSetting>();
         private readonly List<ConsumerSetting> consumers = new List<ConsumerSetting>();
         private IConfiguration config;
 
-        public EventSource(
+        public EventBusSetting(
             IConfiguration config,
             Func<SecurityInformation> securityInformationHandler)
         {
             this.securityInformationHandler = securityInformationHandler;
             this.config = config;
         }
-        public EventSource Build(IConfigurationSection config)
+        public EventBusSetting Build(IConfigurationSection config)
         {
 
             IConfigurationSection producer = config.GetSection("producer");
@@ -33,13 +33,13 @@ namespace KafkaFlow.Configuration
         public string Brokers { get; set; }
         public string Topic { get; set; }
 
-        public IReadOnlyCollection<EventProducer> Producers => this.producers.AsReadOnly();
+        public IReadOnlyCollection<ProducerSetting> Producers => this.producers.AsReadOnly();
 
         public IReadOnlyCollection<ConsumerSetting> Consumers => this.consumers.AsReadOnly();
 
         public void AddConsumers(IEnumerable<ConsumerSetting> configurations) => this.consumers.AddRange(configurations);
 
-        public void AddProducers(IEnumerable<EventProducer> configurations) => this.producers.AddRange(configurations);
+        public void AddProducers(IEnumerable<ProducerSetting> configurations) => this.producers.AddRange(configurations);
 
         public SecurityInformation GetSecurityInformation() => this.securityInformationHandler?.Invoke();
     }
