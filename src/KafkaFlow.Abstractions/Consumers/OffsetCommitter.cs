@@ -20,7 +20,7 @@ namespace KafkaFlow.Consumers
             TimeSpan autoCommitInterval,
             ILogHandler logHandler)
         {
-            Console.WriteLine("autoCommitInterval   =" + autoCommitInterval.TotalSeconds);
+            //Console.WriteLine("autoCommitInterval   =" + autoCommitInterval.TotalSeconds);
 
             this.logHandler = logHandler;
             this.consumerClient = consumerClient;
@@ -43,10 +43,7 @@ namespace KafkaFlow.Consumers
             }
             catch (Exception e)
             {
-                this.logHandler.Error(
-                    "Error Commiting Offsets",
-                    e,
-                    null);
+                this.logHandler.Error("Error Commiting Offsets", e, null);
             }
         }
 
@@ -58,10 +55,7 @@ namespace KafkaFlow.Consumers
 
         public void StoreOffset(XXXTopicPartitionOffset tpo)
         {
-            this.offsetsToCommit.AddOrUpdate(
-                (tpo.Topic, tpo.Partition),
-                tpo,
-                (k, v) => tpo);
+            this.offsetsToCommit.AddOrUpdate((tpo.Topic, tpo.Partition), tpo, (k, v) => tpo);
         }
     }
 }
