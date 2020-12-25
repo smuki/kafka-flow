@@ -14,6 +14,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Dependency\**" />
+    <EmbeddedResource Remove="Dependency\**" />
+    <None Remove="Dependency\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="XXXProduceException.cs~RF200715d.TMP" />
   </ItemGroup>
 
@@ -22,10 +28,6 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
     <PackageReference Include="System.Threading.Channels" Version="4.7.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Dependency\" />
   </ItemGroup>
 
   <ItemGroup>

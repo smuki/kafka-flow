@@ -25,7 +25,6 @@ namespace KafkaFlow
         {
             return new TopicPartition(tp.Topic, tp.Partition);
         }
-
         public static IEnumerable<XXXTopicPartitionTimestamp> TopicPartitionTimestamp(IEnumerable<TopicPartitionTimestamp> tp)
         {
             List<XXXTopicPartitionTimestamp> xxx = new List<XXXTopicPartitionTimestamp>();
@@ -44,7 +43,6 @@ namespace KafkaFlow
             }
             return xxx;
         }
-
         public static IEnumerable<XXXTopicPartition> TopicPartition(IEnumerable<TopicPartition> tp)
         {
             List<XXXTopicPartition> xxx = new List<XXXTopicPartition>();
@@ -54,7 +52,6 @@ namespace KafkaFlow
             }
             return xxx;
         }
-
         public static IReadOnlyCollection<TopicPartition> TopicPartition(IEnumerable<XXXTopicPartition> tp)
         {
             List<TopicPartition> xxx = new List<TopicPartition>();
