@@ -38,12 +38,42 @@ namespace KafkaFlow
         public IConsumerAccessor Consumers => this.consumerManager;
 
         public IProducerAccessor Producers { get; }
+       
         public async Task Initialize(CancellationToken stopCancellationToken = default)
         {
+            //foreach (var vvv in config.GetSection("eventbus").GetChildren())
+            //{
+
+                var dependencyScope = this.dependencyResolver.CreateScope();
+                EventConsumer vconsumerConfiguration = new EventConsumer();
+
+                //var consumerWorkerPool = new ConsumerWorkerPool(
+                //    dependencyScope.Resolver,
+                //    vconsumerConfiguration,
+                //    this.logHandler
+                //    );
+                var consumer = dependencyScope.Resolver.Resolve<IConsumerClient>("Kafka");
+                consumer.Initialize(vconsumerConfiguration);
+
+                //var consumer = new KafkaConsumer(
+                //     vconsumerConfiguration,
+                //     this.consumerManager,
+                //     this.logHandler,
+                //     consumerWorkerPool,
+                //     stopCancellationToken);
+
+                //this.consumers.Add(consumer);
+
+                //await consumer.StartAsync().ConfigureAwait(false);
+
+                // Console.WriteLine("Key = " + v.Key);
+            //}
             await Task.CompletedTask;
         }
         public async Task StartAsync(CancellationToken stopCancellationToken = default)
         {
+           await this.Initialize(stopCancellationToken);
+
             foreach (var consumerConfiguration in this.configuration.Clusters.SelectMany(cl => cl.Consumers))
             {
                 var dependencyScope = this.dependencyResolver.CreateScope();
