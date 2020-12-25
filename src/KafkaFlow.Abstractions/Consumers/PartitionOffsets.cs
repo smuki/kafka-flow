@@ -27,8 +27,7 @@ namespace KafkaFlow.Consumers
             {
                 if (!this.offsetsOrder.Any())
                 {
-                    throw new InvalidOperationException(
-                        $"There is no offsets in the queue. Call {nameof(this.AddOffset)} first");
+                    throw new InvalidOperationException($"There is no offsets in the queue. Call {nameof(this.AddOffset)} first");
                 }
 
                 if (newOffset != this.offsetsOrder.First.Value)
