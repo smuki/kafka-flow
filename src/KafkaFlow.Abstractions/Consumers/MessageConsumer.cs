@@ -25,11 +25,27 @@ namespace KafkaFlow.Consumers
             this.consumerClient = consumerClient;
         }
 
-        public string ConsumerName => this.configuration.ConsumerName;
-
-        public string GroupId => this.configuration.GroupId;
-
-        public int WorkerCount => this.configuration.WorkerCount;
+        public string ConsumerName
+        {
+            get
+            {
+                return this.configuration.ConsumerName;
+            }
+        }
+        public string GroupId
+        {
+            get
+            {
+                return this.configuration.GroupId;
+            }
+        }
+        public int WorkerCount
+        {
+            get
+            {
+                return this.configuration.WorkerCount;
+            }
+        }
 
         public async Task OverrideOffsetsAndRestartAsync(IReadOnlyCollection<XXXTopicPartitionOffset> offsets)
         {
