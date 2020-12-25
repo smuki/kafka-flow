@@ -20,11 +20,7 @@ namespace KafkaFlow.Producers
             object message,
             IMessageHeaders headers = null)
         {
-            return this.producer.ProduceAsync(
-                topic,
-                partitionKey,
-                message,
-                headers);
+            return this.producer.ProduceAsync(topic, partitionKey, message, headers);
         }
 
         public Task<XXXDeliveryResult> ProduceAsync(
@@ -32,10 +28,7 @@ namespace KafkaFlow.Producers
             object message,
             IMessageHeaders headers = null)
         {
-            return this.producer.ProduceAsync(
-                partitionKey,
-                message,
-                headers);
+            return this.producer.ProduceAsync(partitionKey, message, headers);
         }
 
         public void Produce(
@@ -45,12 +38,7 @@ namespace KafkaFlow.Producers
             IMessageHeaders headers = null,
             Action<XXXDeliveryReport> deliveryHandler = null)
         {
-            this.producer.Produce(
-                topic,
-                partitionKey,
-                message,
-                headers,
-                deliveryHandler);
+            this.producer.Produce(topic, partitionKey, message, headers, deliveryHandler);
         }
 
         public void Produce(
@@ -59,11 +47,7 @@ namespace KafkaFlow.Producers
             IMessageHeaders headers = null,
             Action<XXXDeliveryReport> deliveryHandler = null)
         {
-            this.producer.Produce(
-                partitionKey,
-                message,
-                headers,
-                deliveryHandler);
+            this.producer.Produce(partitionKey, message, headers, deliveryHandler);
         }
     }
 }
