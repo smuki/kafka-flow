@@ -7,6 +7,7 @@ namespace KafkaFlow
     using System.Threading.Tasks;
     using KafkaFlow.Configuration;
     using KafkaFlow.Consumers;
+    using KafkaFlow.Dependency;
     using KafkaFlow.Producers;
     using Microsoft.Extensions.Configuration;
 
@@ -51,6 +52,8 @@ namespace KafkaFlow
                     vconsumerConfiguration,
                     this.logHandler
                     );
+                var consumer = dependencyScope.Resolver.Resolve<IConsumerClient>("Kafka");
+                consumer.Initialize(vconsumerConfiguration);
 
                //var consumer = new KafkaConsumer(
                //     vconsumerConfiguration,
@@ -63,7 +66,7 @@ namespace KafkaFlow
 
                 //await consumer.StartAsync().ConfigureAwait(false);
 
-               // Console.WriteLine("Key = " + v.Key);
+                // Console.WriteLine("Key = " + v.Key);
             }
             await Task.CompletedTask;
         }
