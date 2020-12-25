@@ -23,7 +23,13 @@ namespace KafkaFlow
 
         public int WorkerId { get; }
 
-        public byte[] PartitionKey => Encoding.UTF8.GetBytes(this.result.Partition.ToString());
+        public byte[] PartitionKey
+        {
+            get
+            {
+                return Encoding.UTF8.GetBytes(this.result.Partition.ToString());
+            }
+        }
 
         public object Message { get; private set; }
 
@@ -44,6 +50,9 @@ namespace KafkaFlow
             this.Message = message;
         }
 
-        public IMessageContext Clone() => (IMessageContext) this.MemberwiseClone();
+        public IMessageContext Clone()
+        {
+            return (IMessageContext)this.MemberwiseClone();
+        }
     }
 }
