@@ -76,6 +76,7 @@
             while (true)
             {
                 Console.Write("resume\npause\nreset\nrewind\nworkers\nexit\nNumber of messages to produce:");
+                Console.WriteLine("");
                 var input = Console.ReadLine().ToLower();
 
                 switch (input)
