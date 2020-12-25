@@ -21,6 +21,7 @@ namespace KafkaFlow.Consumers
         List<XXXTopicPartition> Assignment { get; }
         string Name { get; }
         string MemberId { get; }
+        string ConsumerName { get; }
         EventConsumer Parameter { get; }
         IReadOnlyList<string> Subscription { get; }
         long Position(XXXTopicPartition offsets);
