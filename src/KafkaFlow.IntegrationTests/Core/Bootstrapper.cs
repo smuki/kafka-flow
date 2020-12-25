@@ -115,7 +115,7 @@ namespace KafkaFlow.IntegrationTests.Core
                                     .WithAutoOffsetReset(AutoOffsetReset.Latest)
                                     .AddMiddlewares(
                                         middlewares => middlewares
-                                            .AddCompressor<GzipMessageCompressor>()
+                                            //.AddCompressor<GzipMessageCompressor>()
                                             .Add<GzipMiddleware>()
                                     )
                             )
@@ -128,7 +128,7 @@ namespace KafkaFlow.IntegrationTests.Core
                                     .WithAutoOffsetReset(AutoOffsetReset.Latest)
                                     .AddMiddlewares(
                                         middlewares => middlewares
-                                            .AddCompressor(r => new GzipMessageCompressor())
+                                            //.AddCompressor(r => new GzipMessageCompressor())
                                             .AddSerializer(r => new JsonMessageSerializer())
                                             .AddTypedHandlers(
                                                 handlers =>
@@ -147,7 +147,7 @@ namespace KafkaFlow.IntegrationTests.Core
                                     .WithAutoCommitIntervalMs(1)
                                     .AddMiddlewares(
                                         middlewares => middlewares
-                                            .AddCompressor<GzipMessageCompressor>()
+                                            //.AddCompressor<GzipMessageCompressor>()
                                             .AddSerializer<ProtobufMessageSerializer>()
                                             .AddTypedHandlers(
                                                 handlers =>
@@ -170,7 +170,7 @@ namespace KafkaFlow.IntegrationTests.Core
                                     .AddMiddlewares(
                                         middlewares => middlewares
                                             .AddSerializer<JsonMessageSerializer>()
-                                            .AddCompressor<GzipMessageCompressor>()
+                                            //.AddCompressor<GzipMessageCompressor>()
                                     )
                             )
                             .AddProducer<ProtobufProducer>(
@@ -187,7 +187,7 @@ namespace KafkaFlow.IntegrationTests.Core
                                     .AddMiddlewares(
                                         middlewares => middlewares
                                             .AddSerializer<ProtobufMessageSerializer>()
-                                            .AddCompressor<GzipMessageCompressor>()
+                                            //.AddCompressor<GzipMessageCompressor>()
                                     )
                             )
                             .AddProducer<ProtobufGzipProducer2>(
@@ -196,16 +196,16 @@ namespace KafkaFlow.IntegrationTests.Core
                                     .AddMiddlewares(
                                         middlewares => middlewares
                                             .AddSerializer(r => new ProtobufMessageSerializer())
-                                            .AddCompressor(r => new GzipMessageCompressor())
+                                            //.AddCompressor(r => new GzipMessageCompressor())
                                     )
                             )
                             .AddProducer<GzipProducer>(
                                 producer => producer
                                     .DefaultTopic(GzipTopicName)
-                                    .AddMiddlewares(
-                                        middlewares => middlewares
-                                            .AddCompressor<GzipMessageCompressor>()
-                                    )
+                                    //.AddMiddlewares(
+                                       // middlewares => middlewares
+                                            //.AddCompressor<GzipMessageCompressor>()
+                                    //)
                             )
                     )
             );
