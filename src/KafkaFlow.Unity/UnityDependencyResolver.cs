@@ -31,6 +31,7 @@ namespace KafkaFlow.Unity
         /// <returns></returns>
         public object Resolve(Type type) => this.container.Resolve(type);
         public T Resolve<T>(string name) => this.container.Resolve<T>(name);
+        public T Resolve<T>() => this.container.Resolve<T>();
 
     }
 }
