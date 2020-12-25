@@ -20,5 +20,6 @@ namespace KafkaFlow
         /// <param name="type"><see cref="Type"/> of object to be resolved</param>
         /// <returns>The retrieved object</returns>
         object Resolve(Type type);
+        T Resolve<T>(string name);
     }
 }
