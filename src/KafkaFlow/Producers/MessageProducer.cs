@@ -47,16 +47,10 @@ namespace KafkaFlow.Producers
             XXXDeliveryResult report = null;
 
             await this.middlewareExecutor.Execute(
-                    new ProducerMessageContext(
-                        message,
-                        messageKey,
-                        headers,
-                        topic),
+                    new ProducerMessageContext(message, messageKey, headers, topic),
                     async context =>
                     {
-                        report = await this
-                            .InternalProduceAsync((ProducerMessageContext)context)
-                            .ConfigureAwait(false);
+                        report = await this.InternalProduceAsync((ProducerMessageContext)context).ConfigureAwait(false);
                     })
                 .ConfigureAwait(false);
 
@@ -70,15 +64,10 @@ namespace KafkaFlow.Producers
         {
             if (string.IsNullOrWhiteSpace(this.configuration.DefaultTopic))
             {
-                throw new InvalidOperationException(
-                    $"There is no default topic defined for producer {this.ProducerName}");
+                throw new InvalidOperationException($"There is no default topic defined for producer {this.ProducerName}");
             }
 
-            return this.ProduceAsync(
-                this.configuration.DefaultTopic,
-                partitionKey,
-                message,
-                headers);
+            return this.ProduceAsync(this.configuration.DefaultTopic, partitionKey, message, headers);
         }
 
         public void Produce(
@@ -90,18 +79,12 @@ namespace KafkaFlow.Producers
         {
             var messageKey = partitionKey is null ? null : Encoding.UTF8.GetBytes(partitionKey);
 
-            this.middlewareExecutor.Execute(
-                new ProducerMessageContext(
-                    message,
-                    messageKey,
-                    headers,
-                    topic),
+            this.middlewareExecutor.Execute(new ProducerMessageContext(message, messageKey, headers, topic),
                 context =>
                 {
                     var completionSource = new TaskCompletionSource<byte>();
 
-                    this.InternalProduce(
-                        (ProducerMessageContext) context,
+                    this.InternalProduce((ProducerMessageContext)context,
                         report =>
                         {
                             if (report.Error.IsError)
@@ -129,16 +112,10 @@ namespace KafkaFlow.Producers
         {
             if (string.IsNullOrWhiteSpace(this.configuration.DefaultTopic))
             {
-                throw new InvalidOperationException(
-                    $"There is no default topic defined for producer {this.ProducerName}");
+                throw new InvalidOperationException($"There is no default topic defined for producer {this.ProducerName}");
             }
 
-            this.Produce(
-                this.configuration.DefaultTopic,
-                partitionKey,
-                message,
-                headers,
-                deliveryHandler);
+            this.Produce(this.configuration.DefaultTopic, partitionKey, message, headers, deliveryHandler);
         }
 
         private IProducer<byte[], byte[]> EnsureProducer()
@@ -155,8 +132,7 @@ namespace KafkaFlow.Producers
                     return this.producer;
                 }
 
-                return this.producer = new ProducerBuilder<byte[], byte[]>(this.configuration.GetKafkaConfig())
-                    .SetErrorHandler(
+                return this.producer = new ProducerBuilder<byte[], byte[]>(this.configuration.GetKafkaConfig()).SetErrorHandler(
                         (p, error) =>
                         {
                             if (error.IsFatal)
@@ -165,9 +141,7 @@ namespace KafkaFlow.Producers
                             }
                             else
                             {
-                                this.dependencyResolverScope.Resolver
-                                    .Resolve<ILogHandler>()
-                                    .Warning("Kafka Producer Error", new { Error = error });
+                                this.dependencyResolverScope.Resolver.Resolve<ILogHandler>().Warning("Kafka Producer Error", new { Error = error });
                             }
                         })
                     .SetStatisticsHandler((producer, statistics) =>
@@ -194,8 +168,7 @@ namespace KafkaFlow.Producers
             xerror.IsError = error.IsError;
             xerror.IsFatal = error.IsFatal;
 
-            this.dependencyResolverScope.Resolver
-                .Resolve<ILogHandler>()
+            this.dependencyResolverScope.Resolver.Resolve<ILogHandler>()
                 .Error("Kafka produce fatal error occurred. The producer will be recreated",
                     result is null ? new XXXProduceException(xerror) : new XXXProduceException(xerror, result),
                     new { Error = error });
@@ -207,12 +180,7 @@ namespace KafkaFlow.Producers
 
             try
             {
-                var result2 = await this
-                     .EnsureProducer()
-                     .ProduceAsync(
-                         context.Topic,
-                         CreateMessage(context))
-                     .ConfigureAwait(false);
+                var result2 = await this.EnsureProducer().ProduceAsync(context.Topic, CreateMessage(context)).ConfigureAwait(false);
 
                 result = Util.XXXDeliveryResult(result2);
             }
@@ -236,11 +204,7 @@ namespace KafkaFlow.Producers
             ProducerMessageContext context,
             Action<XXXDeliveryReport> deliveryHandler)
         {
-            this
-                .EnsureProducer()
-                .Produce(
-                    context.Topic,
-                    CreateMessage(context),
+            this.EnsureProducer().Produce(context.Topic, CreateMessage(context),
                     report =>
                     {
                         var result = Util.XXXDeliveryResult(report);
@@ -263,9 +227,7 @@ namespace KafkaFlow.Producers
 
             foreach (var header in context.Headers)
             {
-                headers.Add(header.Value != null
-                    ? new Header(header.Key, header.Value)
-                    : new Header(header.Key, null));
+                headers.Add(header.Value != null ? new Header(header.Key, header.Value) : new Header(header.Key, null));
             }
             return new Message<byte[], byte[]>
             {
@@ -280,8 +242,7 @@ namespace KafkaFlow.Producers
         {
             if (!(context.Message is byte[] value))
             {
-                throw new InvalidOperationException(
-                    $"{nameof(context.Message)} must be a byte array to be produced, it is a {context.Message.GetType().FullName}." +
+                throw new InvalidOperationException($"{nameof(context.Message)} must be a byte array to be produced, it is a {context.Message.GetType().FullName}." +
                     "You should serialize or encode your message object using a middleware");
             }
 
