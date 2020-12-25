@@ -52,8 +52,8 @@ namespace KafkaFlow
                 //    vconsumerConfiguration,
                 //    this.logHandler
                 //    );
-                var consumer = dependencyScope.Resolver.Resolve<IConsumerClient>("Kafka");
-                consumer.Initialize(vconsumerConfiguration);
+                //var consumer = dependencyScope.Resolver.Resolve<IConsumerClient>("Kafka");
+                //consumer.Initialize(vconsumerConfiguration);
 
                 //var consumer = new KafkaConsumer(
                 //     vconsumerConfiguration,
