@@ -59,10 +59,7 @@ namespace KafkaFlow.Dependency
             this IDependencyConfigurator configurator,
             Func<IDependencyResolver, TService> factory)
         {
-            return configurator.Add(
-                typeof(TService),
-                factory,
-                InstanceLifetime.Singleton);
+            return configurator.Add(typeof(TService), factory, InstanceLifetime.Singleton);
         }
 
         /// <summary>
@@ -77,10 +74,7 @@ namespace KafkaFlow.Dependency
             Type serviceType,
             Type implementationType)
         {
-            return configurator.Add(
-                serviceType,
-                implementationType,
-                InstanceLifetime.Transient);
+            return configurator.Add(serviceType, implementationType, InstanceLifetime.Transient);
         }
 
         /// <summary>
@@ -106,10 +100,7 @@ namespace KafkaFlow.Dependency
             this IDependencyConfigurator configurator,
             Func<IDependencyResolver, TService> factory)
         {
-            return configurator.Add(
-                typeof(TService),
-                factory,
-                InstanceLifetime.Transient);
+            return configurator.Add(typeof(TService), factory, InstanceLifetime.Transient);
         }
     }
 }
