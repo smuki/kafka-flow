@@ -17,7 +17,10 @@
         {
             return this.serviceProvider.GetRequiredService(type);
         }
-
+        public T Resolve<T>(string name)
+        {
+            return this.serviceProvider.GetRequiredService<T>();
+        }
         public IDependencyResolverScope CreateScope()
         {
             return new MicrosoftDependencyResolverScope(this.serviceProvider.CreateScope());
