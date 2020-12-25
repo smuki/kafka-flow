@@ -37,7 +37,7 @@
                                     .AddMiddlewares(
                                         middlewares => middlewares
                                             .AddSerializer<ProtobufMessageSerializer>()
-                                            .AddCompressor<GzipMessageCompressor>()
+                                            //.AddCompressor<GzipMessageCompressor>()
                                     )
                                     .WithAcks(Acks.All)
                             )
@@ -51,7 +51,7 @@
                                     .WithAutoOffsetReset(AutoOffsetReset.Latest)
                                     .AddMiddlewares(
                                         middlewares => middlewares
-                                            .AddCompressor<GzipMessageCompressor>()
+                                            //.AddCompressor<GzipMessageCompressor>()
                                             .AddSerializer<ProtobufMessageSerializer>()
                                             .AddTypedHandlers(
                                                 handlers => handlers
