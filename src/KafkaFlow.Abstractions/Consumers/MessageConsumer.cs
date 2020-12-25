@@ -67,17 +67,14 @@ namespace KafkaFlow.Consumers
             }
             catch (Exception e)
             {
-                this.logHandler.Error(
-                    "Error overriding offsets",
-                    e,
-                    GetOffsetsLogData(offsets));
+                this.logHandler.Error("Error overriding offsets", e, GetOffsetsLogData(offsets));
                 throw;
             }
         }
 
-        private static object GetOffsetsLogData(IEnumerable<XXXTopicPartitionOffset> offsets) => offsets
-            .GroupBy(x => x.Topic)
-            .Select(
+        private static object GetOffsetsLogData(IEnumerable<XXXTopicPartitionOffset> offsets)
+        {
+            return offsets.GroupBy(x => x.Topic).Select(
                 x => new
                 {
                     x.First().Topic,
@@ -88,7 +85,7 @@ namespace KafkaFlow.Consumers
                             Offset = y.Offset
                         })
                 });
-
+        }
         public async Task ChangeWorkerCountAndRestartAsync(int workerCount)
         {
             this.configuration.WorkerCount = workerCount;
@@ -110,30 +107,65 @@ namespace KafkaFlow.Consumers
             await this.consumerClient.StartAsync().ConfigureAwait(false);
         }
 
-        public IReadOnlyList<string> Subscription => this.consumerClient.Subscription;
+        public IReadOnlyList<string> Subscription
+        {
+            get
+            {
+                return this.consumerClient.Subscription;
+            }
+        }
 
-        public IReadOnlyList<XXXTopicPartition> Assignment => this.consumerClient.Assignment;
+        public IReadOnlyList<XXXTopicPartition> Assignment
+        {
+            get
+            {
+               return this.consumerClient.Assignment;
+            }
+        }
 
-        public string MemberId => this.consumerClient.MemberId;
+        public string MemberId
+        {
+            get
+            {
+               return this.consumerClient.MemberId;
+            }
+        }
 
-        public string ClientInstanceName => this.consumerClient.Name;
+        public string ClientInstanceName
+        {
+            get
+            {
+                return this.consumerClient.Name;
+            }
+        }
 
-        public void Pause(IEnumerable<XXXTopicPartition> topicPartitions) =>
-            this.consumerClient.Pause(topicPartitions);
+        public void Pause(IEnumerable<XXXTopicPartition> topicPartitions)
+        {
+           this.consumerClient.Pause(topicPartitions);
+        }
 
-        public void Resume(IEnumerable<XXXTopicPartition> topicPartitions) =>
+        public void Resume(IEnumerable<XXXTopicPartition> topicPartitions)
+        {
+
             this.consumerClient.Resume(topicPartitions);
+        }
 
-        public long GetPosition(XXXTopicPartition topicPartition) =>
-            this.consumerClient.Position(topicPartition);
+        public long GetPosition(XXXTopicPartition topicPartition)
+        {
+            return this.consumerClient.Position(topicPartition);
+        }
+        public IOffsetsWatermark GetWatermarkOffsets(XXXTopicPartition topicPartition)
+        {
+            return this.consumerClient.GetWatermarkOffsets(topicPartition);
+        }
 
-        public IOffsetsWatermark GetWatermarkOffsets(XXXTopicPartition topicPartition) =>
-            this.consumerClient.GetWatermarkOffsets(topicPartition);
-
-        public IOffsetsWatermark QueryWatermarkOffsets(XXXTopicPartition topicPartition, TimeSpan timeout) =>
-            this.consumerClient.QueryWatermarkOffsets(topicPartition, timeout);
-
-        public List<XXXTopicPartitionOffset> OffsetsForTimes(IEnumerable<XXXTopicPartitionTimestamp> topicPartitions,TimeSpan timeout) =>
-            this.consumerClient.OffsetsForTimes(topicPartitions, timeout);
+        public IOffsetsWatermark QueryWatermarkOffsets(XXXTopicPartition topicPartition, TimeSpan timeout)
+        {
+            return this.consumerClient.QueryWatermarkOffsets(topicPartition, timeout);
+        }
+        public List<XXXTopicPartitionOffset> OffsetsForTimes(IEnumerable<XXXTopicPartitionTimestamp> topicPartitions, TimeSpan timeout)
+        {
+            return this.consumerClient.OffsetsForTimes(topicPartitions, timeout);
+        }
     }
 }
