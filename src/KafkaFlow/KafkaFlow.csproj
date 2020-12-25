@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\KafkaFlow.Abstractions\KafkaFlow.Abstractions.csproj" />
+    <ProjectReference Include="..\KafkaFlow.Microsoft.DependencyInjection\KafkaFlow.Microsoft.DependencyInjection.csproj" />
   </ItemGroup>
 
   <ItemGroup>

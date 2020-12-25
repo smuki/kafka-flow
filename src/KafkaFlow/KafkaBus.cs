@@ -5,10 +5,11 @@ namespace KafkaFlow
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using global::Microsoft.Extensions.Configuration;
     using KafkaFlow.Configuration;
     using KafkaFlow.Consumers;
     using KafkaFlow.Producers;
-    using Microsoft.Extensions.Configuration;
+    //using Microsoft.Extensions.Configuration;
 
     internal class KafkaBus : IKafkaBus
     {

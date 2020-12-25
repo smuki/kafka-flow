@@ -1,6 +1,6 @@
 namespace KafkaFlow.Configuration
 {
-    using Microsoft.Extensions.Configuration;
+    //using Microsoft.Extensions.Configuration;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -10,26 +10,26 @@ namespace KafkaFlow.Configuration
         private readonly Func<SecurityInformation> securityInformationHandler;
         private readonly List<ProducerSetting> producers = new List<ProducerSetting>();
         private readonly List<ConsumerSetting> consumers = new List<ConsumerSetting>();
-        private IConfiguration config;
+        //private IConfiguration config;
 
         public EventBusSetting(
-            IConfiguration config,
+            //IConfiguration config,
             Func<SecurityInformation> securityInformationHandler)
         {
             this.securityInformationHandler = securityInformationHandler;
-            this.config = config;
+            //this.config = config;
         }
-        public EventBusSetting Build(IConfigurationSection config)
-        {
+        //public EventBusSetting Build(IConfigurationSection config)
+        //{
 
-            IConfigurationSection producer = config.GetSection("producer");
-            IConfigurationSection consumer = config.GetSection("consumer");
+        //    IConfigurationSection producer = config.GetSection("producer");
+        //    IConfigurationSection consumer = config.GetSection("consumer");
 
-            this.Brokers = config["servers"];
-            this.Topic = config["topic"];
+        //    this.Brokers = config["servers"];
+        //    this.Topic = config["topic"];
 
-            return this;
-        }
+        //    return this;
+        //}
         public string Brokers { get; set; }
         public string Topic { get; set; }
 

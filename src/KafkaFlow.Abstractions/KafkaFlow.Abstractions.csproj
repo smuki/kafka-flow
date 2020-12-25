@@ -24,4 +24,12 @@
     <PackageReference Include="System.Threading.Channels" Version="4.7.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Dependency\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\KafkaFlow.Microsoft.DependencyInjection\KafkaFlow.Microsoft.DependencyInjection.csproj" />
+  </ItemGroup>
+
 </Project>

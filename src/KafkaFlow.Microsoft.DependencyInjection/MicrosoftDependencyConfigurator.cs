@@ -3,7 +3,7 @@ namespace KafkaFlow.Microsoft.DependencyInjection
     using System;
     using global::Microsoft.Extensions.DependencyInjection;
 
-    internal class MicrosoftDependencyConfigurator : IDependencyConfigurator
+    public class MicrosoftDependencyConfigurator : IDependencyConfigurator
     {
         private readonly IServiceCollection services;
 
