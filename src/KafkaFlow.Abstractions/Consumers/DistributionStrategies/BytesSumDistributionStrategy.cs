@@ -18,7 +18,7 @@ namespace KafkaFlow.Consumers.DistributionStrategies
         /// Initializes the distribution strategy
         /// </summary>
         /// <param name="workers"></param>
-        public void Init(IReadOnlyList<IWorker> workers)
+        public void Initialize(IReadOnlyList<IWorker> workers)
         {
             this.workers = workers;
         }
