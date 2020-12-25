@@ -46,13 +46,11 @@ namespace KafkaFlow.Producers
 
             XXXDeliveryResult report = null;
 
-            await this.middlewareExecutor.Execute(
-                    new ProducerMessageContext(message, messageKey, headers, topic),
+            await this.middlewareExecutor.Execute(new ProducerMessageContext(message, messageKey, headers, topic),
                     async context =>
                     {
                         report = await this.InternalProduceAsync((ProducerMessageContext)context).ConfigureAwait(false);
-                    })
-                .ConfigureAwait(false);
+                    }).ConfigureAwait(false);
 
             return report;
         }
@@ -150,8 +148,7 @@ namespace KafkaFlow.Producers
                         {
                             handler.Invoke(statistics);
                         }
-                    })
-                    .Build();
+                    }).Build();
             }
         }
 
