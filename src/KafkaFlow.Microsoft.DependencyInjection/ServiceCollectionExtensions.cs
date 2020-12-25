@@ -16,14 +16,9 @@ namespace KafkaFlow
         /// <param name="services">Instance of <see cref="IServiceCollection"/></param>
         /// <param name="kafka">A handler to configure KafkaFlow</param>
         /// <returns></returns>
-        public static IServiceCollection AddKafka(
-            this IServiceCollection services,
-            Action<IKafkaConfigurationBuilder> kafka)
+        public static IServiceCollection AddKafka(this IServiceCollection services, Action<IKafkaConfigurationBuilder> kafka)
         {
-            var configurator = new KafkaFlowConfigurator(
-                new MicrosoftDependencyConfigurator(services),
-                kafka);
-
+            var configurator = new KafkaFlowConfigurator(new MicrosoftDependencyConfigurator(services), kafka);
             return services.AddSingleton(configurator);
         }
     }
