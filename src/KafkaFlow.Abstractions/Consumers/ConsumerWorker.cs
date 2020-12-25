@@ -66,7 +66,6 @@ namespace KafkaFlow.Consumers
                             var context = new ConsumerMessageContext(
                                 new MessageContextConsumer(
                                     this.consumerClient,
-                                    this.configuration.ConsumerName,
                                     this.offsetManager,
                                     message,
                                     this.stopCancellationTokenSource.Token),
