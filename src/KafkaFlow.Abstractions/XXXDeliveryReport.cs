@@ -11,9 +11,6 @@ namespace KafkaFlow
         {
         }
         public XXXError Error { get; set; }
-        //
-        // 摘要:
-        //     The TopicPartitionOffsetError associated with the message.
         public XXXTopicPartitionOffset TopicPartitionOffset { get; set; }
     }
 }
