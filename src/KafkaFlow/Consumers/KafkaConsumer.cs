@@ -127,18 +127,14 @@
         }
         private void OnPartitionRevoked(IReadOnlyCollection<TopicPartitionOffset> topicPartitions)
         {
-            this.logHandler.Warning(
-                "Partitions revoked",
-                this.GetConsumerLogInfo(topicPartitions.Select(x => x.TopicPartition)));
+            this.logHandler.Warning("Partitions revoked", this.GetConsumerLogInfo(topicPartitions.Select(x => x.TopicPartition)));
 
             this.consumerWorkerPool.StopAsync().GetAwaiter().GetResult();
         }
 
         private void OnPartitionAssigned(IConsumer<byte[], byte[]> consumer, IReadOnlyCollection<TopicPartition> partitions)
         {
-            this.logHandler.Info(
-                "Partitions assigned",
-                this.GetConsumerLogInfo(partitions));
+            this.logHandler.Info("Partitions assigned", this.GetConsumerLogInfo(partitions));
 
             this.consumerWorkerPool
                 .StartAsync(
@@ -166,8 +162,7 @@
 
         public Task StartAsync()
         {
-            this.stopCancellationTokenSource =
-                CancellationTokenSource.CreateLinkedTokenSource(this.busStopCancellationToken);
+            this.stopCancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(this.busStopCancellationToken);
 
             this.CreateBackgroundTask();
 
@@ -190,12 +185,7 @@
         private void CreateBackgroundTask()
         {
             consumer = this.consumerBuilder.Build();
-            this.consumerManager.AddOrUpdate(
-                new MessageConsumer(
-                    this,
-                    this.consumerWorkerPool,
-                    this.configuration,
-                    this.logHandler));
+            this.consumerManager.AddOrUpdate(new MessageConsumer(this, this.consumerWorkerPool, this.configuration, this.logHandler));
 
             consumer.Subscribe(this.configuration.Topics);
 
@@ -231,10 +221,7 @@
                             }
                             catch (KafkaException ex) when (ex.Error.IsFatal)
                             {
-                                this.logHandler.Error(
-                                    "Kafka fatal error occurred. Trying to restart in 5 seconds",
-                                    ex,
-                                    null);
+                                this.logHandler.Error("Kafka fatal error occurred. Trying to restart in 5 seconds", ex, null);
 
                                 await this.consumerWorkerPool.StopAsync().ConfigureAwait(false);
                                 _ = Task
@@ -245,9 +232,7 @@
                             }
                             catch (Exception ex)
                             {
-                                this.logHandler.Warning(
-                                    "Error consuming message from Kafka",
-                                    ex);
+                                this.logHandler.Warning("Error consuming message from Kafka", ex);
                             }
                         }
 
