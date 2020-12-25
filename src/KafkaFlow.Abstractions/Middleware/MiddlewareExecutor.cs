@@ -28,8 +28,7 @@ namespace KafkaFlow.Middleware
                 return nextOperation(context);
             }
 
-            return this.middlewares[index]
-                .Invoke(context, nextContext => this.ExecuteDefinition(index + 1, nextContext.Clone(), nextOperation));
+            return this.middlewares[index].Invoke(context, nextContext => this.ExecuteDefinition(index + 1, nextContext.Clone(), nextOperation));
         }
     }
 }
