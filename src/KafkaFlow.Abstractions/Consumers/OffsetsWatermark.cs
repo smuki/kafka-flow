@@ -7,7 +7,6 @@ namespace KafkaFlow.Consumers
     {
         private readonly long _High;
         private readonly long _Low;
-        //private readonly WatermarkOffsets watermark;
 
         public OffsetsWatermark(long high ,long low)
         {
@@ -15,9 +14,21 @@ namespace KafkaFlow.Consumers
             _Low = low;
         }
 
-        public long High => _High;
+        public long High
+        {
+            get
+            {
+                return _High;
+            }
+        }
 
-        public long Low => _Low;
+        public long Low
+        {
+            get
+            {
+                return _Low;
+            }
+        }
 
         public bool Equals(OffsetsWatermark other)
         {
@@ -28,10 +39,5 @@ namespace KafkaFlow.Consumers
         {
             return obj is OffsetsWatermark other && this.Equals(other);
         }
-
-        //public override int GetHashCode()
-        //{
-        //    return this.watermark != null ? this.watermark.GetHashCode() : 0;
-        //}
     }
 }
