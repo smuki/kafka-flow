@@ -39,35 +39,33 @@ namespace KafkaFlow
         public IConsumerAccessor Consumers => this.consumerManager;
 
         public IProducerAccessor Producers { get; }
-       
+
         public async Task Initialize(CancellationToken stopCancellationToken = default)
         {
             //foreach (var vvv in config.GetSection("eventbus").GetChildren())
             //{
 
-                var dependencyScope = this.dependencyResolver.CreateScope();
-                ConsumerSetting vconsumerConfiguration = new ConsumerSetting();
+            var dependencyScope = this.dependencyResolver.CreateScope();
+            ConsumerSetting vconsumerConfiguration = new ConsumerSetting();
 
-                //var consumerWorkerPool = new ConsumerWorkerPool(
-                //    dependencyScope.Resolver,
-                //    vconsumerConfiguration,
-                //    this.logHandler
-                //    );
-                //var consumer = dependencyScope.Resolver.Resolve<IConsumerClient>("Kafka");
-                //consumer.Initialize(vconsumerConfiguration);
+            var consumerWorkerPool = dependencyResolver.Resolve<IConsumerWorkerPool>();
+            consumerWorkerPool.Initialize(vconsumerConfiguration);
 
-                //var consumer = new KafkaConsumer(
-                //     vconsumerConfiguration,
-                //     this.consumerManager,
-                //     this.logHandler,
-                //     consumerWorkerPool,
-                //     stopCancellationToken);
+            var consumer = dependencyScope.Resolver.Resolve<IConsumerClient>("Kafka");
+            consumer.Initialize(vconsumerConfiguration);
 
-                //this.consumers.Add(consumer);
+            //var consumer = new KafkaConsumer(
+            //     vconsumerConfiguration,
+            //     this.consumerManager,
+            //     this.logHandler,
+            //     consumerWorkerPool,
+            //     stopCancellationToken);
 
-                //await consumer.StartAsync().ConfigureAwait(false);
+            //this.consumers.Add(consumer);
 
-                // Console.WriteLine("Key = " + v.Key);
+            //await consumer.StartAsync().ConfigureAwait(false);
+
+            // Console.WriteLine("Key = " + v.Key);
             //}
             await Task.CompletedTask;
         }
