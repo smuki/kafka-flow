@@ -1,7 +1,6 @@
 namespace KafkaFlow.Consumers
 {
     using System;
-    //using Confluent.Kafka;
 
     public readonly struct OffsetsWatermark : IOffsetsWatermark, IEquatable<OffsetsWatermark>
     {
