@@ -31,14 +31,7 @@ namespace KafkaFlow.Configuration
         {
             get
             {
-                if (_dict.ContainsKey(name))
-                {
-                    return null;
-                }
-                else
-                {
-                    return _dict[name];
-                }
+                return this._dict.TryGetValue(name, out var o) ? o : null;
             }
         }
         public void SetParameter(string name, string value)
