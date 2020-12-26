@@ -15,10 +15,15 @@ namespace KafkaFlow.Consumers
     public interface IConsumerClient : IDisposable
     {
         void Initialize(ConsumerSetting eventConsumer);
+
         void Commit(IEnumerable<XXXTopicPartitionOffset> offsets);
+
         void Pause(IEnumerable<XXXTopicPartition> offsets);
+
         void Resume(IEnumerable<XXXTopicPartition> offsets);
+
         List<XXXTopicPartition> Assignment { get; }
+
         string Name { get; }
         string MemberId { get; }
         string ConsumerName { get; }
