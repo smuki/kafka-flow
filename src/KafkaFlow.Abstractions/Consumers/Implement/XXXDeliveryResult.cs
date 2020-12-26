@@ -28,8 +28,13 @@ namespace KafkaFlow.Consumers
         ///     The TopicPartition associated with the message.
         /// </summary>
         public XXXTopicPartition TopicPartition
-            => new XXXTopicPartition(Topic, Partition);
+        {
 
+            get
+            {
+                return new XXXTopicPartition(Topic, Partition);
+            }
+        }
         /// <summary>
         ///     The TopicPartitionOffset associated with the message.
         /// </summary>
