@@ -10,31 +10,50 @@
 
     public class KafkaConsumer: IConsumerClient
     {
-        private readonly ConsumerConfiguration configuration;
+        private ConsumerSetting configuration;
         private readonly IConsumerManager consumerManager;
         private readonly ILogHandler logHandler;
-        private readonly IConsumerWorkerPool workerPool;
+        private IConsumerWorkerPool workerPool;
         private readonly CancellationToken busStopCancellationToken;
 
-        private readonly ConsumerBuilder<byte[], byte[]> consumerBuilder;
+        private ConsumerBuilder<byte[], byte[]> consumerBuilder;
 
         private CancellationTokenSource stopCancellationTokenSource;
         private Task backgroundTask;
         private IConsumer<byte[], byte[]> consumer;
         public KafkaConsumer(
-            ConsumerConfiguration configuration,
             IConsumerManager consumerManager,
             ILogHandler logHandler,
-            IConsumerWorkerPool consumerWorkerPool,
             CancellationToken busStopCancellationToken)
         {
-            this.configuration = configuration;
             this.consumerManager = consumerManager;
             this.logHandler = logHandler;
-            this.workerPool = consumerWorkerPool;
             this.busStopCancellationToken = busStopCancellationToken;
 
-            var kafkaConfig = configuration.GetKafkaConfig();
+
+        }
+        public List<XXXTopicPartition> Assignment { get { return Util.TopicPartition(this.consumer.Assignment).ToList(); } }
+        public string Name { get { return this.consumer.Name; } }
+        public string ConsumerName {
+            get {
+                if (this.Parameter==null)
+                {
+                    return this.GetType().FullName;
+                }
+                else
+                {
+                    return this.Parameter.ConsumerName;
+                }
+            } 
+        }
+        public ConsumerSetting Parameter { get { return null; } }
+        public string MemberId { get { return this.consumer.MemberId; } }
+        public IReadOnlyList<string> Subscription { get { return this.consumer.Subscription; } }
+        public void Initialize(IConsumerWorkerPool consumerWorkerPool, ConsumerSetting eventConsumer)
+        {
+            this.workerPool = consumerWorkerPool;
+            this.configuration = eventConsumer;
+            //var kafkaConfig = configuration.GetKafkaConfig();
 
             this.consumerBuilder = new ConsumerBuilder<byte[], byte[]>(kafkaConfig);
 
@@ -54,32 +73,11 @@
                 })
                 .SetStatisticsHandler((consumer, statistics) =>
                 {
-                    foreach (var handler in configuration.StatisticsHandlers)
-                    {
-                        handler.Invoke(statistics);
-                    }
+                   // foreach (var handler in configuration.StatisticsHandlers)
+                   // {
+                   //     handler.Invoke(statistics);
+                   // }
                 });
-        }
-        public List<XXXTopicPartition> Assignment { get { return Util.TopicPartition(this.consumer.Assignment).ToList(); } }
-        public string Name { get { return this.consumer.Name; } }
-        public string ConsumerName {
-            get {
-                if (this.Parameter==null)
-                {
-                    return this.GetType().FullName;
-                }
-                else
-                {
-                    return this.Parameter.ConsumerName;
-                }
-            } 
-        }
-        public ConsumerSetting Parameter { get { return null; } }
-        public string MemberId { get { return this.consumer.MemberId; } }
-        public IReadOnlyList<string> Subscription { get { return this.consumer.Subscription; } }
-        public void Initialize(ConsumerSetting eventConsumer)
-        {
-
         }
         public long Position(XXXTopicPartition offsets)
         {
