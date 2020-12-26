@@ -11,10 +11,10 @@ namespace KafkaFlow.Consumers
     public class ConsumerWorkerPool : IConsumerWorkerPool
     {
         private readonly IDependencyResolver dependencyResolver;
-        private readonly ConsumerSetting configuration;
         private readonly ILogHandler logHandler;
-        private readonly IMiddlewareExecutor middlewareExecutor;
-        private readonly Factory<IDistributionStrategy> distributionStrategyFactory;
+        private ConsumerSetting configuration;
+        private IMiddlewareExecutor middlewareExecutor;
+        private Factory<IDistributionStrategy> distributionStrategyFactory;
 
         private List<IConsumerWorker> workers = new List<IConsumerWorker>();
 
@@ -23,13 +23,15 @@ namespace KafkaFlow.Consumers
 
         public ConsumerWorkerPool(
             IDependencyResolver dependencyResolver,
-            ConsumerSetting configuration,
             ILogHandler logHandler)
         {
             this.dependencyResolver = dependencyResolver;
-            this.configuration = configuration;
             this.logHandler = logHandler;
+        }
 
+        public void Initialize(ConsumerSetting eventConsumer)
+        {
+            this.configuration = eventConsumer;
             var middlewares = configuration.MiddlewareConfiguration.Factories
                 .Select(factory => factory(dependencyResolver))
                 .ToList();
@@ -93,5 +95,6 @@ namespace KafkaFlow.Consumers
 
             await worker.EnqueueAsync(message, stopCancellationToken).ConfigureAwait(false);
         }
+
     }
 }
