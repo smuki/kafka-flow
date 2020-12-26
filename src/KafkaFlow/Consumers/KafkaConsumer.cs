@@ -49,12 +49,12 @@
         public ConsumerSetting Parameter { get { return null; } }
         public string MemberId { get { return this.consumer.MemberId; } }
         public IReadOnlyList<string> Subscription { get { return this.consumer.Subscription; } }
-        public void Initialize(IConsumerWorkerPool consumerWorkerPool, ConsumerSetting eventConsumer)
+        public void Initialize(IConsumerWorkerPool consumerWorkerPool, ConsumerSetting eventConsumer, CancellationToken busStopCancellationToken)
         {
             this.workerPool = consumerWorkerPool;
             this.configuration = eventConsumer;
             //var kafkaConfig = configuration.GetKafkaConfig();
-
+            var kafkaConfig=null;
             this.consumerBuilder = new ConsumerBuilder<byte[], byte[]>(kafkaConfig);
 
             this.consumerBuilder
@@ -177,7 +177,7 @@
             consumer = this.consumerBuilder.Build();
             this.consumerManager.AddOrUpdate(new MessageConsumer(this, this.workerPool, this.configuration, this.logHandler));
 
-            consumer.Subscribe(this.configuration.Topics);
+            consumer.Subscribe(this.configuration["Topics"]);
 
             this.backgroundTask = Task.Factory.StartNew(
                 async () =>
