@@ -27,20 +27,23 @@ namespace KafkaFlow.Configuration
 
             return this;
         }
+        public string this[string name]
+        {
+            get
+            {
+                if (_dict.ContainsKey(name))
+                {
+                    return null;
+                }
+                else
+                {
+                    return _dict[name];
+                }
+            }
+        }
         public void SetParameter(string name, string value)
         {
             _dict[name] = value;
-        }
-        public string GetParameter(string name)
-        {
-            if (_dict.ContainsKey(name))
-            {
-                return null;
-            }
-            else
-            {
-                return _dict[name];
-            }
         }
         public Dictionary<string, string> GetParameters()
         {
