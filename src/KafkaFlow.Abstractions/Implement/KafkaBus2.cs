@@ -61,11 +61,8 @@ namespace KafkaFlow
             //   //     this.logHandler,
             //   //     consumerWorkerPool,
             //   //     stopCancellationToken);
-
             //    //this.consumers.Add(consumer);
-
             //    //await consumer.StartAsync().ConfigureAwait(false);
-
             //    // Console.WriteLine("Key = " + v.Key);
             //}
             await Task.CompletedTask;
