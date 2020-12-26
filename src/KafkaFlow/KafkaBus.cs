@@ -17,7 +17,7 @@ namespace KafkaFlow
         private readonly KafkaConfiguration configuration;
         private readonly IConsumerManager consumerManager;
         private readonly ILogHandler logHandler;
-        private readonly IList<KafkaConsumer> consumers = new List<KafkaConsumer>();
+        private readonly IList<IConsumerClient> consumers = new List<IConsumerClient>();
         private readonly IConfiguration config;
 
         public KafkaBus(
@@ -52,7 +52,7 @@ namespace KafkaFlow
             consumerWorkerPool.Initialize(vconsumerConfiguration);
 
             var consumer = dependencyScope.Resolver.Resolve<IConsumerClient>("Kafka");
-            consumer.Initialize(vconsumerConfiguration);
+            consumer.Initialize(consumerWorkerPool,vconsumerConfiguration, stopCancellationToken);
 
             //var consumer = new KafkaConsumer(
             //     vconsumerConfiguration,
@@ -61,9 +61,9 @@ namespace KafkaFlow
             //     consumerWorkerPool,
             //     stopCancellationToken);
 
-            //this.consumers.Add(consumer);
+            this.consumers.Add(consumer);
 
-            //await consumer.StartAsync().ConfigureAwait(false);
+            await consumer.StartAsync().ConfigureAwait(false);
 
             // Console.WriteLine("Key = " + v.Key);
             //}
@@ -77,18 +77,18 @@ namespace KafkaFlow
             {
                 var dependencyScope = this.dependencyResolver.CreateScope();
 
-                var consumerWorkerPool = new ConsumerWorkerPool(dependencyScope.Resolver, consumerConfiguration, this.logHandler);
+                //var consumerWorkerPool = new ConsumerWorkerPool(dependencyScope.Resolver, consumerConfiguration, this.logHandler);
 
-                var consumer = new KafkaConsumer(
-                    consumerConfiguration,
-                    this.consumerManager,
-                    this.logHandler,
-                    consumerWorkerPool,
-                    stopCancellationToken);
+                //var consumer = new KafkaConsumer(
+                //    consumerConfiguration,
+                //    this.consumerManager,
+                //    this.logHandler,
+                //    consumerWorkerPool,
+                //    stopCancellationToken);
 
-                this.consumers.Add(consumer);
+                //this.consumers.Add(consumer);
 
-                await consumer.StartAsync().ConfigureAwait(false);
+                //await consumer.StartAsync().ConfigureAwait(false);
             }
         }
 
