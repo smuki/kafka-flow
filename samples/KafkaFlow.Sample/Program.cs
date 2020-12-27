@@ -1,6 +1,10 @@
 ﻿namespace KafkaFlow.Sample
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using System.Text;
     using System.Threading.Tasks;
     using global::Microsoft.Extensions.DependencyInjection;
     using KafkaFlow.Admin;
@@ -12,6 +16,8 @@
     using KafkaFlow.Serializer;
     using KafkaFlow.Serializer.ProtoBuf;
     using KafkaFlow.TypedHandler;
+    using Volte.Data.VolteDi;
+    using Volte.Utils;
 
     internal static class Program
     {
@@ -61,6 +67,38 @@
                             )
                     )
             );
+
+            VolteDiOptions _opt = new VolteDiOptions();
+
+            IList<Assembly> _Assembly = AssemblyLoader.LoadAssembly(_opt).ToList();
+            StringBuilder UseAssembly = new StringBuilder();
+            UseAssembly.AppendLine("\nUse Assembly:");
+            foreach (var v in _Assembly)
+            {
+                if (string.IsNullOrEmpty(v.Location))
+                {
+                    UseAssembly.AppendLine("  Assembly ---- " + v.GetAssemblyName());
+                }
+                else
+                {
+                    UseAssembly.AppendLine("  Assembly File " + v.Location);
+                }
+            }
+            NLogger.Debug(UseAssembly);
+            StringBuilder ScanClass = new StringBuilder();
+            ScanClass.AppendLine();
+            services.Scan(scan =>
+                    scan.FromAssemblies(_Assembly)
+                    .AddClasses(classes =>
+                        classes.Where(t => {
+                            return t.HasAutowired();
+                            //ScanClass.AppendLine(t.Name);
+                            //return true;
+                        })
+                        )
+                    .AsSelf()
+                    .AsImplementedInterfaces()
+                    .WithTransientLifetime());
 
             var provider = services.BuildServiceProvider();
 

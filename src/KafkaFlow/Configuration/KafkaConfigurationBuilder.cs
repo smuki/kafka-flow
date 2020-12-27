@@ -37,7 +37,10 @@ namespace KafkaFlow.Configuration
 
             this.dependencyConfigurator
                 .AddTransient(typeof(ILogHandler), this.logHandler)
+                //.AddTransient(typeof(IConsumerClient), KafkaConsumer)
+                .AddSingleton<IConsumerWorkerPool, ConsumerWorkerPool>()
                 .AddSingleton<IConsumerAccessor>(consumerManager)
+
                 .AddSingleton<IConsumerManager>(consumerManager);
 
             return configuration;

@@ -6,8 +6,10 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Confluent.Kafka;
+    using DotNetCore.CAP.VolteDi;
     using KafkaFlow.Configuration;
 
+    [Autowired]
     public class KafkaConsumer: IConsumerClient
     {
         private ConsumerSetting configuration;
@@ -54,7 +56,7 @@
             this.workerPool = consumerWorkerPool;
             this.configuration = eventConsumer;
             //var kafkaConfig = configuration.GetKafkaConfig();
-            var kafkaConfig=null;
+            var kafkaConfig= new Dictionary<string, string>();
             this.consumerBuilder = new ConsumerBuilder<byte[], byte[]>(kafkaConfig);
 
             this.consumerBuilder

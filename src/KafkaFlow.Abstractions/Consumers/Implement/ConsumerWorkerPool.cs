@@ -32,11 +32,11 @@ namespace KafkaFlow.Consumers
         public void Initialize(ConsumerSetting eventConsumer)
         {
             this.configuration = eventConsumer;
-            var middlewares = configuration.MiddlewareConfiguration.Factories
-                .Select(factory => factory(dependencyResolver))
-                .ToList();
+            //var middlewares = configuration.MiddlewareConfiguration.Factories
+            //    .Select(factory => factory(dependencyResolver))
+            //    .ToList();
 
-            this.middlewareExecutor = new MiddlewareExecutor(middlewares);
+            //this.middlewareExecutor = new MiddlewareExecutor(middlewares);
             this.distributionStrategyFactory = configuration.DistributionStrategyFactory;
         }
 

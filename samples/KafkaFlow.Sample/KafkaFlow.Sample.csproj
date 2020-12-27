@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\..\Proj\ZeroBus\src\CAP\src\Volte.Data.VolteDi\Volte.Data.VolteDi.csproj" />
       <ProjectReference Include="..\..\src\KafkaFlow.Admin\KafkaFlow.Admin.csproj" />
       <ProjectReference Include="..\..\src\KafkaFlow.Compressor.Gzip\KafkaFlow.Compressor.Gzip.csproj" />
       <ProjectReference Include="..\..\src\KafkaFlow.Compressor\KafkaFlow.Compressor.csproj" />

@@ -18,8 +18,9 @@ namespace KafkaFlow.Configuration
         public Factory<IDistributionStrategy> DistributionStrategyFactory { get; set; }
 
         public MiddlewareConfiguration MiddlewareConfiguration { get; set; }
-        public ConsumerSetting Build(IConfigurationSection config)
+        public ConsumerSetting Build(IDependencyResolver dependencyResolver,IConfigurationSection config)
         {
+            //this.MiddlewareConfiguration = new ConsumerMiddlewareConfigurationBuilder(dependencyResolver);
 
             IConfigurationSection consumer = config.GetSection("consumer");
 
