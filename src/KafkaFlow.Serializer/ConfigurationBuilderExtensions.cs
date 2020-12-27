@@ -21,10 +21,7 @@
             middlewares.DependencyConfigurator.AddTransient<TResolver>();
             middlewares.DependencyConfigurator.AddTransient<TSerializer>();
 
-            return middlewares.Add(
-                resolver => new SerializerConsumerMiddleware(
-                    resolver.Resolve<TSerializer>(),
-                    resolver.Resolve<TResolver>()));
+            return middlewares.Add(resolver => new SerializerConsumerMiddleware(resolver.Resolve<TSerializer>(), resolver.Resolve<TResolver>()));
         }
 
         /// <summary>
@@ -42,10 +39,7 @@
             where TSerializer : class, IMessageSerializer
             where TResolver : class, IMessageTypeResolver
         {
-            return middlewares.Add(
-                resolver => new SerializerConsumerMiddleware(
-                    serializerFactory(resolver),
-                    resolverFactory(resolver)));
+            return middlewares.Add(resolver => new SerializerConsumerMiddleware(serializerFactory(resolver), resolverFactory(resolver)));
         }
 
         /// <summary>
@@ -58,9 +52,7 @@
         {
             middlewares.DependencyConfigurator.AddTransient<TSerializer>();
 
-            return middlewares.AddSerializer(
-                resolver => resolver.Resolve<TSerializer>(),
-                resolver => new DefaultMessageTypeResolver());
+            return middlewares.AddSerializer(resolver => resolver.Resolve<TSerializer>(), resolver => new DefaultMessageTypeResolver());
         }
 
         /// <summary>
@@ -74,9 +66,7 @@
             Factory<TSerializer> serializerFactory)
             where TSerializer : class, IMessageSerializer
         {
-            return middlewares.AddSerializer(
-                serializerFactory,
-                resolver => new DefaultMessageTypeResolver());
+            return middlewares.AddSerializer(serializerFactory, resolver => new DefaultMessageTypeResolver());
         }
 
         /// <summary>
@@ -92,10 +82,7 @@
             middlewares.DependencyConfigurator.AddTransient<TResolver>();
             middlewares.DependencyConfigurator.AddTransient<TSerializer>();
 
-            return middlewares.Add(
-                resolver => new SerializerProducerMiddleware(
-                    resolver.Resolve<TSerializer>(),
-                    resolver.Resolve<TResolver>()));
+            return middlewares.Add(resolver => new SerializerProducerMiddleware(resolver.Resolve<TSerializer>(), resolver.Resolve<TResolver>()));
         }
 
         /// <summary>
@@ -113,10 +100,7 @@
             where TSerializer : class, IMessageSerializer
             where TResolver : class, IMessageTypeResolver
         {
-            return middlewares.Add(
-                resolver => new SerializerProducerMiddleware(
-                    serializerFactory(resolver),
-                    resolverFactory(resolver)));
+            return middlewares.Add(resolver => new SerializerProducerMiddleware(serializerFactory(resolver), resolverFactory(resolver)));
         }
 
         /// <summary>
@@ -129,10 +113,7 @@
         {
             middlewares.DependencyConfigurator.AddTransient<TSerializer>();
 
-            return middlewares.Add(
-                resolver => new SerializerProducerMiddleware(
-                    resolver.Resolve<TSerializer>(),
-                    new DefaultMessageTypeResolver()));
+            return middlewares.Add(resolver => new SerializerProducerMiddleware(resolver.Resolve<TSerializer>(), new DefaultMessageTypeResolver()));
         }
 
         /// <summary>
@@ -146,9 +127,7 @@
             Factory<TSerializer> serializerFactory)
             where TSerializer : class, IMessageSerializer
         {
-            return middlewares.AddSerializer(
-                serializerFactory,
-                resolver => new DefaultMessageTypeResolver());
+            return middlewares.AddSerializer(serializerFactory, resolver => new DefaultMessageTypeResolver());
         }
 
         /// <summary>
@@ -164,9 +143,7 @@
             Factory<TSerializer> serializerFactory)
             where TSerializer : class, IMessageSerializer
         {
-            return middlewares.AddSerializer(
-                serializerFactory,
-                resolver => new SingleMessageTypeResolver<TMessage>());
+            return middlewares.AddSerializer(serializerFactory, resolver => new SingleMessageTypeResolver<TMessage>());
         }
 
         /// <summary>
@@ -196,9 +173,7 @@
             Factory<TSerializer> serializerFactory)
             where TSerializer : class, IMessageSerializer
         {
-            return middlewares.AddSerializer(
-                serializerFactory,
-                resolver => new SingleMessageTypeResolver<TMessage>());
+            return middlewares.AddSerializer(serializerFactory, resolver => new SingleMessageTypeResolver<TMessage>());
         }
 
         /// <summary>
