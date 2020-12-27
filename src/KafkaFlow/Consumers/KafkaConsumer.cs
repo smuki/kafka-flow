@@ -25,14 +25,11 @@
         private IConsumer<byte[], byte[]> consumer;
         public KafkaConsumer(
             IConsumerManager consumerManager,
-            ILogHandler logHandler,
-            CancellationToken busStopCancellationToken)
+            ILogHandler logHandler)
         {
             this.consumerManager = consumerManager;
             this.logHandler = logHandler;
-            this.busStopCancellationToken = busStopCancellationToken;
-
-
+            //this.busStopCancellationToken = busStopCancellationToken;
         }
         public List<XXXTopicPartition> Assignment { get { return Util.TopicPartition(this.consumer.Assignment).ToList(); } }
         public string Name { get { return this.consumer.Name; } }
@@ -57,6 +54,7 @@
             this.configuration = eventConsumer;
             //var kafkaConfig = configuration.GetKafkaConfig();
             var kafkaConfig= new Dictionary<string, string>();
+            kafkaConfig["group.id"] = "12345";
             this.consumerBuilder = new ConsumerBuilder<byte[], byte[]>(kafkaConfig);
 
             this.consumerBuilder
