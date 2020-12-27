@@ -9,10 +9,6 @@
         static long total = 0;
         public Task Handle(IMessageContext context, TestMessage message)
         {
-            foreach(var xx in context.Headers)
-            {
-             //   Console.WriteLine(xx);
-            }
             if (total % 30 == 0)
             {
                 Console.WriteLine("\n#Total = " + total);
