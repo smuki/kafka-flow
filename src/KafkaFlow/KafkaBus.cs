@@ -33,7 +33,7 @@ namespace KafkaFlow
             this.consumerManager = consumerManager;
             this.logHandler = logHandler;
             this.Producers = accessor;
-            this.config = config;
+            //this.config = config;
         }
 
         public IConsumerAccessor Consumers => this.consumerManager;
@@ -48,6 +48,7 @@ namespace KafkaFlow
                 var dependencyScope = this.dependencyResolver.CreateScope();
 
                 ConsumerSetting vconsumerConfiguration = new ConsumerSetting();
+                vconsumerConfiguration.ConsumerName = "asdfasdfasdf";
                 //vconsumerConfiguration.Build(vvv);
                 var consumerWorkerPool = dependencyResolver.Resolve<IConsumerWorkerPool>();
                 consumerWorkerPool.Initialize(vconsumerConfiguration);
