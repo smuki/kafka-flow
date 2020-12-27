@@ -54,8 +54,19 @@
             this.configuration = eventConsumer;
             //var kafkaConfig = configuration.GetKafkaConfig();
             var kafkaConfig= new Dictionary<string, string>();
-            kafkaConfig["group.id"] = "12345";
-            this.consumerBuilder = new ConsumerBuilder<byte[], byte[]>(kafkaConfig);
+            //kafkaConfig["group.id"] = "12345";
+
+            ConsumerConfig consumerConfig = new ConsumerConfig();
+            consumerConfig.BootstrapServers ??= "192.168.8.4:9092";
+            consumerConfig.GroupId ??= "print-console-handler";
+            consumerConfig.AutoOffsetReset ??= AutoOffsetReset.Latest;
+            consumerConfig.MaxPollIntervalMs ??= 10000;
+            consumerConfig.StatisticsIntervalMs ??= 10000;
+
+            consumerConfig.EnableAutoOffsetStore = false;
+            consumerConfig.EnableAutoCommit = false;
+
+            this.consumerBuilder = new ConsumerBuilder<byte[], byte[]>(consumerConfig);
 
             this.consumerBuilder
                 .SetPartitionsAssignedHandler((consumer, partitions) => this.OnPartitionAssigned(consumer, partitions))
@@ -176,8 +187,9 @@
         {
             consumer = this.consumerBuilder.Build();
             this.consumerManager.AddOrUpdate(new MessageConsumer(this, this.workerPool, this.configuration, this.logHandler));
-
-            consumer.Subscribe(this.configuration["Topics"]);
+            Console.WriteLine(this.configuration["Topics"]);
+            //this.configuration["Topics"] = ;
+            consumer.Subscribe("test-topic");
 
             this.backgroundTask = Task.Factory.StartNew(
                 async () =>
