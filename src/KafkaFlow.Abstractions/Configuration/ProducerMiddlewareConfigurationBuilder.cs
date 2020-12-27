@@ -3,13 +3,11 @@ namespace KafkaFlow.Configuration
     using System.Collections.Generic;
     using KafkaFlow.Dependency;
 
-    public class ProducerMiddlewareConfigurationBuilder
-        : IProducerMiddlewareConfigurationBuilder
+    public class ProducerMiddlewareConfigurationBuilder : IProducerMiddlewareConfigurationBuilder
     {
         public IDependencyConfigurator DependencyConfigurator { get; }
 
-        private readonly List<Factory<IMessageMiddleware>> middlewaresFactories =
-            new List<Factory<IMessageMiddleware>>();
+        private readonly List<Factory<IMessageMiddleware>> middlewaresFactories = new List<Factory<IMessageMiddleware>>();
 
         public ProducerMiddlewareConfigurationBuilder(IDependencyConfigurator dependencyConfigurator)
         {
@@ -28,7 +26,6 @@ namespace KafkaFlow.Configuration
             this.middlewaresFactories.Add(resolver => resolver.Resolve<T>());
             return this;
         }
-
         public MiddlewareConfiguration Build() => new MiddlewareConfiguration(this.middlewaresFactories);
     }
 }
