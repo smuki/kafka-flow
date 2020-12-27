@@ -32,10 +32,8 @@ namespace KafkaFlow.Serializer
             {
                 return;
             }
-            
-            context.Headers.SetString(
-                MessageType,
-                $"{context.Message.GetType().FullName}, {context.Message.GetType().Assembly.GetName().Name}");
+
+            context.Headers.SetString(MessageType, $"{context.Message.GetType().FullName}, {context.Message.GetType().Assembly.GetName().Name}");
         }
     }
 }
