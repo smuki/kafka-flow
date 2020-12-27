@@ -8,6 +8,7 @@ namespace KafkaFlow.Configuration
     using KafkaFlow.Dependency;
     using KafkaFlow.Middleware;
     using KafkaFlow.Serializer;
+    using KafkaFlow.Serializer.Json;
 
     public class KafkaConfigurationBuilder : IKafkaConfigurationBuilder
     {
@@ -36,13 +37,15 @@ namespace KafkaFlow.Configuration
                                 producer))));
 
             var consumerManager = new ConsumerManager();
-
+            var DefaultMessageTypeResolver = new DefaultMessageTypeResolver();
             this.dependencyConfigurator
                 .AddTransient(typeof(ILogHandler), this.logHandler)
                 .AddSingleton<IMiddlewareExecutor, MiddlewareExecutor>()
                 .AddSingleton<IConsumerWorkerPool, ConsumerWorkerPool>()
+                .AddSingleton<IMessageTypeResolver, DefaultMessageTypeResolver>()
                 .AddSingleton<IMessageMiddleware, SerializerProducerMiddleware>()
-                .AddSingleton<IConsumerAccessor>(consumerManager)
+                .AddSingleton<IMessageSerializer, JsonMessageSerializer>()
+               .AddSingleton<IConsumerAccessor>(consumerManager)
                 .AddSingleton<IConsumerAccessor>(consumerManager)
                .AddSingleton<IConsumerManager>(consumerManager);
 
