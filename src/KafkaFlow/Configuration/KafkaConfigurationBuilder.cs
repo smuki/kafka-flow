@@ -6,6 +6,8 @@ namespace KafkaFlow.Configuration
     using KafkaFlow.Consumers;
     using KafkaFlow.Producers;
     using KafkaFlow.Dependency;
+    using KafkaFlow.Middleware;
+    using KafkaFlow.Serializer;
 
     public class KafkaConfigurationBuilder : IKafkaConfigurationBuilder
     {
@@ -37,11 +39,12 @@ namespace KafkaFlow.Configuration
 
             this.dependencyConfigurator
                 .AddTransient(typeof(ILogHandler), this.logHandler)
-                //.AddTransient(typeof(IConsumerClient), KafkaConsumer)
+                .AddSingleton<IMiddlewareExecutor, MiddlewareExecutor>()
                 .AddSingleton<IConsumerWorkerPool, ConsumerWorkerPool>()
+                .AddSingleton<IMessageMiddleware, SerializerProducerMiddleware>()
                 .AddSingleton<IConsumerAccessor>(consumerManager)
-
-                .AddSingleton<IConsumerManager>(consumerManager);
+                .AddSingleton<IConsumerAccessor>(consumerManager)
+               .AddSingleton<IConsumerManager>(consumerManager);
 
             return configuration;
         }

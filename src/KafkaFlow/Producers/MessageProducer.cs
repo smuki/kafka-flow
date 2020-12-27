@@ -12,7 +12,7 @@ namespace KafkaFlow.Producers
     internal class MessageProducer : IMessageProducer, IDisposable
     {
         private readonly ProducerConfiguration configuration;
-        private readonly MiddlewareExecutor middlewareExecutor;
+        private readonly IMiddlewareExecutor middlewareExecutor;
         private readonly IDependencyResolverScope dependencyResolverScope;
 
         private volatile IProducer<byte[], byte[]> producer;
@@ -31,7 +31,8 @@ namespace KafkaFlow.Producers
                 .Select(factory => factory(this.dependencyResolverScope.Resolver))
                 .ToList();
 
-            this.middlewareExecutor = new MiddlewareExecutor(middlewares);
+            this.middlewareExecutor = this.dependencyResolverScope.Resolver.Resolve<IMiddlewareExecutor>();
+            //this.middlewareExecutor = new MiddlewareExecutor(middlewares);
         }
 
         public string ProducerName => this.configuration.Name;

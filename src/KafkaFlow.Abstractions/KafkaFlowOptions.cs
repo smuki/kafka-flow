@@ -1,4 +1,5 @@
 ﻿using KafkaFlow.Consumers;
+using KafkaFlow.Middleware;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace KafkaFlow
         {
             this.Services = services;
 
+            this.Services.TryAddProvider<IMiddlewareExecutor, MiddlewareExecutor>(ServiceLifetime.Transient);
             this.Services.TryAddProvider<IConsumerWorkerPool, ConsumerWorkerPool>(ServiceLifetime.Singleton);
             this.Services.TryAddProvider<IConsumerAccessor, ConsumerManager>(ServiceLifetime.Singleton);
             this.Services.TryAddProvider<IConsumerManager, ConsumerManager>(ServiceLifetime.Singleton);

@@ -32,6 +32,9 @@ namespace KafkaFlow.Unity
         public object Resolve(Type type) => this.container.Resolve(type);
         public T Resolve<T>(string name) => this.container.Resolve<T>(name);
         public T Resolve<T>() => this.container.Resolve<T>();
-
+        public IEnumerable<T> Resolves<T>() 
+        {
+            return default;
+        }
     }
 }

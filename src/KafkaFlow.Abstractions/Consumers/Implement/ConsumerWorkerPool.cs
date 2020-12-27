@@ -23,10 +23,12 @@ namespace KafkaFlow.Consumers
 
         public ConsumerWorkerPool(
             IDependencyResolver dependencyResolver,
+            IMiddlewareExecutor middlewareExecutor,
             ILogHandler logHandler)
         {
             this.dependencyResolver = dependencyResolver;
             this.logHandler = logHandler;
+            this.middlewareExecutor = middlewareExecutor;
         }
 
         public void Initialize(ConsumerSetting eventConsumer)

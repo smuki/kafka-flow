@@ -22,5 +22,7 @@ namespace KafkaFlow
         object Resolve(Type type);
         T Resolve<T>(string name);
         T Resolve<T>();
+        IEnumerable<T> Resolves<T>();
+
     }
 }
