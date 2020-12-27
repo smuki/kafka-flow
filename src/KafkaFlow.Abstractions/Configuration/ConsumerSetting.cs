@@ -23,7 +23,7 @@ namespace KafkaFlow.Configuration
             //this.MiddlewareConfiguration = new ConsumerMiddlewareConfigurationBuilder(dependencyResolver);
 
             IConfigurationSection consumer = config.GetSection("consumer");
-
+            this.ConsumerName=
             this.Topic = config["topic"];
 
             return this;
