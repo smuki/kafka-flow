@@ -14,9 +14,9 @@ namespace KafkaFlow
         {
             this.Services = services;
 
-            this.Services.AddSingleton<IConsumerWorkerPool, ConsumerWorkerPool>();
-            this.Services.AddSingleton<IConsumerAccessor, ConsumerManager>();
-            this.Services.AddSingleton<IConsumerManager, ConsumerManager>();
+            this.Services.TryAddProvider<IConsumerWorkerPool, ConsumerWorkerPool>(ServiceLifetime.Singleton);
+            this.Services.TryAddProvider<IConsumerAccessor, ConsumerManager>(ServiceLifetime.Singleton);
+            this.Services.TryAddProvider<IConsumerManager, ConsumerManager>(ServiceLifetime.Singleton);
 
         }
         public KafkaFlowOptions AddWorkflowsFrom(Assembly assembly)
