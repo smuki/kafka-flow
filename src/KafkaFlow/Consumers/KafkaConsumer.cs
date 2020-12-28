@@ -191,7 +191,7 @@
                             try
                             {
                                 var message = consumer.Consume(this.stopCancellationTokenSource.Token);
-
+                                //Console.WriteLine("Consume.");
                                 var headers = new MessageHeaders();
                                 foreach (var header in message.Message.Headers)
                                 {
@@ -202,28 +202,29 @@
                                 intermediateMessage.Topic = message.Topic;
                                 intermediateMessage.Partition = message.Partition;
                                 intermediateMessage.Offset = message.Offset;
-
+                                //Console.WriteLine("Consume-->Partition=" + intermediateMessage.Partition+ " /Offset" + intermediateMessage.Offset);
+                                //Console.WriteLine("EnqueueAsync-bef");
                                 await this.workerPool.EnqueueAsync(intermediateMessage, this.stopCancellationTokenSource.Token).ConfigureAwait(false);
+                                //Console.WriteLine("EnqueueAsync-aft");
+
                             }
                             catch (OperationCanceledException)
                             {
+                                Console.WriteLine("OperationCanceledException");
                                 // Ignores the exception
                             }
                             catch (KafkaException ex) when (ex.Error.IsFatal)
                             {
                                 this.logHandler.Error("Kafka fatal error occurred. Trying to restart in 5 seconds", ex, null);
-
                                 await this.workerPool.StopAsync().ConfigureAwait(false);
-                                _ = Task
-                                    .Delay(5000, this.stopCancellationTokenSource.Token)
-                                    .ContinueWith(t => this.CreateBackgroundTask());
-
+                                _ = Task.Delay(5000, this.stopCancellationTokenSource.Token).ContinueWith(t => this.CreateBackgroundTask());
                                 break;
                             }
                             catch (Exception ex)
                             {
                                 this.logHandler.Warning("Error consuming message from Kafka", ex);
                             }
+                            //Console.WriteLine("...");
                         }
 
                         consumer.Close();
