@@ -1,5 +1,6 @@
 namespace KafkaFlow.Consumers
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
@@ -83,9 +84,9 @@ namespace KafkaFlow.Consumers
             var worker = (IConsumerWorker)await this.distributionStrategy
                 .GetWorkerAsync(Encoding.UTF8.GetBytes(message.Partition.ToString()), stopCancellationToken)
                 .ConfigureAwait(false);
-
             if (worker == null)
             {
+                Console.WriteLine("worker == null...");
                 return;
             }
 
