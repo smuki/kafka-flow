@@ -88,6 +88,11 @@ namespace KafkaFlow.Consumers
                         {
                             // Ignores the exception
                         }
+                        catch (Exception ex)
+                        {
+                            //**TODO** Ignores the exception
+                            Console.Write(".");
+                        }
                     }
                 },
                 CancellationToken.None,
