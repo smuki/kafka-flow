@@ -31,6 +31,7 @@
         public byte[] Serialize(object message)
         {
             var serialized = JsonSerializer.Serialize(message, this.options);
+            Console.WriteLine("Serialize->" + serialized);
             return Encoding.UTF8.GetBytes(serialized);
         }
 
@@ -41,6 +42,7 @@
         public object Deserialize(byte[] data, Type type)
         {
             var json = Encoding.UTF8.GetString(data);
+            //Console.WriteLine("Deserialize->" + json);
 
             return JsonSerializer.Deserialize(json, type, this.options);
         }
