@@ -83,12 +83,21 @@ namespace KafkaFlow.Consumers
 
                                 this.onMessageFinishedHandler?.Invoke();
                             }
+
                         }
                         catch (OperationCanceledException)
                         {
+                            //this.logHandler.Warning("OperationCanceledException",null);
                             // Ignores the exception
                         }
+                        catch (Exception ex)
+                        {
+                            //Console.WriteLine(ex.ToString());
+
+                            //this.logHandler.Error("Error executing consumer", ex, null);
+                        }
                     }
+                    Console.WriteLine("Brok.....");
                 },
                 CancellationToken.None,
                 TaskCreationOptions.LongRunning,
