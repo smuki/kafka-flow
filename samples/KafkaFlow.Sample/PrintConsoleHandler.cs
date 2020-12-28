@@ -13,11 +13,12 @@
             {
                 Console.WriteLine("\n#Total = " + total);
             }
+
             total++;
-            //Console.WriteLine("Partition***: {0} | Offset: {1} | Message: {2}",
-            //context.Partition,
-            //context.Offset,
-            //message.Text);
+            Console.WriteLine("Partition***: {0} | Offset: {1} | Message: {2}",
+            context.Partition,
+            context.Offset,
+            message.Text);
             return Task.CompletedTask;
         }
     }

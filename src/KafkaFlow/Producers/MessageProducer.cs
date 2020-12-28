@@ -88,6 +88,7 @@ namespace KafkaFlow.Producers
                         {
                             if (report.Error.IsError)
                             {
+                                Console.WriteLine("error");
                                 //completionSource.SetException(new ProduceException<byte[], byte[]>(report.Error, report));
                                 completionSource.SetException(new Exception(report.Error.ToString()));
                             }

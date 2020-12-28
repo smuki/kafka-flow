@@ -94,6 +94,7 @@ namespace KafkaFlow.Consumers
                             Console.Write(".");
                         }
                     }
+                    Console.Write("Stop-ConsumerWorker");
                 },
                 CancellationToken.None,
                 TaskCreationOptions.LongRunning,
