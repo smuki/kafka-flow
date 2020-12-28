@@ -10,6 +10,7 @@
     using KafkaFlow.Consumers;
     using KafkaFlow.Producers;
     using KafkaFlow.Serializer;
+    using KafkaFlow.Serializer.Json;
     using KafkaFlow.Serializer.ProtoBuf;
     using KafkaFlow.TypedHandler;
 
@@ -36,7 +37,7 @@
                                     .DefaultTopic("test-topic")
                                     .AddMiddlewares(
                                         middlewares => middlewares
-                                            .AddSerializer<ProtobufMessageSerializer>()
+                                            .AddSerializer<JsonMessageSerializer>()
                                             //.AddCompressor<GzipMessageCompressor>()
                                     )
                                     .WithAcks(Acks.All)
@@ -52,7 +53,7 @@
                                     .AddMiddlewares(
                                         middlewares => middlewares
                                             //.AddCompressor<GzipMessageCompressor>()
-                                            .AddSerializer<ProtobufMessageSerializer>()
+                                            .AddSerializer<JsonMessageSerializer>()
                                             .AddTypedHandlers(
                                                 handlers => handlers
                                                     .WithHandlerLifetime(InstanceLifetime.Singleton)
