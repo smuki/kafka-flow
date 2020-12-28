@@ -11,13 +11,12 @@
         {
             if (total % 30 == 0)
             {
-                Console.WriteLine("\n#Total = " + total);
+                Console.WriteLine("\n#Total ...= " + total);
             }
+            Console.Write(".");
+
             total++;
-            //Console.WriteLine("Partition***: {0} | Offset: {1} | Message: {2}",
-            //context.Partition,
-            //context.Offset,
-            //message.Text);
+        
             return Task.CompletedTask;
         }
     }
