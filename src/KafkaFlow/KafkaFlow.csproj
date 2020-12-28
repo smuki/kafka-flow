@@ -25,6 +25,7 @@
     <ProjectReference Include="..\KafkaFlow.Microsoft.DependencyInjection\KafkaFlow.Microsoft.DependencyInjection.csproj" />
     <ProjectReference Include="..\KafkaFlow.Serializer.Json\KafkaFlow.Serializer.Json.csproj" />
     <ProjectReference Include="..\KafkaFlow.Serializer\KafkaFlow.Serializer.csproj" />
+    <ProjectReference Include="..\KafkaFlow.TypedHandler\KafkaFlow.TypedHandler.csproj" />
   </ItemGroup>
 
   <ItemGroup>

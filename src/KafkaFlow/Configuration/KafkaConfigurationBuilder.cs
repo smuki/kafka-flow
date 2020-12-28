@@ -9,6 +9,7 @@ namespace KafkaFlow.Configuration
     using KafkaFlow.Middleware;
     using KafkaFlow.Serializer;
     using KafkaFlow.Serializer.Json;
+    using KafkaFlow.TypedHandler;
 
     public class KafkaConfigurationBuilder : IKafkaConfigurationBuilder
     {
@@ -45,7 +46,8 @@ namespace KafkaFlow.Configuration
                 .AddSingleton<IMessageTypeResolver, DefaultMessageTypeResolver>()
                 .AddSingleton<IMessageMiddleware, SerializerProducerMiddleware>()
                 .AddSingleton<IMessageSerializer, JsonMessageSerializer>()
-               .AddSingleton<IConsumerAccessor>(consumerManager)
+                .AddSingleton<IMessageMiddleware, TypedHandlerMiddleware>()
+                .AddSingleton<IConsumerAccessor>(consumerManager)
                 .AddSingleton<IConsumerAccessor>(consumerManager)
                .AddSingleton<IConsumerManager>(consumerManager);
 

@@ -3,7 +3,7 @@ namespace KafkaFlow.TypedHandler
     using System;
     using System.Collections.Generic;
 
-    internal class HandlerTypeMapping
+    public class HandlerTypeMapping
     {
         private readonly Dictionary<Type, Type> mapping = new Dictionary<Type, Type>();
 
