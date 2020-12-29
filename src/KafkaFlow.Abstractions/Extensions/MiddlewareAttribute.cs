@@ -19,5 +19,6 @@ namespace Volte.Data.VolteDi
         /// Sets if the service will be injected by interface or implementation. Default = Auto
         /// </summary>
         public MiddlewareType MiddlewareType { get; set; } = MiddlewareType.Consumer;
+        public int Priority { get; set; } = 100;
     }
 }

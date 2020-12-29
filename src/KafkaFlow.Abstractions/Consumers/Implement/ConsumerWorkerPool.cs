@@ -1,5 +1,6 @@
 namespace KafkaFlow.Consumers
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
@@ -45,15 +46,26 @@ namespace KafkaFlow.Consumers
             //this.middlewareExecutor = this.dependencyResolverScope.Resolver.Resolve<IMiddlewareExecutor>();
             //this.middlewareExecutor.Initialize(middlewares);
             //this.middlewareExecutor = new MiddlewareExecutor(middlewares);
-            var middlewares = dependencyResolver.Resolves<IMessageMiddleware>().Where(w =>
+            var middlewares = dependencyResolver.Resolves<IMessageMiddleware>().Where(x =>
             {
-                var injectionAttribute = w.GetType().GetCustomAttribute<MiddlewareAttribute>();
+                Console.WriteLine(x.ToString());
+
+                var injectionAttribute = x.GetType().GetCustomAttribute<MiddlewareAttribute>();
                 if (injectionAttribute != null)
                 {
+                    Console.WriteLine(injectionAttribute.MiddlewareType);
                     return injectionAttribute.MiddlewareType == MiddlewareType.Consumer;
                 }
                 return false;
-            }).ToList();
+            })
+           .ToList();
+
+            middlewares.Sort((x, y) =>
+            {
+                var injectionAttributex = x.GetType().GetCustomAttribute<MiddlewareAttribute>();
+                var injectionAttributey = y.GetType().GetCustomAttribute<MiddlewareAttribute>();
+                return injectionAttributex.Priority.CompareTo(injectionAttributey.Priority);
+            });
 
             middlewareExecutor.Initialize(middlewares);
 

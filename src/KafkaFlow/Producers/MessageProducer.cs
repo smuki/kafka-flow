@@ -9,6 +9,8 @@ namespace KafkaFlow.Producers
     using KafkaFlow.Middleware;
     using KafkaFlow.Dependency;
     using Volte.Utils;
+    using Volte.Data.VolteDi;
+    using System.Reflection;
 
     internal class MessageProducer : IMessageProducer, IDisposable
     {
@@ -28,11 +30,35 @@ namespace KafkaFlow.Producers
             // Create middlewares instances inside a scope to allow scoped injections in producer middlewares
             this.dependencyResolverScope = dependencyResolver.CreateScope();
 
-            var middlewares = this.configuration.MiddlewareConfiguration.Factories
-                .Select(factory => factory(this.dependencyResolverScope.Resolver))
-                .ToList();
+            //var middlewares = this.configuration.MiddlewareConfiguration.Factories
+            //    .Select(factory => factory(this.dependencyResolverScope.Resolver))
+            //    .ToList();
 
             this.middlewareExecutor = this.dependencyResolverScope.Resolver.Resolve<IMiddlewareExecutor>();
+
+            var middlewares = dependencyResolver.Resolves<IMessageMiddleware>().Where(x =>
+            {
+                Console.WriteLine(x.ToString());
+
+                var injectionAttribute = x.GetType().GetCustomAttribute<MiddlewareAttribute>();
+                if (injectionAttribute != null)
+                {
+                    Console.WriteLine(injectionAttribute.MiddlewareType);
+                    return injectionAttribute.MiddlewareType == MiddlewareType.Producer;
+                }
+                return false;
+            })
+          .ToList();
+
+            middlewares.Sort((x, y) =>
+            {
+                var injectionAttributex = x.GetType().GetCustomAttribute<MiddlewareAttribute>();
+                var injectionAttributey = y.GetType().GetCustomAttribute<MiddlewareAttribute>();
+                return injectionAttributex.Priority.CompareTo(injectionAttributey.Priority);
+            });
+
+            //middlewareExecutor.Initialize(middlewares);
+
             this.middlewareExecutor.Initialize(middlewares);
         }
 

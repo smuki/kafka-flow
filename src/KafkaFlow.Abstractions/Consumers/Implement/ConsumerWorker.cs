@@ -94,6 +94,8 @@ namespace KafkaFlow.Consumers
                         }
                         catch (Exception ex)
                         {
+                            Console.WriteLine(ex.ToString());
+
                             //**TODO** Ignores the exception
                             Console.Write(".");
                         }

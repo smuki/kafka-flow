@@ -7,6 +7,7 @@
     /// <summary>
     /// Middleware to deserialize messages when consuming
     /// </summary>
+    [Injection(InjectionType = InjectionType.Auto)]
     [Middleware(MiddlewareType = MiddlewareType.Consumer)]
     public class SerializerConsumerMiddleware : IMessageMiddleware
     {
