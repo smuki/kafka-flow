@@ -6,10 +6,11 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Confluent.Kafka;
-    using DotNetCore.CAP.VolteDi;
     using KafkaFlow.Configuration;
+    using Volte.Data.VolteDi;
+    using Volte.Utils;
 
-    [Autowired]
+    [Injection(InjectionType = InjectionType.Both)]
     public class KafkaConsumer: IConsumerClient
     {
         private ConsumerSetting configuration;
@@ -31,7 +32,7 @@
             this.logHandler = logHandler;
             //this.busStopCancellationToken = busStopCancellationToken;
         }
-        public List<XXXTopicPartition> Assignment { get { return Util.TopicPartition(this.consumer.Assignment).ToList(); } }
+        public List<XXXTopicPartition> Assignment { get { return XXXUtil.TopicPartition(this.consumer.Assignment).ToList(); } }
         public string Name { get { return this.consumer.Name; } }
         public string ConsumerName {
             get {
@@ -93,41 +94,41 @@
         public long Position(XXXTopicPartition offsets)
         {
             Console.WriteLine("Position...");
-           return this.consumer.Position(Util.TopicPartition(offsets)).Value;
+           return this.consumer.Position(XXXUtil.TopicPartition(offsets)).Value;
         }
         public IOffsetsWatermark GetWatermarkOffsets(XXXTopicPartition offsets)
         {
             Console.WriteLine("GetWatermarkOffsets...");
-            var wm = this.consumer.GetWatermarkOffsets(Util.TopicPartition(offsets));
+            var wm = this.consumer.GetWatermarkOffsets(XXXUtil.TopicPartition(offsets));
             return new OffsetsWatermark(wm.High,wm.Low);
         }
         public IOffsetsWatermark QueryWatermarkOffsets(XXXTopicPartition offsets, TimeSpan timeout)
         {
-            var wm = this.consumer.QueryWatermarkOffsets(Util.TopicPartition(offsets), timeout);
+            var wm = this.consumer.QueryWatermarkOffsets(XXXUtil.TopicPartition(offsets), timeout);
             Console.WriteLine("GetWatermarkOffsets...");
             return new OffsetsWatermark(wm.High, wm.Low);
         }
         public List<XXXTopicPartitionOffset> OffsetsForTimes(IEnumerable<XXXTopicPartitionTimestamp> timestampsToSearch, TimeSpan timeout)
         {
-            var tps = this.consumer.OffsetsForTimes(Util.TopicPartitionTimestamp(timestampsToSearch), timeout);
-            return Util.TopicPartitionOffset(tps).ToList();
+            var tps = this.consumer.OffsetsForTimes(XXXUtil.TopicPartitionTimestamp(timestampsToSearch), timeout);
+            return XXXUtil.TopicPartitionOffset(tps).ToList();
             Console.WriteLine("OffsetsForTimes...");
         }
         
         public void Commit(IEnumerable<XXXTopicPartitionOffset> offsets)
         {
             Console.WriteLine("Commit...");
-            this.consumer.Commit(Util.TopicPartitionOffset(offsets));
+            this.consumer.Commit(XXXUtil.TopicPartitionOffset(offsets));
         }
         public void Pause(IEnumerable<XXXTopicPartition> offsets)
         {
             Console.WriteLine("Pause...");
-            this.consumer.Pause(Util.TopicPartition(offsets));
+            this.consumer.Pause(XXXUtil.TopicPartition(offsets));
         }
         public void Resume(IEnumerable<XXXTopicPartition> offsets)
         {
             Console.WriteLine("Resume...");
-            this.consumer.Resume(Util.TopicPartition(offsets));
+            this.consumer.Resume(XXXUtil.TopicPartition(offsets));
         }
       
         public void Dispose()
@@ -145,7 +146,7 @@
         {
             this.logHandler.Info("Partitions assigned", this.GetConsumerLogInfo(partitions));
 
-            this.workerPool.StartAsync(this, Util.TopicPartition(partitions), this.stopCancellationTokenSource.Token).GetAwaiter().GetResult();
+            this.workerPool.StartAsync(this, XXXUtil.TopicPartition(partitions), this.stopCancellationTokenSource.Token).GetAwaiter().GetResult();
         }
 
         private object GetConsumerLogInfo(IEnumerable<TopicPartition> partitions) => new
@@ -201,6 +202,8 @@
                             try
                             {
                                 var message = consumer.Consume(this.stopCancellationTokenSource.Token);
+                                
+                                NLogger.Debug("Consume");
 
                                 var headers = new MessageHeaders();
                                 foreach (var header in message.Message.Headers)

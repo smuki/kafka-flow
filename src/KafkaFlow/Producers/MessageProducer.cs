@@ -8,6 +8,7 @@ namespace KafkaFlow.Producers
     using KafkaFlow.Configuration;
     using KafkaFlow.Middleware;
     using KafkaFlow.Dependency;
+    using Volte.Utils;
 
     internal class MessageProducer : IMessageProducer, IDisposable
     {
@@ -32,7 +33,7 @@ namespace KafkaFlow.Producers
                 .ToList();
 
             this.middlewareExecutor = this.dependencyResolverScope.Resolver.Resolve<IMiddlewareExecutor>();
-            //this.middlewareExecutor = new MiddlewareExecutor(middlewares);
+            this.middlewareExecutor.Initialize(middlewares);
         }
 
         public string ProducerName => this.configuration.Name;
@@ -82,23 +83,29 @@ namespace KafkaFlow.Producers
                 context =>
                 {
                     var completionSource = new TaskCompletionSource<byte>();
+                    try
+                    {
 
-                    this.InternalProduce((ProducerMessageContext)context,
-                        report =>
-                        {
-                            if (report.Error.IsError)
+                        this.InternalProduce((ProducerMessageContext)context,
+                            report =>
                             {
-                                Console.WriteLine("error");
+                                if (report.Error.IsError)
+                                {
+                                    Console.WriteLine("error");
                                 //completionSource.SetException(new ProduceException<byte[], byte[]>(report.Error, report));
                                 completionSource.SetException(new Exception(report.Error.ToString()));
-                            }
-                            else
-                            {
-                                completionSource.SetResult(0);
-                            }
+                                }
+                                else
+                                {
+                                    completionSource.SetResult(0);
+                                }
 
-                            deliveryHandler?.Invoke(report);
-                        });
+                                deliveryHandler?.Invoke(report);
+                            });
+                    }catch(Exception ex)
+                    {
+                        NLogger.Error(ex);
+                    }
 
                     return completionSource.Task;
                 });
@@ -181,7 +188,7 @@ namespace KafkaFlow.Producers
             {
                 var result2 = await this.EnsureProducer().ProduceAsync(context.Topic, CreateMessage(context)).ConfigureAwait(false);
 
-                result = Util.XXXDeliveryResult(result2);
+                result = XXXUtil.XXXDeliveryResult(result2);
             }
             catch (ProduceException<byte[], byte[]> e)
             {
@@ -203,13 +210,18 @@ namespace KafkaFlow.Producers
             ProducerMessageContext context,
             Action<XXXDeliveryReport> deliveryHandler)
         {
+            
+            NLogger.Debug("InternalProduce send....");
+
             this.EnsureProducer().Produce(context.Topic, CreateMessage(context),
                     report =>
                     {
-                        var result = Util.XXXDeliveryResult(report);
+                        var result = XXXUtil.XXXDeliveryResult(report);
 
                         if (report.Error.IsFatal)
                         {
+                            NLogger.Debug("Error....");
+
                             this.InvalidateProducer(report.Error, result);
                         }
 

@@ -1,7 +1,9 @@
 namespace KafkaFlow.TypedHandler
 {
     using System.Threading.Tasks;
+    using Volte.Data.VolteDi;
 
+    [Injection(InjectionType = InjectionType.Auto)]
     public class TypedHandlerMiddleware : IMessageMiddleware
     {
         private readonly IDependencyResolver dependencyResolver;
@@ -27,14 +29,7 @@ namespace KafkaFlow.TypedHandler
                 }
 
                 var handler = scope.Resolver.Resolve(handlerType);
-
-                await HandlerExecutor
-                    .GetExecutor(context.Message.GetType())
-                    .Execute(
-                        handler,
-                        context,
-                        context.Message)
-                    .ConfigureAwait(false);
+                await HandlerExecutor.GetExecutor(context.Message.GetType()).Execute(handler, context, context.Message).ConfigureAwait(false);
             }
 
             await next(context);

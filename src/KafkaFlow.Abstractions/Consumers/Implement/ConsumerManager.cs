@@ -2,6 +2,9 @@ namespace KafkaFlow.Consumers
 {
     using System.Collections.Concurrent;
     using System.Collections.Generic;
+    using Volte.Data.VolteDi;
+
+    [Injection(InjectionType = InjectionType.Auto,Lifetime =InjectionLifetime.Singleton)]
 
     public class ConsumerManager : IConsumerManager
     {

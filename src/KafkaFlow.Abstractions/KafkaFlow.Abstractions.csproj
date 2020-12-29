@@ -31,6 +31,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Proj\ZeroBus\src\CAP\src\Volte.Data.VolteDi\Volte.Data.VolteDi.csproj" />
+    <ProjectReference Include="..\..\..\..\Proj\ZeroBus\src\CAP\src\Volte.Utils\Volte.Utils.csproj" />
     <ProjectReference Include="..\KafkaFlow.Microsoft.DependencyInjection\KafkaFlow.Microsoft.DependencyInjection.csproj" />
   </ItemGroup>
 

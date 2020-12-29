@@ -49,13 +49,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaFlow.LogHandler.Consol
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Admin", "Admin", "{58483813-0D7C-423E-8E7D-8FBF3E6CDB6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KafkaFlow.Admin", "KafkaFlow.Admin\KafkaFlow.Admin.csproj", "{46B6F104-D46E-4DC2-ADC2-18E76F5BBCD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaFlow.Admin", "KafkaFlow.Admin\KafkaFlow.Admin.csproj", "{46B6F104-D46E-4DC2-ADC2-18E76F5BBCD9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KafkaFlow.Admin.WebApi", "KafkaFlow.Admin.WebApi\KafkaFlow.Admin.WebApi.csproj", "{827620D3-2258-410E-A79E-E782ED42284C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KafkaFlow.Admin.WebApi.Sample", "..\samples\KafkaFlow.Admin.WebApi.Sample\KafkaFlow.Admin.WebApi.Sample.csproj", "{15C12D0C-FE8A-41F9-BBCF-5A963F05D5C7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volte.Data.VolteDi", "..\..\..\Proj\ZeroBus\src\CAP\src\Volte.Data.VolteDi\Volte.Data.VolteDi.csproj", "{4D97AB5F-D68D-4A29-AE28-F16716E379B3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volte.Utils", "..\..\..\Proj\ZeroBus\src\CAP\src\Volte.Utils\Volte.Utils.csproj", "{0EBC5EF0-C1DF-47A7-A00E-B77B8B90ADA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -139,6 +141,10 @@ Global
 		{4D97AB5F-D68D-4A29-AE28-F16716E379B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D97AB5F-D68D-4A29-AE28-F16716E379B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D97AB5F-D68D-4A29-AE28-F16716E379B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EBC5EF0-C1DF-47A7-A00E-B77B8B90ADA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EBC5EF0-C1DF-47A7-A00E-B77B8B90ADA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EBC5EF0-C1DF-47A7-A00E-B77B8B90ADA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EBC5EF0-C1DF-47A7-A00E-B77B8B90ADA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -163,6 +169,7 @@ Global
 		{827620D3-2258-410E-A79E-E782ED42284C} = {58483813-0D7C-423E-8E7D-8FBF3E6CDB6D}
 		{15C12D0C-FE8A-41F9-BBCF-5A963F05D5C7} = {58483813-0D7C-423E-8E7D-8FBF3E6CDB6D}
 		{4D97AB5F-D68D-4A29-AE28-F16716E379B3} = {068CB250-2804-4C7E-9490-17F432B9CE21}
+		{0EBC5EF0-C1DF-47A7-A00E-B77B8B90ADA8} = {068CB250-2804-4C7E-9490-17F432B9CE21}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6AE955B5-16B0-41CF-9F12-66D15B3DD1AB}

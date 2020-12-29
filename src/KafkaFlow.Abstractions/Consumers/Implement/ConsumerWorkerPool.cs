@@ -7,7 +7,9 @@ namespace KafkaFlow.Consumers
     using System.Threading.Tasks;
     using KafkaFlow.Configuration;
     using KafkaFlow.Middleware;
+    using Volte.Data.VolteDi;
 
+    [Injection(InjectionType = InjectionType.Both)]
     public class ConsumerWorkerPool : IConsumerWorkerPool
     {
         private readonly IDependencyResolver dependencyResolver;
@@ -38,6 +40,8 @@ namespace KafkaFlow.Consumers
             //    .Select(factory => factory(dependencyResolver))
             //    .ToList();
 
+            //this.middlewareExecutor = this.dependencyResolverScope.Resolver.Resolve<IMiddlewareExecutor>();
+            //this.middlewareExecutor.Initialize(middlewares);
             //this.middlewareExecutor = new MiddlewareExecutor(middlewares);
             this.distributionStrategyFactory = configuration.DistributionStrategyFactory;
         }

@@ -85,20 +85,25 @@
                 }
             }
             NLogger.Debug(UseAssembly);
+
+            Console.WriteLine(UseAssembly.ToString());
+
             StringBuilder ScanClass = new StringBuilder();
             ScanClass.AppendLine();
-            services.Scan(scan =>
-                    scan.FromAssemblies(_Assembly)
-                    .AddClasses(classes =>
-                        classes.Where(t => {
-                            return t.HasAutowired();
-                            //ScanClass.AppendLine(t.Name);
-                            //return true;
-                        })
-                        )
-                    .AsSelf()
-                    .AsImplementedInterfaces()
-                    .WithTransientLifetime());
+            services.LoadInjection(_Assembly.ToArray<Assembly>());
+
+            //services.Scan(scan =>
+            //        scan.FromAssemblies(_Assembly)
+            //        .AddClasses(classes =>
+            //            classes.Where(t => {
+            //                return t.HasAutowired();
+            //                //ScanClass.AppendLine(t.Name);
+            //                //return true;
+            //            })
+            //            )
+            //        .AsSelf()
+            //        .AsImplementedInterfaces()
+            //        .WithTransientLifetime());
 
             var provider = services.BuildServiceProvider();
 

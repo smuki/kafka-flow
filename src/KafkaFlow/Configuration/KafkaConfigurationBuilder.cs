@@ -41,12 +41,12 @@ namespace KafkaFlow.Configuration
             var DefaultMessageTypeResolver = new DefaultMessageTypeResolver();
             this.dependencyConfigurator
                 .AddTransient(typeof(ILogHandler), this.logHandler)
-                .AddSingleton<IMiddlewareExecutor, MiddlewareExecutor>()
-                .AddSingleton<IConsumerWorkerPool, ConsumerWorkerPool>()
-                .AddSingleton<IMessageTypeResolver, DefaultMessageTypeResolver>()
-                .AddSingleton<IMessageMiddleware, SerializerProducerMiddleware>()
-                .AddSingleton<IMessageSerializer, JsonMessageSerializer>()
-                .AddSingleton<IMessageMiddleware, TypedHandlerMiddleware>()
+                //.AddSingleton<IMiddlewareExecutor, MiddlewareExecutor>()
+                //.AddSingleton<IConsumerWorkerPool, ConsumerWorkerPool>()
+                //.AddSingleton<IMessageTypeResolver, DefaultMessageTypeResolver>()
+                //.AddSingleton<IMessageMiddleware, SerializerProducerMiddleware>()
+                //.AddSingleton<IMessageSerializer, JsonMessageSerializer>()
+                //.AddSingleton<IMessageMiddleware, TypedHandlerMiddleware>()
                 .AddSingleton<IConsumerAccessor>(consumerManager)
                 .AddSingleton<IConsumerAccessor>(consumerManager)
                .AddSingleton<IConsumerManager>(consumerManager);

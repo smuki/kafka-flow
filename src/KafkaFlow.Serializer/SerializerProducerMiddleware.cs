@@ -1,10 +1,12 @@
 ﻿namespace KafkaFlow.Serializer
 {
     using System.Threading.Tasks;
+    using Volte.Data.VolteDi;
 
     /// <summary>
     /// Middleware to serialize messages when producing
     /// </summary>
+    [Injection(InjectionType = InjectionType.Auto)]
     public class SerializerProducerMiddleware : IMessageMiddleware
     {
         private readonly IMessageSerializer serializer;

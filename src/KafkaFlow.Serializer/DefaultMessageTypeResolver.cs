@@ -2,10 +2,12 @@ namespace KafkaFlow.Serializer
 {
     using System;
     using KafkaFlow.Dependency;
+    using Volte.Data.VolteDi;
 
     /// <summary>
     /// The default implementation of <see cref="IMessageTypeResolver"/>
     /// </summary>
+    [Injection(InjectionType = InjectionType.Auto, Lifetime = InjectionLifetime.Singleton)]
     public class DefaultMessageTypeResolver : IMessageTypeResolver
     {
         private const string MessageType = "Message-Type";

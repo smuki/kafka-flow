@@ -6,6 +6,8 @@ namespace KafkaFlow.Consumers
     using System.Threading.Tasks;
     using KafkaFlow.Configuration;
     using KafkaFlow.Middleware;
+    using Volte.Data.VolteDi;
+    using Volte.Utils;
 
     internal class ConsumerWorker : IConsumerWorker
     {
@@ -59,6 +61,8 @@ namespace KafkaFlow.Consumers
                         try
                         {
                             var message = await this.messagesBuffer.Reader.ReadAsync(this.stopCancellationTokenSource.Token).ConfigureAwait(false);
+                            
+                            NLogger.Debug("pull a queue message");
 
                             var context = new ConsumerMessageContext(
                                 new MessageContextConsumer(this.consumerClient, this.offsetManager, message, this.stopCancellationTokenSource.Token),

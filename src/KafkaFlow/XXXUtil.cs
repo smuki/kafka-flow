@@ -6,7 +6,7 @@ using System.Text;
 
 namespace KafkaFlow
 {
-    public class Util
+    public class XXXUtil
     {
         public static TopicPartitionOffset TopicPartitionOffset(XXXTopicPartitionOffset tpo)
         {
@@ -30,7 +30,7 @@ namespace KafkaFlow
             List<XXXTopicPartitionTimestamp> xxx = new List<XXXTopicPartitionTimestamp>();
             foreach (TopicPartitionTimestamp item in tp)
             {
-                xxx.Add(new XXXTopicPartitionTimestamp(Util.TopicPartition(item.TopicPartition), item.Timestamp.UnixTimestampMs));
+                xxx.Add(new XXXTopicPartitionTimestamp(XXXUtil.TopicPartition(item.TopicPartition), item.Timestamp.UnixTimestampMs));
             }
             return xxx;
         }
@@ -39,7 +39,7 @@ namespace KafkaFlow
             List<TopicPartitionTimestamp> xxx = new List<TopicPartitionTimestamp>();
             foreach (XXXTopicPartitionTimestamp item in tp)
             {
-                xxx.Add(new TopicPartitionTimestamp(Util.TopicPartition(item.TopicPartition), new Timestamp(item.Timestamp, TimestampType.CreateTime)));
+                xxx.Add(new TopicPartitionTimestamp(XXXUtil.TopicPartition(item.TopicPartition), new Timestamp(item.Timestamp, TimestampType.CreateTime)));
             }
             return xxx;
         }
