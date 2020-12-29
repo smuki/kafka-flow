@@ -190,7 +190,11 @@
             this.consumerManager.AddOrUpdate(new MessageConsumer(this, this.workerPool, this.configuration, this.logHandler));
             Console.WriteLine(this.configuration["Topics"]);
             //this.configuration["Topics"] = ;
-            consumer.Subscribe("test-topic");
+            List<string> xx = new List<string>();
+            xx.Add("test-topic");
+           // consumer.Subscribe("test-topic");
+            consumer.Subscribe(xx.AsEnumerable<string>());
+
 
             this.backgroundTask = Task.Factory.StartNew(
                 async () =>

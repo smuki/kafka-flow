@@ -2,6 +2,7 @@ namespace KafkaFlow.Consumers
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
@@ -40,9 +41,22 @@ namespace KafkaFlow.Consumers
             //    .Select(factory => factory(dependencyResolver))
             //    .ToList();
 
+
             //this.middlewareExecutor = this.dependencyResolverScope.Resolver.Resolve<IMiddlewareExecutor>();
             //this.middlewareExecutor.Initialize(middlewares);
             //this.middlewareExecutor = new MiddlewareExecutor(middlewares);
+            var middlewares = dependencyResolver.Resolves<IMessageMiddleware>().Where(w =>
+            {
+                var injectionAttribute = w.GetType().GetCustomAttribute<MiddlewareAttribute>();
+                if (injectionAttribute != null)
+                {
+                    return injectionAttribute.MiddlewareType == MiddlewareType.Consumer;
+                }
+                return false;
+            }).ToList();
+
+            middlewareExecutor.Initialize(middlewares);
+
             this.distributionStrategyFactory = configuration.DistributionStrategyFactory;
         }
 

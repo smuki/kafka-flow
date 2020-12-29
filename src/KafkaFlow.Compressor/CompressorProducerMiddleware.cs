@@ -2,10 +2,13 @@
 {
     using System;
     using System.Threading.Tasks;
+    using Volte.Data.VolteDi;
 
     /// <summary>
     /// Middleware to compress the messages when producing
     /// </summary>
+    [Middleware(MiddlewareType=MiddlewareType.Producer)]
+
     internal class CompressorProducerMiddleware : IMessageMiddleware
     {
         private readonly IMessageCompressor compressor;

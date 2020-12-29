@@ -4,6 +4,7 @@ namespace KafkaFlow.TypedHandler
     using Volte.Data.VolteDi;
 
     [Injection(InjectionType = InjectionType.Auto)]
+    [Middleware(MiddlewareType = MiddlewareType.Consumer)]
     public class TypedHandlerMiddleware : IMessageMiddleware
     {
         private readonly IDependencyResolver dependencyResolver;

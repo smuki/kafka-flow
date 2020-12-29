@@ -62,7 +62,7 @@ namespace KafkaFlow.Consumers
                         {
                             var message = await this.messagesBuffer.Reader.ReadAsync(this.stopCancellationTokenSource.Token).ConfigureAwait(false);
                             
-                            NLogger.Debug("pull a queue message");
+                            Console.WriteLine("pull a queue message");
 
                             var context = new ConsumerMessageContext(
                                 new MessageContextConsumer(this.consumerClient, this.offsetManager, message, this.stopCancellationTokenSource.Token),

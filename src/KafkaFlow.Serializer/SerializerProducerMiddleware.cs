@@ -7,6 +7,7 @@
     /// Middleware to serialize messages when producing
     /// </summary>
     [Injection(InjectionType = InjectionType.Auto)]
+    [Middleware(MiddlewareType = MiddlewareType.Producer)]
     public class SerializerProducerMiddleware : IMessageMiddleware
     {
         private readonly IMessageSerializer serializer;

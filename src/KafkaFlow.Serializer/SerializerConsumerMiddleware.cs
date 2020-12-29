@@ -2,10 +2,12 @@
 {
     using System;
     using System.Threading.Tasks;
+    using Volte.Data.VolteDi;
 
     /// <summary>
     /// Middleware to deserialize messages when consuming
     /// </summary>
+    [Middleware(MiddlewareType = MiddlewareType.Consumer)]
     public class SerializerConsumerMiddleware : IMessageMiddleware
     {
         private readonly IMessageSerializer serializer;
