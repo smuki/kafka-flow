@@ -51,6 +51,7 @@
         public IReadOnlyList<string> Subscription { get { return this.consumer.Subscription; } }
         public void Initialize(IConsumerWorkerPool consumerWorkerPool, ConsumerSetting eventConsumer, CancellationToken busStopCancellationToken)
         {
+
             this.workerPool = consumerWorkerPool;
             this.configuration = eventConsumer;
             //var kafkaConfig = configuration.GetKafkaConfig();
