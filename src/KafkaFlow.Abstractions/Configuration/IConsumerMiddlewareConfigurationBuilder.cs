@@ -27,7 +27,7 @@ namespace KafkaFlow.Configuration
         IConsumerMiddlewareConfigurationBuilder Add<T>()
             where T : class, IMessageMiddleware;
 
-        public MiddlewareConfiguration Build();
+        //public MiddlewareConfiguration Build();
 
     }
 }

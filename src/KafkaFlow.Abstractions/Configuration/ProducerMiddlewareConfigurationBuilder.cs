@@ -29,6 +29,6 @@ namespace KafkaFlow.Configuration
             return this;
         }
 
-        public MiddlewareConfiguration Build() => new MiddlewareConfiguration(this.middlewaresFactories);
+        //public MiddlewareConfiguration Build() => new MiddlewareConfiguration(this.middlewaresFactories);
     }
 }
