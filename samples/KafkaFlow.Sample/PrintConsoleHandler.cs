@@ -9,10 +9,10 @@
         static long total = 0;
         public Task Handle(IMessageContext context, TestMessage message)
         {
-            if (total % 7 == 0)
-            {
+            //if (total % 7 == 0)
+            //{
                 Console.WriteLine("\n#Total = " + total);
-            }
+            //}
 
             total++;
             Console.WriteLine("Partition***: {0} | Offset: {1} | Message: {2}",
