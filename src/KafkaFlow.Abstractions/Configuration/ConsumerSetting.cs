@@ -17,14 +17,6 @@ namespace KafkaFlow.Configuration
         private readonly Dictionary<string, string> _dict = new Dictionary<string, string>();
         public Factory<IDistributionStrategy> DistributionStrategyFactory { get; set; }
 
-        //public ConsumerSetting Build(IConfigurationSection config)
-        //{
-        //    IConfigurationSection consumer = config.GetSection("consumer");
-        //    this.ConsumerName=
-        //    this.Topic = config["topic"];
-
-        //    return this;
-        //}
         public string this[string name]
         {
             get
