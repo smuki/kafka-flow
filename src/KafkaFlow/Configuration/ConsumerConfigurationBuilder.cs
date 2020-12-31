@@ -162,7 +162,7 @@ namespace KafkaFlow.Configuration
 
         public ConsumerConfiguration Build(ClusterConfiguration clusterConfiguration)
         {
-            var middlewareConfiguration = this.middlewareConfigurationBuilder.Build();
+            //var middlewareConfiguration = this.middlewareConfigurationBuilder.Build();
 
             this.consumerConfig ??= new ConsumerConfig();
             this.consumerConfig.BootstrapServers ??= string.Join(",", clusterConfiguration.Brokers);
@@ -183,7 +183,7 @@ namespace KafkaFlow.Configuration
                 this.workersCount,
                 this.bufferSize,
                 this.distributionStrategyFactory,
-                middlewareConfiguration,
+                //middlewareConfiguration,
                 this.autoStoreOffsets,
                 this.autoCommitInterval,
                 this.statisticsHandlers);

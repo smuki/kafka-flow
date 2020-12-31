@@ -8,7 +8,7 @@ namespace KafkaFlow.Configuration
     public class ProducerConfigurationBuilder : IProducerConfigurationBuilder
     {
         private readonly string name;
-        private readonly ProducerMiddlewareConfigurationBuilder middlewareConfigurationBuilder;
+        //private readonly ProducerMiddlewareConfigurationBuilder middlewareConfigurationBuilder;
         private readonly List<Action<string>> statisticsHandlers = new List<Action<string>>();
 
         private string topic;
@@ -20,14 +20,14 @@ namespace KafkaFlow.Configuration
         {
             this.name = name;
             this.DependencyConfigurator = dependencyConfigurator;
-            this.middlewareConfigurationBuilder = new ProducerMiddlewareConfigurationBuilder(dependencyConfigurator);
+            //this.middlewareConfigurationBuilder = new ProducerMiddlewareConfigurationBuilder(dependencyConfigurator);
         }
 
         public IDependencyConfigurator DependencyConfigurator { get; }
 
         public IProducerConfigurationBuilder AddMiddlewares(Action<IProducerMiddlewareConfigurationBuilder> middlewares)
         {
-            middlewares(this.middlewareConfigurationBuilder);
+            //middlewares(this.middlewareConfigurationBuilder);
             return this;
         }
 
@@ -73,7 +73,7 @@ namespace KafkaFlow.Configuration
                 this.name,
                 this.topic,
                 this.acks,
-                this.middlewareConfigurationBuilder.Build(),
+                //this.middlewareConfigurationBuilder.Build(),
                 this.producerConfig,
                 this.statisticsHandlers);
 

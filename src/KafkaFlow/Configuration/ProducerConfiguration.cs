@@ -12,7 +12,7 @@ namespace KafkaFlow.Configuration
             string name,
             string defaultTopic,
             Acks? acks,
-            MiddlewareConfiguration middlewareConfiguration,
+            //MiddlewareConfiguration middlewareConfiguration,
             ProducerConfig baseProducerConfig,
             IReadOnlyList<Action<string>> statisticsHandlers)
         {
@@ -20,7 +20,7 @@ namespace KafkaFlow.Configuration
             this.Name = name;
             this.DefaultTopic = defaultTopic;
             this.Acks = acks;
-            this.MiddlewareConfiguration = middlewareConfiguration;
+            //this.MiddlewareConfiguration = middlewareConfiguration;
             this.BaseProducerConfig = baseProducerConfig;
             this.StatisticsHandlers = statisticsHandlers;
         }

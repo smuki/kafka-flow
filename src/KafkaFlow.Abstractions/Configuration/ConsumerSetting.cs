@@ -17,7 +17,7 @@ namespace KafkaFlow.Configuration
         private readonly Dictionary<string, string> _dict = new Dictionary<string, string>();
         public Factory<IDistributionStrategy> DistributionStrategyFactory { get; set; }
 
-        public MiddlewareConfiguration MiddlewareConfiguration { get; set; }
+        //public MiddlewareConfiguration MiddlewareConfiguration { get; set; }
         public ConsumerSetting Build(IDependencyResolver dependencyResolver,IConfigurationSection config)
         {
             //this.MiddlewareConfiguration = new ConsumerMiddlewareConfigurationBuilder(dependencyResolver);
