@@ -1,5 +1,6 @@
 ﻿namespace KafkaFlow.Serializer
 {
+    using System;
     using System.Threading.Tasks;
     using Volte.Data.VolteDi;
 
@@ -35,7 +36,7 @@
         public Task Invoke(IMessageContext context, MiddlewareDelegate next)
         {
             this.typeResolver.OnProduce(context);
-
+            Console.WriteLine("SerializerProducerMiddleware");
             var data = this.serializer.Serialize(context.Message);
             
             context.TransformMessage(data);
