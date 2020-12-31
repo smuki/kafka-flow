@@ -30,10 +30,6 @@ namespace KafkaFlow.Producers
             // Create middlewares instances inside a scope to allow scoped injections in producer middlewares
             this.dependencyResolverScope = dependencyResolver.CreateScope();
 
-            //var middlewares = this.configuration.MiddlewareConfiguration.Factories
-            //    .Select(factory => factory(this.dependencyResolverScope.Resolver))
-            //    .ToList();
-
             this.middlewareExecutor = this.dependencyResolverScope.Resolver.Resolve<IMiddlewareExecutor>();
 
             var middlewares = dependencyResolver.Resolves<IMessageMiddleware>().Where(x =>
