@@ -1,15 +1,11 @@
 namespace KafkaFlow
 {
-    using System;
+    using KafkaFlow.Consumers;
+    using KafkaFlow.Producers;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using KafkaFlow.Configuration;
-    using KafkaFlow.Consumers;
-    using KafkaFlow.Dependency;
-    using KafkaFlow.Producers;
-    //using Microsoft.Extensions.Configuration;
 
     public class KafkaBus2 : IKafkaBus
     {
