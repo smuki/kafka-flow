@@ -17,17 +17,14 @@ namespace KafkaFlow.Configuration
         private readonly Dictionary<string, string> _dict = new Dictionary<string, string>();
         public Factory<IDistributionStrategy> DistributionStrategyFactory { get; set; }
 
-        //public MiddlewareConfiguration MiddlewareConfiguration { get; set; }
-        public ConsumerSetting Build(IDependencyResolver dependencyResolver,IConfigurationSection config)
-        {
-            //this.MiddlewareConfiguration = new ConsumerMiddlewareConfigurationBuilder(dependencyResolver);
+        //public ConsumerSetting Build(IConfigurationSection config)
+        //{
+        //    IConfigurationSection consumer = config.GetSection("consumer");
+        //    this.ConsumerName=
+        //    this.Topic = config["topic"];
 
-            IConfigurationSection consumer = config.GetSection("consumer");
-            this.ConsumerName=
-            this.Topic = config["topic"];
-
-            return this;
-        }
+        //    return this;
+        //}
         public string this[string name]
         {
             get
