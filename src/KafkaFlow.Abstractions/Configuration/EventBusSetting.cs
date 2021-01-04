@@ -10,26 +10,13 @@ namespace KafkaFlow.Configuration
         private readonly Func<SecurityInformation> securityInformationHandler;
         private readonly List<ProducerSetting> producers = new List<ProducerSetting>();
         private readonly List<ConsumerSetting> consumers = new List<ConsumerSetting>();
-        //private IConfiguration config;
 
         public EventBusSetting(
-            //IConfiguration config,
             Func<SecurityInformation> securityInformationHandler)
         {
             this.securityInformationHandler = securityInformationHandler;
-            //this.config = config;
         }
-        //public EventBusSetting Build(IConfigurationSection config)
-        //{
-
-        //    IConfigurationSection producer = config.GetSection("producer");
-        //    IConfigurationSection consumer = config.GetSection("consumer");
-
-        //    this.Brokers = config["servers"];
-        //    this.Topic = config["topic"];
-
-        //    return this;
-        //}
+        
         public string Brokers { get; set; }
         public string Topic { get; set; }
 
