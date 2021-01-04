@@ -53,9 +53,8 @@ namespace KafkaFlow.Producers
                 return injectionAttributex.Priority.CompareTo(injectionAttributey.Priority);
             });
 
-            //middlewareExecutor.Initialize(middlewares);
-
             this.middlewareExecutor.Initialize(middlewares);
+
         }
 
         public string ProducerName => this.configuration.Name;
