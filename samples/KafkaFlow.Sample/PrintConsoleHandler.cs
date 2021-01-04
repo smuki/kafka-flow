@@ -3,7 +3,9 @@
     using System;
     using System.Threading.Tasks;
     using KafkaFlow.TypedHandler;
+    using Volte.Data.VolteDi;
 
+    [Injection(InjectionType = InjectionType.Auto)]
     public class PrintConsoleHandler : IMessageHandler<TestMessage>
     {
         static long total = 0;
