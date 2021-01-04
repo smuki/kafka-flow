@@ -27,6 +27,8 @@ namespace KafkaFlow.Configuration
             kafka(builder);
 
             this.configuration = builder.Build();
+
+            dependencyConfigurator.AddSingleton<KafkaConfiguration>();
         }
 
         /// <summary>
