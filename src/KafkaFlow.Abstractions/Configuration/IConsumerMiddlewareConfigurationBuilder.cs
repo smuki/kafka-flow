@@ -16,18 +16,15 @@ namespace KafkaFlow.Configuration
         /// <param name="factory">A factory to create the instance</param>
         /// <typeparam name="T">A class that implements the <see cref="IMessageMiddleware"/></typeparam>
         /// <returns></returns>
-        IConsumerMiddlewareConfigurationBuilder Add<T>(Factory<T> factory)
-            where T : class, IMessageMiddleware;
+        IConsumerMiddlewareConfigurationBuilder Add<T>(Factory<T> factory) where T : class, IMessageMiddleware;
 
         /// <summary>
         /// Registers a middleware
         /// </summary>
         /// <typeparam name="T">A class that implements the <see cref="IMessageMiddleware"/></typeparam>
         /// <returns></returns>
-        IConsumerMiddlewareConfigurationBuilder Add<T>()
-            where T : class, IMessageMiddleware;
+        IConsumerMiddlewareConfigurationBuilder Add<T>() where T : class, IMessageMiddleware;
 
-        //public MiddlewareConfiguration Build();
 
     }
 }
