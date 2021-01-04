@@ -3,6 +3,7 @@ namespace KafkaFlow.TypedHandler
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Volte.Data.VolteDi;
 
     /// <summary>
     /// Builder class for typed handler configuration
@@ -35,6 +36,9 @@ namespace KafkaFlow.TypedHandler
                 .Where(x => x.IsClass && !x.IsAbstract && typeof(IMessageHandler).IsAssignableFrom(x));
 
             this.handlers.AddRange(handlersType);
+
+            var InstanceInjectionConfigurarions = InjectionManager.GetServicesInjection(typeof(T).Assembly);
+
 
             return this;
         }
