@@ -24,6 +24,8 @@ namespace KafkaFlow.TypedHandler
             {
                 var handlerType = this.configuration.HandlerMapping.GetHandlerType(context.Message.GetType());
 
+                var handlerType2 = scope.Resolver.Resolves<IMessageHandler>();
+
                 if (handlerType == null)
                 {
                     return;
