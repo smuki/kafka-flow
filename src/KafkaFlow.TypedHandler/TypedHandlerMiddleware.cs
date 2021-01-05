@@ -1,5 +1,6 @@
 namespace KafkaFlow.TypedHandler
 {
+    using System.Linq;
     using System.Threading.Tasks;
     using Volte.Data.VolteDi;
 
@@ -8,33 +9,34 @@ namespace KafkaFlow.TypedHandler
     public class TypedHandlerMiddleware : IMessageMiddleware
     {
         private readonly IDependencyResolver dependencyResolver;
-        private readonly TypedHandlerConfiguration configuration;
+        //private readonly TypedHandlerConfiguration configuration;
+        private readonly HandlerTypeMapping HandlerMapping;
 
         public TypedHandlerMiddleware(
-            IDependencyResolver dependencyResolver,
-            TypedHandlerConfiguration configuration)
+            IDependencyResolver dependencyResolver)
         {
             this.dependencyResolver = dependencyResolver;
-            this.configuration = configuration;
+            this.HandlerMapping = new HandlerTypeMapping(dependencyResolver);
         }
 
         public async Task Invoke(IMessageContext context, MiddlewareDelegate next)
         {
             using (var scope = this.dependencyResolver.CreateScope())
             {
-                var handlerType = this.configuration.HandlerMapping.GetHandlerType(context.Message.GetType());
 
-                var handlerType2 = scope.Resolver.Resolves<IMessageHandler>();
+                var handlerType = HandlerMapping.GetHandlers(context.Message.GetType());
 
-                if (handlerType == null)
+                if (handlerType == null || handlerType.Count == 0)
                 {
                     return;
                 }
+                var tasks = handlerType.Select(h =>
+               {
+                   return HandlerExecutor.GetExecutor(context.Message.GetType()).Execute(h, context, context.Message);
+               });
 
-                var handler = scope.Resolver.Resolve(handlerType);
-                await HandlerExecutor.GetExecutor(context.Message.GetType()).Execute(handler, context, context.Message).ConfigureAwait(false);
+                await Task.WhenAll(tasks);
             }
-
             await next(context);
         }
     }
