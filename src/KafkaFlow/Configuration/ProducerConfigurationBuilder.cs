@@ -25,12 +25,6 @@ namespace KafkaFlow.Configuration
 
         public IDependencyConfigurator DependencyConfigurator { get; }
 
-        //public IProducerConfigurationBuilder AddMiddlewares(Action<IProducerMiddlewareConfigurationBuilder> middlewares)
-        //{
-        //    //middlewares(this.middlewareConfigurationBuilder);
-        //    return this;
-        //}
-
         public IProducerConfigurationBuilder DefaultTopic(string topic)
         {
             this.topic = topic;
@@ -73,7 +67,6 @@ namespace KafkaFlow.Configuration
                 this.name,
                 this.topic,
                 this.acks,
-                //this.middlewareConfigurationBuilder.Build(),
                 this.producerConfig,
                 this.statisticsHandlers);
 
