@@ -31,15 +31,6 @@ namespace KafkaFlow.TypedHandler
         public TypedHandlerConfigurationBuilder AddHandlersFromAssemblyOf<T>()
             where T : IMessageHandler
         {
-            var handlersType = typeof(T).Assembly
-                .GetTypes()
-                .Where(x => x.IsClass && !x.IsAbstract && typeof(IMessageHandler).IsAssignableFrom(x));
-
-            this.handlers.AddRange(handlersType);
-
-            var InstanceInjectionConfigurarions = InjectionManager.GetServicesInjection(typeof(T).Assembly);
-
-
             return this;
         }
 
@@ -50,7 +41,6 @@ namespace KafkaFlow.TypedHandler
         /// <returns></returns>
         public TypedHandlerConfigurationBuilder AddHandlers(IEnumerable<Type> handlers)
         {
-            this.handlers.AddRange(handlers);
             return this;
         }
 
@@ -62,47 +52,7 @@ namespace KafkaFlow.TypedHandler
         public TypedHandlerConfigurationBuilder AddHandler<T>()
             where T : class, IMessageHandler
         {
-            this.handlers.Add(typeof(T));
             return this;
         }
-
-        /// <summary>
-        /// Set the handler lifetime. The default value is <see cref="InstanceLifetime.Singleton"/>
-        /// </summary>
-        /// <param name="lifetime"></param>
-        /// <returns></returns>
-        public TypedHandlerConfigurationBuilder WithHandlerLifetime(InstanceLifetime lifetime)
-        {
-            this.serviceLifetime = lifetime;
-            return this;
-        }
-
-        //internal TypedHandlerConfiguration Build()
-        //{
-        //    var configuration = new TypedHandlerConfiguration();
-
-        //    foreach (var handlerType in this.handlers)
-        //    {
-        //        this.dependencyConfigurator.Add(
-        //            handlerType,
-        //            handlerType,
-        //            this.serviceLifetime);
-
-        //        var messageTypes = handlerType
-        //            .GetInterfaces()
-        //            .Where(x => x.IsGenericType && typeof(IMessageHandler).IsAssignableFrom(x))
-        //            .Select(x => x.GenericTypeArguments[0]);
-
-        //        foreach (var messageType in messageTypes)
-        //        {
-
-        //            Console.WriteLine(messageType);
-
-        //            //configuration.HandlerMapping.AddMapping(messageType, handlerType);
-        //        }
-        //    }
-
-        //    return configuration;
-        //}
     }
 }
