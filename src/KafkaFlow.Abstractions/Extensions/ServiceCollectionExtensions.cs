@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Security;
 using KafkaFlow;
+using KafkaFlow.Consumers;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 // ReSharper disable once CheckNamespace
@@ -37,6 +39,17 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.Add(descriptor);
             }
 
+            return services;
+        }
+        public static IServiceCollection UseKafkaFlow(this IServiceCollection services)
+        {
+            var consumerManager = new ConsumerManager();
+
+            services.AddTransient(typeof(ILogHandler), typeof(NullLogHandler));
+            services.AddTransient<ILogHandler, NullLogHandler>();
+            services.AddSingleton<IConsumerAccessor>(consumerManager);
+            services.AddSingleton<IConsumerAccessor>(consumerManager);
+            services.AddSingleton<IConsumerManager>(consumerManager);
             return services;
         }
 
