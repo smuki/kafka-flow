@@ -9,7 +9,7 @@ namespace KafkaFlow.Middleware
     [Injection(InjectionType = InjectionType.Auto)]
     public class MiddlewareExecutor : IMiddlewareExecutor
     {
-        private  IReadOnlyList<IMessageMiddleware> middlewares;
+        private IReadOnlyList<IMessageMiddleware> middlewares;
         public MiddlewareExecutor(IDependencyResolver dependencyResolver)
         {
             middlewares = dependencyResolver.Resolves<IMessageMiddleware>().ToList();
@@ -33,6 +33,8 @@ namespace KafkaFlow.Middleware
             {
                 return nextOperation(context);
             }
+
+            Console.WriteLine("MiddlewareExecutor.Execute - " + this.middlewares.Count);
 
             return this.middlewares[index].Invoke(context, nextContext => this.ExecuteDefinition(index + 1, nextContext.Clone(), nextOperation));
         }
