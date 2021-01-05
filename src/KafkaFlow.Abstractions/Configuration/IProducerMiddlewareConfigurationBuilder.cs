@@ -24,7 +24,6 @@ namespace KafkaFlow.Configuration
         /// </summary>
         /// <typeparam name="T">A class that implements the <see cref="IMessageMiddleware"/></typeparam>
         /// <returns></returns>
-        IProducerMiddlewareConfigurationBuilder Add<T>()
-            where T : class, IMessageMiddleware;
+        //IProducerMiddlewareConfigurationBuilder Add<T>()           where T : class, IMessageMiddleware;
     }
 }
