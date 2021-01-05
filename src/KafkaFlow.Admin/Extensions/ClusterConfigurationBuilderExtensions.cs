@@ -23,10 +23,11 @@
                 .AddProducer<AdminProducer>(
                     producer => producer
                         .DefaultTopic(adminTopic)
-                        .AddMiddlewares(
-                            middlewares => middlewares
-                                .AddSerializer<ProtobufMessageSerializer>()
-                        ))
+                        //.AddMiddlewares(
+                        //    middlewares => middlewares
+                        //        .AddSerializer<ProtobufMessageSerializer>()
+                        //)
+                        )
                 .AddConsumer(
                     consumer => consumer
                         .Topic(adminTopic)
