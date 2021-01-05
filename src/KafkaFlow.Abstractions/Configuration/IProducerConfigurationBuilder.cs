@@ -17,7 +17,7 @@ namespace KafkaFlow.Configuration
         /// </summary>
         /// <param name="middlewares">A handler to register middlewares</param>
         /// <returns></returns>
-        IProducerConfigurationBuilder AddMiddlewares(Action<IProducerMiddlewareConfigurationBuilder> middlewares);
+        //IProducerConfigurationBuilder AddMiddlewares(Action<IProducerMiddlewareConfigurationBuilder> middlewares);
 
         /// <summary>
         /// Sets the default topic to be used when producing messages
