@@ -18,6 +18,6 @@ namespace KafkaFlow.Configuration
         /// </summary>
         /// <typeparam name="TLogHandler">A class that implements the <see cref="ILogHandler"/> interface</typeparam>
         /// <returns></returns>
-        IKafkaConfigurationBuilder UseLogHandler<TLogHandler>() where TLogHandler : ILogHandler;
+        //IKafkaConfigurationBuilder UseLogHandler<TLogHandler>() where TLogHandler : ILogHandler;
     }
 }
