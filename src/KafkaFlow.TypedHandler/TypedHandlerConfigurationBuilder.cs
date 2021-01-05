@@ -77,32 +77,32 @@ namespace KafkaFlow.TypedHandler
             return this;
         }
 
-        internal TypedHandlerConfiguration Build()
-        {
-            var configuration = new TypedHandlerConfiguration();
+        //internal TypedHandlerConfiguration Build()
+        //{
+        //    var configuration = new TypedHandlerConfiguration();
 
-            foreach (var handlerType in this.handlers)
-            {
-                this.dependencyConfigurator.Add(
-                    handlerType,
-                    handlerType,
-                    this.serviceLifetime);
+        //    foreach (var handlerType in this.handlers)
+        //    {
+        //        this.dependencyConfigurator.Add(
+        //            handlerType,
+        //            handlerType,
+        //            this.serviceLifetime);
 
-                var messageTypes = handlerType
-                    .GetInterfaces()
-                    .Where(x => x.IsGenericType && typeof(IMessageHandler).IsAssignableFrom(x))
-                    .Select(x => x.GenericTypeArguments[0]);
+        //        var messageTypes = handlerType
+        //            .GetInterfaces()
+        //            .Where(x => x.IsGenericType && typeof(IMessageHandler).IsAssignableFrom(x))
+        //            .Select(x => x.GenericTypeArguments[0]);
 
-                foreach (var messageType in messageTypes)
-                {
+        //        foreach (var messageType in messageTypes)
+        //        {
 
-                    Console.WriteLine(messageType);
+        //            Console.WriteLine(messageType);
 
-                    //configuration.HandlerMapping.AddMapping(messageType, handlerType);
-                }
-            }
+        //            //configuration.HandlerMapping.AddMapping(messageType, handlerType);
+        //        }
+        //    }
 
-            return configuration;
-        }
+        //    return configuration;
+        //}
     }
 }
