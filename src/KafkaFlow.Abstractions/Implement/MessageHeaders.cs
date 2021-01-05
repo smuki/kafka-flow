@@ -11,8 +11,6 @@ namespace KafkaFlow
     {
         private readonly Dictionary<string, byte[]> headers;
        
-        /// Creates a <see cref="MessageHeaders"/> instance
-        /// </summary>
         public MessageHeaders()
         {
             headers=new Dictionary<string, byte[]>();

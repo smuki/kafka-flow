@@ -7,7 +7,7 @@ namespace KafkaFlow.Configuration
     public class ConsumerConfiguration:ConsumerSetting
     {
         private readonly ConsumerConfig consumerConfig;
-        private int workerCount;
+//        private int workerCount;
 
         public ConsumerConfiguration(
             ConsumerConfig consumerConfig,

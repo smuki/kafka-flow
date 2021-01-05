@@ -110,6 +110,8 @@ namespace KafkaFlow.Producers
                         this.InternalProduce((ProducerMessageContext)context,
                             report =>
                             {
+                                Console.WriteLine(report.Status);
+
                                 if (report.Error.IsError)
                                 {
                                     Console.WriteLine("error");

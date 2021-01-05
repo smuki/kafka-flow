@@ -21,7 +21,7 @@
 
     internal static class Program
     {
-        private static async Task Main()
+        private static async Task xxxMain()
         {
             var services = new ServiceCollection();
 

@@ -21,6 +21,8 @@ namespace KafkaFlow.TypedHandler
                 ICollection<IMessageHandler> handlers = new List<IMessageHandler>();
                 foreach (var handlerType in dependencyResolver.Resolves<IMessageHandler>())
                 {
+                    Console.WriteLine("GetHandlers." + handlerType);
+
                     foreach (var implementedInterface in handlerType.GetType().GetTypeInfo().ImplementedInterfaces)
                     {
                         if (implementedInterface.IsGenericType && eventType.IsAssignableFrom(implementedInterface.GenericTypeArguments[0]))

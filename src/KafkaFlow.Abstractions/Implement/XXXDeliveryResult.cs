@@ -12,9 +12,6 @@ namespace KafkaFlow
         {
             this.Status = PersistenceStatus.NotPersisted;
         }
-        /// <summary>
-        //     The persistence status of the message
-        /// </summary>
         public PersistenceStatus Status { get; set; }
     }
 }
