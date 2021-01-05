@@ -32,16 +32,6 @@ namespace KafkaFlow.TypedHandler
         }
 
         /// <summary>
-        /// Manually adds the message handlers
-        /// </summary>
-        /// <param name="handlers"></param>
-        /// <returns></returns>
-        public TypedHandlerConfigurationBuilder AddHandlers(IEnumerable<Type> handlers)
-        {
-            return this;
-        }
-
-        /// <summary>
         /// Manually adds the message handler
         /// </summary>
         /// <typeparam name="T">A type that implements the <see cref="IMessageHandler{TMessage}"/> interface</typeparam>
