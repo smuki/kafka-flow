@@ -31,7 +31,7 @@
 
             services.AddKafka(
                 kafka => kafka
-                    .UseConsoleLog()
+                    //.UseConsoleLog()
                     .AddCluster(
                         cluster => cluster
                             .WithBrokers(new[] { "192.168.8.4:9092" })
@@ -67,6 +67,8 @@
                             )
                     )
             );
+
+            services.UseKafkaFlow();
 
             VolteDiOptions _opt = new VolteDiOptions();
 
