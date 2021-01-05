@@ -61,7 +61,6 @@
                                             .AddSerializer<ProtobufMessageSerializer>()
                                             .AddTypedHandlers(
                                                 handlers => handlers
-                                                    .WithHandlerLifetime(InstanceLifetime.Singleton)
                                                     .AddHandler<PrintConsoleHandler>()
                                                     .AddHandler<PrintConsoleHandler2>())
                                     )
