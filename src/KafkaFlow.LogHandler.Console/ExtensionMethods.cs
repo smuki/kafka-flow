@@ -11,7 +11,7 @@ namespace KafkaFlow
         /// </summary>
         /// <param name="builder"></param>
         /// <returns></returns>
-        public static IKafkaConfigurationBuilder UseConsoleLog(this IKafkaConfigurationBuilder builder) =>
-            builder.UseLogHandler<ConsoleLogHandler>();
+        //public static IKafkaConfigurationBuilder UseConsoleLog(this IKafkaConfigurationBuilder builder) =>
+        //    builder.UseLogHandler<ConsoleLogHandler>();
     }
 }
