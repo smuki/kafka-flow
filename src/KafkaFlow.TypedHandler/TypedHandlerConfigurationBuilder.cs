@@ -11,9 +11,6 @@ namespace KafkaFlow.TypedHandler
     public class TypedHandlerConfigurationBuilder
     {
         private readonly IDependencyConfigurator dependencyConfigurator;
-        private readonly List<Type> handlers = new List<Type>();
-
-        private InstanceLifetime serviceLifetime = InstanceLifetime.Singleton;
 
         /// <summary>
         /// </summary>
