@@ -39,7 +39,6 @@
                                 .AddSerializer<ProtobufMessageSerializer>()
                                 .AddTypedHandlers(
                                     handlers => handlers
-                                        .WithHandlerLifetime(InstanceLifetime.Singleton)
                                         .AddHandlersFromAssemblyOf<ResetConsumerOffsetHandler>()))
                 );
         }
