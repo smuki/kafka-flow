@@ -47,11 +47,5 @@ namespace KafkaFlow.Configuration
 
             return this;
         }
-
-        //public IKafkaConfigurationBuilder UseLogHandler<TLogHandler>() where TLogHandler : ILogHandler
-        //{
-        //    this.logHandler = typeof(TLogHandler);
-        //    return this;
-        //}
     }
 }
