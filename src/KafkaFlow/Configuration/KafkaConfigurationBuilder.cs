@@ -12,7 +12,6 @@ namespace KafkaFlow.Configuration
     {
         private readonly IDependencyConfigurator dependencyConfigurator;
         private readonly List<ClusterConfigurationBuilder> clusters = new List<ClusterConfigurationBuilder>();
-        private Type logHandler = typeof(NullLogHandler);
 
         public KafkaConfigurationBuilder(IDependencyConfigurator dependencyConfigurator)
         {
