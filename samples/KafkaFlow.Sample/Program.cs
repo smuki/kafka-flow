@@ -39,10 +39,10 @@
                                 producerName,
                                 producer => producer
                                     .DefaultTopic("test-topic")
-                                    .AddMiddlewares(
-                                        middlewares => middlewares
-                                            .AddSerializer<ProtobufMessageSerializer>()
-                                    )
+                                    //.AddMiddlewares(
+                                    //    middlewares => middlewares
+                                    //        .AddSerializer<ProtobufMessageSerializer>()
+                                    //)
                                     .WithAcks(Acks.All)
                             )
                             .AddConsumer(
@@ -53,14 +53,14 @@
                                     .WithBufferSize(100)
                                     .WithWorkersCount(20)
                                     .WithAutoOffsetReset(AutoOffsetReset.Latest)
-                                    .AddMiddlewares(
-                                        middlewares => middlewares
-                                            .AddSerializer<ProtobufMessageSerializer>()
-                                            .AddTypedHandlers(
-                                                handlers => handlers
-                                                    .AddHandler<PrintConsoleHandler>()
-                                                    .AddHandler<PrintConsoleHandler2>())
-                                    )
+                                    //.AddMiddlewares(
+                                    //    middlewares => middlewares
+                                    //        .AddSerializer<ProtobufMessageSerializer>()
+                                    //        .AddTypedHandlers(
+                                    //            handlers => handlers
+                                    //                .AddHandler<PrintConsoleHandler>()
+                                    //                .AddHandler<PrintConsoleHandler2>())
+                                    //)
                             )
                     )
             );
