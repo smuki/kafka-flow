@@ -9,7 +9,6 @@ namespace KafkaFlow.TypedHandler
     public class TypedHandlerMiddleware : IMessageMiddleware
     {
         private readonly IDependencyResolver dependencyResolver;
-        //private readonly TypedHandlerConfiguration configuration;
         private readonly HandlerTypeMapping HandlerMapping;
 
         public TypedHandlerMiddleware(
