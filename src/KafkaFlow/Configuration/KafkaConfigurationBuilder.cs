@@ -1,15 +1,12 @@
 namespace KafkaFlow.Configuration
 {
+    using KafkaFlow.Consumers;
+    using KafkaFlow.Dependency;
+    using KafkaFlow.Producers;
+    using KafkaFlow.Serializer;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using KafkaFlow.Consumers;
-    using KafkaFlow.Producers;
-    using KafkaFlow.Dependency;
-    using KafkaFlow.Middleware;
-    using KafkaFlow.Serializer;
-    using KafkaFlow.Serializer.Json;
-    using KafkaFlow.TypedHandler;
 
     public class KafkaConfigurationBuilder : IKafkaConfigurationBuilder
     {
@@ -37,14 +34,6 @@ namespace KafkaFlow.Configuration
                                 resolver,
                                 producer))));
 
-            var consumerManager = new ConsumerManager();
-            var DefaultMessageTypeResolver = new DefaultMessageTypeResolver();
-            this.dependencyConfigurator
-                .AddTransient(typeof(ILogHandler), this.logHandler)
-                .AddSingleton<IConsumerAccessor>(consumerManager)
-                .AddSingleton<IConsumerAccessor>(consumerManager)
-               .AddSingleton<IConsumerManager>(consumerManager);
-
             return configuration;
         }
 
@@ -59,10 +48,10 @@ namespace KafkaFlow.Configuration
             return this;
         }
 
-        public IKafkaConfigurationBuilder UseLogHandler<TLogHandler>() where TLogHandler : ILogHandler
-        {
-            this.logHandler = typeof(TLogHandler);
-            return this;
-        }
+        //public IKafkaConfigurationBuilder UseLogHandler<TLogHandler>() where TLogHandler : ILogHandler
+        //{
+        //    this.logHandler = typeof(TLogHandler);
+        //    return this;
+        //}
     }
 }
