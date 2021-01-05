@@ -31,7 +31,6 @@
 
             services.AddKafka(
                 kafka => kafka
-                    //.UseConsoleLog()
                     .AddCluster(
                         cluster => cluster
                             .WithBrokers(new[] { "192.168.8.4:9092" })
@@ -43,7 +42,6 @@
                                     .AddMiddlewares(
                                         middlewares => middlewares
                                             .AddSerializer<ProtobufMessageSerializer>()
-                                            //.AddCompressor<GzipMessageCompressor>()
                                     )
                                     .WithAcks(Acks.All)
                             )
@@ -57,7 +55,6 @@
                                     .WithAutoOffsetReset(AutoOffsetReset.Latest)
                                     .AddMiddlewares(
                                         middlewares => middlewares
-                                            //.AddCompressor<GzipMessageCompressor>()
                                             .AddSerializer<ProtobufMessageSerializer>()
                                             .AddTypedHandlers(
                                                 handlers => handlers
