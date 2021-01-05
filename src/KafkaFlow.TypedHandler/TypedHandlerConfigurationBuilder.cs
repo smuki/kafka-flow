@@ -95,7 +95,10 @@ namespace KafkaFlow.TypedHandler
 
                 foreach (var messageType in messageTypes)
                 {
-                    configuration.HandlerMapping.AddMapping(messageType, handlerType);
+
+                    Console.WriteLine(messageType);
+
+                    //configuration.HandlerMapping.AddMapping(messageType, handlerType);
                 }
             }
 
