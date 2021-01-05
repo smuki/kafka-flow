@@ -26,7 +26,7 @@ namespace KafkaFlow.TypedHandler
             var configuration = typedHandlerBuilder.Build();
 
             builder.DependencyConfigurator.AddSingleton(configuration);
-            builder.Add(resolver => new TypedHandlerMiddleware(resolver, configuration));
+            builder.Add(resolver => new TypedHandlerMiddleware(resolver));
 
             return builder;
         }
