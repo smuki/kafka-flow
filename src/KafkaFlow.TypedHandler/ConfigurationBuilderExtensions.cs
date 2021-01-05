@@ -19,14 +19,14 @@ namespace KafkaFlow.TypedHandler
             this IConsumerMiddlewareConfigurationBuilder builder,
             Action<TypedHandlerConfigurationBuilder> configure)
         {
-            var typedHandlerBuilder = new TypedHandlerConfigurationBuilder(builder.DependencyConfigurator);
+            //var typedHandlerBuilder = new TypedHandlerConfigurationBuilder(builder.DependencyConfigurator);
 
-            configure(typedHandlerBuilder);
+            //configure(typedHandlerBuilder);
 
-            var configuration = typedHandlerBuilder.Build();
+            //var configuration = typedHandlerBuilder.Build();
 
-            builder.DependencyConfigurator.AddSingleton(configuration);
-            builder.Add(resolver => new TypedHandlerMiddleware(resolver));
+            //builder.DependencyConfigurator.AddSingleton(configuration);
+            //builder.Add(resolver => new TypedHandlerMiddleware(resolver));
 
             return builder;
         }
