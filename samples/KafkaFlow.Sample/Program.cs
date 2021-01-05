@@ -62,7 +62,8 @@
                                             .AddTypedHandlers(
                                                 handlers => handlers
                                                     .WithHandlerLifetime(InstanceLifetime.Singleton)
-                                                    .AddHandler<PrintConsoleHandler>())
+                                                    .AddHandler<PrintConsoleHandler>()
+                                                    .AddHandler<PrintConsoleHandler2>())
                                     )
                             )
                     )
@@ -91,19 +92,6 @@
             StringBuilder ScanClass = new StringBuilder();
             ScanClass.AppendLine();
             services.LoadInjection(_Assembly.ToArray<Assembly>());
-
-            //services.Scan(scan =>
-            //        scan.FromAssemblies(_Assembly)
-            //        .AddClasses(classes =>
-            //            classes.Where(t => {
-            //                return t.HasAutowired();
-            //                //ScanClass.AppendLine(t.Name);
-            //                //return true;
-            //            })
-            //            )
-            //        .AsSelf()
-            //        .AsImplementedInterfaces()
-            //        .WithTransientLifetime());
 
             var provider = services.BuildServiceProvider();
 
