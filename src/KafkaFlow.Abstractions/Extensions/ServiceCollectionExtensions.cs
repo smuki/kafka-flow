@@ -59,6 +59,6 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static IServiceCollection Replace<TService, TImplementation>(this IServiceCollection services, ServiceLifetime lifetime) => services.Replace(new ServiceDescriptor(typeof(TService), typeof(TImplementation), lifetime));
         public static bool HasService<T>(this IServiceCollection services) => services.Any(x => x.ServiceType == typeof(T));
-        public static bool HasService<T>(this KafkaFlowOptions options) => options.Services.HasService<T>();
+        //public static bool HasService<T>(this KafkaFlowOptions options) => options.Services.HasService<T>();
     }
 }

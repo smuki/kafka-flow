@@ -10,10 +10,10 @@ namespace KafkaFlow.Middleware
     public class MiddlewareExecutor : IMiddlewareExecutor
     {
         private IReadOnlyList<IMessageMiddleware> middlewares;
-        public MiddlewareExecutor(IDependencyResolver dependencyResolver)
-        {
-            middlewares = dependencyResolver.Resolves<IMessageMiddleware>().ToList();
-        }
+        //public MiddlewareExecutor(IDependencyResolver dependencyResolver)
+        //{
+        //    middlewares = dependencyResolver.Resolves<IMessageMiddleware>().ToList();
+        //}
         public void Initialize(IReadOnlyList<IMessageMiddleware> middlewares)
         {
             this.middlewares = middlewares;
