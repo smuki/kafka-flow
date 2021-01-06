@@ -1,45 +1,44 @@
 namespace KafkaFlow.TypedHandler
 {
     using System;
+    using System.Linq;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Reflection;
+    using Volte.Data.VolteDi;
 
-    public class HandlerTypeMapping
+    [Injection(InjectionType = InjectionType.Auto)]
+    public class HandlerTypeMapping: IHandlerTypeMapping
     {
         private readonly ConcurrentDictionary<Type, ICollection<IMessageHandler>> _messageHandlers = new ConcurrentDictionary<Type, ICollection<IMessageHandler>>();
-        private readonly IDependencyResolver dependencyResolver;
+        IVolteDiServiceProvider VolteDiServiceProvider;
+
         public HandlerTypeMapping(
-            IDependencyResolver dependencyResolver)
+            IVolteDiServiceProvider VolteDiServiceProvider)
         {
-            this.dependencyResolver = dependencyResolver;
+            this.VolteDiServiceProvider= VolteDiServiceProvider;
         }
-        public ICollection<IMessageHandler> GetTypes(Type eventType)
+        public ICollection<IMessageHandler> GetMessageHandler(Type eventType)
         {
-            ICollection<IMessageHandler> handlers = new List<IMessageHandler>();
-            var xx = dependencyResolver.Resolves<IMessageHandler>();
-            foreach (var handlerType in dependencyResolver.Resolves<IMessageHandler>())
-            {
-                Console.WriteLine("GetHandlers." + handlerType);
+            var eventHandlerType = typeof(IMessageHandler<>).MakeGenericType(eventType);
+            Console.WriteLine("eventType--->" + eventType.ToString());
+            Console.WriteLine("HandlerTypeMapping--->" + eventHandlerType.ToString());
+            var xx1 = VolteDiServiceProvider.ServiceProvider.GetGenericTypeServices(eventHandlerType);
 
-                foreach (var implementedInterface in handlerType.GetType().GetTypeInfo().ImplementedInterfaces)
-                {
-                    if (implementedInterface.IsGenericType && eventType.IsAssignableFrom(implementedInterface.GenericTypeArguments[0]))
-                    {
-                        handlers.Add(handlerType);
-                    }
-                }
-            }
-
-            return handlers;
+            var xx = VolteDiServiceProvider.ServiceProvider.GetGenericTypeServices(eventHandlerType).Cast<IMessageHandler>().ToArray();
+            return xx;
         }
         public ICollection<IMessageHandler> GetHandlers(Type eventType)
         {
             var eventHandlers = _messageHandlers.GetOrAdd(eventType, type =>
             {
-                return this.GetTypes(eventType);
+                return this.GetMessageHandler(eventType);
             });
+            
+           var x2=this.GetMessageHandler(eventType);
+
             return eventHandlers;
         }
+
     }
 }

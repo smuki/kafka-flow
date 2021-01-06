@@ -9,6 +9,7 @@ using System.Text;
 using KafkaFlow;
 using KafkaFlow.Producers;
 using KafkaFlow.Sample;
+using KafkaFlow.TypedHandler;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Http;
@@ -261,6 +262,7 @@ namespace Zero.Boot.Launcher
             }
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IHandlerTypeMapping, HandlerTypeMapping>();
 
             services.AddMvc(options => options.EnableEndpointRouting = true);
 
@@ -279,11 +281,17 @@ namespace Zero.Boot.Launcher
             {
                 NLogger.Info("HealthChecks =[Disabled]");
             }
-
+            var x1=services.ToList<ServiceDescriptor>();
             foreach (var x in services.ToList<ServiceDescriptor>())
             {
+
                 if (x.ServiceType != null && x.ServiceType.ToString().IndexOf("IMessageHandler")>0)
                 {
+                    Console.WriteLine("---->####################");
+                    Console.WriteLine("---->####################");
+                    Console.WriteLine("---->####################");
+                    Console.WriteLine("---->####################");
+                    Console.WriteLine(x.ServiceType);
                     Console.WriteLine("---->####################");
                     Console.WriteLine(x.ServiceType);
                     Console.WriteLine(x.ImplementationType);
@@ -298,6 +306,11 @@ namespace Zero.Boot.Launcher
         public void Configure(IApplicationBuilder app)
         {
             var provider = app.ApplicationServices;
+
+            var eventHandlerType = typeof(IMessageHandler<>).MakeGenericType(typeof(TestMessage));
+
+            var xx =provider.GetServices(eventHandlerType);
+            Console.WriteLine(xx.ToString());
 
             app.Use((context, next) =>
             {

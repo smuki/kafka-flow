@@ -21,6 +21,13 @@ namespace KafkaFlow.Middleware
 
         public Task Execute(IMessageContext context, Func<IMessageContext, Task> nextOperation)
         {
+            int i = 0;
+            foreach(var x in middlewares)
+            {
+                Console.Write(i+" : ");
+                Console.WriteLine(x);
+                i++;
+            }
             return this.ExecuteDefinition(0, context, nextOperation);
         }
 

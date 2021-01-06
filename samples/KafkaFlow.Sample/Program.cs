@@ -91,6 +91,17 @@
             ScanClass.AppendLine();
             services.LoadInjection(_Assembly.ToArray<Assembly>());
 
+
+            foreach (var x in services.ToList<ServiceDescriptor>())
+            {
+                Console.WriteLine(x.ServiceType);
+
+                if (x.ServiceType != null && x.ServiceType.IsGenericType)
+                {
+                      Console.WriteLine(x.ServiceType);
+                }
+            }
+
             var provider = services.BuildServiceProvider();
 
             var bus = provider.CreateKafkaBus();

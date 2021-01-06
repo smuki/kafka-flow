@@ -3,6 +3,7 @@ namespace KafkaFlow.TypedHandler
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Runtime.CompilerServices;
     using Volte.Data.VolteDi;
 
     /// <summary>
@@ -41,5 +42,30 @@ namespace KafkaFlow.TypedHandler
         {
             return this;
         }
+        //public static TypedHandlerConfigurationBuilder RegisterEventHandlers(this TypedHandlerConfigurationBuilder builder, params Assembly[] assemblies)
+        //{
+        //    if (assemblies == null || assemblies.Length == 0)
+        //    {
+        //        return builder;
+        //    }
+
+        //    var handlerTypes = assemblies
+        //        .Select(ass => ass.GetTypes())
+        //        .SelectMany(t => t)
+        //        .Where(t => !t.IsAbstract && typeof(IMessageHandler).IsAssignableFrom(t));
+
+        //    foreach (var handlerType in handlerTypes)
+        //    {
+        //        foreach (var implementedInterface in handlerType.GetTypeInfo().ImplementedInterfaces)
+        //        {
+        //            if (implementedInterface.IsGenericType)
+        //            {
+        //                dependencyConfigurator.TryAddEnumerable(new ServiceDescriptor(implementedInterface, handlerType, serviceLifetime));
+        //            }
+        //        }
+        //    }
+
+        //    return builder;
+        //}
     }
 }
