@@ -1,5 +1,6 @@
 ﻿using Confluent.Kafka;
 using KafkaFlow.Consumers;
+using KafkaFlow.Producers;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -92,13 +93,30 @@ namespace KafkaFlow
             }
             XXXError err= new XXXError();
             err.IsError = message.Error.IsError;
+            err.Reason = message.Error.Reason;
+            err.IsLocalError = message.Error.IsLocalError;
+            err.IsBrokerError = message.Error.IsBrokerError;
+            err.IsFatal = message.Error.IsFatal;
+            err.Code = message.Error.Code.ToString();
 
             var intermediateMessage = new XXXDeliveryReport(headers, message.Message.Value);
             intermediateMessage.Topic = message.Topic;
             intermediateMessage.Partition = message.Partition;
             intermediateMessage.Offset = message.Offset;
             intermediateMessage.Error = err;
+            if (message.Status == PersistenceStatus.NotPersisted)
+            {
+                intermediateMessage.Status = XXXPersistenceStatus.NotPersisted;
+            }
+            else if(message.Status == PersistenceStatus.Persisted)
+            {
+                intermediateMessage.Status = XXXPersistenceStatus.Persisted;
 
+            }
+            else if (message.Status == PersistenceStatus.PossiblyPersisted)
+            {
+                intermediateMessage.Status = XXXPersistenceStatus.PossiblyPersisted;
+            }
             return intermediateMessage;
 
         }
