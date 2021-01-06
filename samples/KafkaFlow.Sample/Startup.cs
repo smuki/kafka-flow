@@ -280,6 +280,19 @@ namespace Zero.Boot.Launcher
                 NLogger.Info("HealthChecks =[Disabled]");
             }
 
+            foreach (var x in services.ToList<ServiceDescriptor>())
+            {
+                if (x.ServiceType != null && x.ServiceType.ToString().IndexOf("IMessageHandler")>0)
+                {
+                    Console.WriteLine("---->####################");
+                    Console.WriteLine(x.ServiceType);
+                    Console.WriteLine(x.ImplementationType);
+                    Console.WriteLine("---->####################");
+                    Console.WriteLine("");
+
+                }
+            }
+
         }
 
         public void Configure(IApplicationBuilder app)
