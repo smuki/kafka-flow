@@ -6,6 +6,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Confluent.Kafka;
+    using global::Microsoft.Extensions.Configuration;
     using KafkaFlow.Configuration;
     using Volte.Data.VolteDi;
     using Volte.Utils;
@@ -13,6 +14,7 @@
     [Injection(InjectionType = InjectionType.Both)]
     public class KafkaConsumer: IConsumerClient
     {
+
         private ConsumerSetting configuration;
         private readonly IConsumerManager consumerManager;
         private readonly ILogHandler logHandler;
@@ -30,7 +32,6 @@
         {
             this.consumerManager = consumerManager;
             this.logHandler = logHandler;
-            //this.busStopCancellationToken = busStopCancellationToken;
         }
         public List<XXXTopicPartition> Assignment { get { return XXXUtil.TopicPartition(this.consumer.Assignment).ToList(); } }
         public string Name { get { return this.consumer.Name; } }
@@ -46,6 +47,14 @@
                 }
             } 
         }
+        public string this[string name]
+        {
+            get
+            {
+                return _Parameter.TryGetValue(name, out var o) ? o : null;
+            }
+        }
+        private readonly Dictionary<string, string> _Parameter = new Dictionary<string, string>();
         public ConsumerSetting Parameter { get { return null; } }
         public string MemberId { get { return this.consumer.MemberId; } }
         public IReadOnlyList<string> Subscription { get { return this.consumer.Subscription; } }
