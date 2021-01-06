@@ -23,7 +23,8 @@ namespace KafkaFlow.Consumers
         void Resume(IEnumerable<XXXTopicPartition> offsets);
 
         List<XXXTopicPartition> Assignment { get; }
-
+        string this[string name] { get; }
+        
         string Name { get; }
         string MemberId { get; }
         string ConsumerName { get; }
