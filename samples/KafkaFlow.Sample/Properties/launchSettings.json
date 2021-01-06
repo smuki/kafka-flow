@@ -17,6 +17,7 @@
     },
     "KafkaFlow.Sample": {
       "commandName": "Project",
+      "commandLineArgs": " --ZERO_CONF_FILE=/rpt.json",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
