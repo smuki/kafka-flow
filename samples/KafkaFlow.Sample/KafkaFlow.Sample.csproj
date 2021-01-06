@@ -9,6 +9,9 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\..\Proj\ZeroBus\src\CAP\src\Volte.Data.VolteDi\Volte.Data.VolteDi.csproj" />
+      <ProjectReference Include="..\..\..\..\Proj\ZeroBus\src\CAP\src\Volte.Utils\Volte.Utils.csproj" />
+      <ProjectReference Include="..\..\..\..\Proj\ZeroBus\src\CAP\src\Zero.Boot.Internal\Zero.Boot.Internal.csproj" />
+      <ProjectReference Include="..\..\..\..\Proj\ZeroBus\src\CAP\src\Zero.Data.Util\Zero.Data.Util.csproj" />
       <ProjectReference Include="..\..\src\KafkaFlow.Admin\KafkaFlow.Admin.csproj" />
       <ProjectReference Include="..\..\src\KafkaFlow.Compressor.Gzip\KafkaFlow.Compressor.Gzip.csproj" />
       <ProjectReference Include="..\..\src\KafkaFlow.Compressor\KafkaFlow.Compressor.csproj" />
