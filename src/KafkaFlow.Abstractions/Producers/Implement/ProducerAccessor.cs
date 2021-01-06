@@ -1,17 +1,34 @@
 namespace KafkaFlow.Producers
 {
+    using KafkaFlow.Configuration;
     using System.Collections.Generic;
     using System.Linq;
 
     public class ProducerAccessor : IProducerAccessor
     {
-        private readonly Dictionary<string, IMessageProducer> producers;
+        private Dictionary<string, IMessageProducer> producers;
+        private IDependencyResolver dependencyResolver;
 
-        public ProducerAccessor(IEnumerable<IMessageProducer> producers)
+        public ProducerAccessor(IDependencyResolver dependencyResolver)
         {
-            this.producers = producers.ToDictionary(x => x.ProducerName);
+            this.dependencyResolver = dependencyResolver;
         }
+        //public ProducerAccessor(IEnumerable<IMessageProducer> producers)
+        //{
 
+        //    this.producers = producers.ToDictionary(x => x.ProducerName);
+        //}
+        public void Initialize(IReadOnlyCollection<MessageProducerSettting> Producers)
+        {
+            this.producers = Producers.Select(
+                        producer =>
+                        {
+                            var x = dependencyResolver.Resolve<IMessageProducer>();
+                            x.Initialize(producer);
+                            return x;
+                        }
+                 ).ToDictionary(x => x.ProducerName);
+        }
         public IMessageProducer GetProducer(string name)
         {
             return this.producers.TryGetValue(name, out var consumer) ? consumer : null;

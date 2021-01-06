@@ -11,23 +11,23 @@ namespace KafkaFlow.Producers
     using Volte.Utils;
     using Volte.Data.VolteDi;
     using System.Reflection;
+    using System.Collections.Generic;
 
-    internal class MessageProducer : IMessageProducer, IDisposable
+    [Injection(InjectionType = InjectionType.Auto)]
+    public class MessageProducer : IMessageProducer, IDisposable
     {
-        private readonly ProducerConfiguration configuration;
-        private readonly IMiddlewareExecutor middlewareExecutor;
-        private readonly IDependencyResolverScope dependencyResolverScope;
+        private MessageProducerSettting configuration;
+        private IMiddlewareExecutor middlewareExecutor;
+        private IDependencyResolverScope dependencyResolverScope;
 
         private volatile IProducer<byte[], byte[]> producer;
         private readonly object producerCreationSync = new object();
 
-        public MessageProducer(
-            IDependencyResolver dependencyResolver,
-            ProducerConfiguration configuration)
-        {
-            this.configuration = configuration;
 
+        public MessageProducer(IDependencyResolver dependencyResolver)
+        {
             // Create middlewares instances inside a scope to allow scoped injections in producer middlewares
+
             this.dependencyResolverScope = dependencyResolver.CreateScope();
 
             this.middlewareExecutor = this.dependencyResolverScope.Resolver.Resolve<IMiddlewareExecutor>();
@@ -54,7 +54,10 @@ namespace KafkaFlow.Producers
             });
 
             this.middlewareExecutor.Initialize(middlewares);
-
+        }
+        public void Initialize(MessageProducerSettting configuration)
+        {
+            this.configuration = configuration;
         }
 
         public string ProducerName => this.configuration.Name;
@@ -83,12 +86,12 @@ namespace KafkaFlow.Producers
             object message,
             IMessageHeaders headers = null)
         {
-            if (string.IsNullOrWhiteSpace(this.configuration.DefaultTopic))
+            if (string.IsNullOrWhiteSpace(this.configuration.Topic))
             {
                 throw new InvalidOperationException($"There is no default topic defined for producer {this.ProducerName}");
             }
 
-            return this.ProduceAsync(this.configuration.DefaultTopic, partitionKey, message, headers);
+            return this.ProduceAsync(this.configuration.Topic, partitionKey, message, headers);
         }
 
         public void Produce(
@@ -140,12 +143,12 @@ namespace KafkaFlow.Producers
             IMessageHeaders headers = null,
             Action<XXXDeliveryReport> deliveryHandler = null)
         {
-            if (string.IsNullOrWhiteSpace(this.configuration.DefaultTopic))
+            if (string.IsNullOrWhiteSpace(this.configuration.Topic))
             {
                 throw new InvalidOperationException($"There is no default topic defined for producer {this.ProducerName}");
             }
 
-            this.Produce(this.configuration.DefaultTopic, partitionKey, message, headers, deliveryHandler);
+            this.Produce(this.configuration.Topic, partitionKey, message, headers, deliveryHandler);
         }
 
         private IProducer<byte[], byte[]> EnsureProducer()
@@ -161,8 +164,32 @@ namespace KafkaFlow.Producers
                 {
                     return this.producer;
                 }
+                Dictionary<string, string> Parameter = this.configuration.Parameter;
 
-                return this.producer = new ProducerBuilder<byte[], byte[]>(this.configuration.GetKafkaConfig()).SetErrorHandler(
+                ProducerConfig _producerConfig = new ProducerConfig();
+
+                _producerConfig.BootstrapServers = this.configuration.Brokers;
+                if (configuration.ContainsKey("Acks"))
+                {
+                    if (configuration["Acks"] == "Leader")
+                    {
+                        _producerConfig.Acks = Confluent.Kafka.Acks.Leader;
+                    }
+                    else if (configuration["Acks"] == "All")
+                    {
+                        _producerConfig.Acks = Confluent.Kafka.Acks.All;
+                    }
+                    else if (configuration["Acks"] == "None")
+                    {
+                        _producerConfig.Acks = Confluent.Kafka.Acks.None;
+                    }
+                }
+                else
+                {
+                    _producerConfig.Acks = Confluent.Kafka.Acks.Leader;
+                }
+
+                return this.producer = new ProducerBuilder<byte[], byte[]>(_producerConfig).SetErrorHandler(
                         (p, error) =>
                         {
                             if (error.IsFatal)
@@ -234,7 +261,7 @@ namespace KafkaFlow.Producers
             Action<XXXDeliveryReport> deliveryHandler)
         {
             
-            NLogger.Debug("InternalProduce send....");
+            NLogger.Info("InternalProduce send....");
             try
             {
 
@@ -248,11 +275,14 @@ namespace KafkaFlow.Producers
                             || result.Error.IsBrokerError
                             || result.Error.IsLocalError)
                             {
-                                NLogger.Debug("Error....");
-                                NLogger.Debug("Error...."+ result.Error.Reason);
+                                NLogger.Info("Error....");
+                                NLogger.Info("Error...."+ result.Error.Reason);
 
                                 this.InvalidateProducer(report.Error, result);
                             }
+
+                            NLogger.Info("Offset=" + report.Offset);
+                            NLogger.Info("Partition=" + report.Partition);
 
                             context.Offset = report.Offset;
                             context.Partition = report.Partition;
@@ -263,7 +293,7 @@ namespace KafkaFlow.Producers
             {
                 Console.WriteLine(ex.Message);
             }
-            NLogger.Debug("InternalProduce after send....");
+            NLogger.Info("InternalProduce after send....");
 
         }
 

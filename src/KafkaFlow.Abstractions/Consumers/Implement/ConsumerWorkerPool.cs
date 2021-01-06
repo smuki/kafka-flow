@@ -16,7 +16,7 @@ namespace KafkaFlow.Consumers
     {
         private readonly IDependencyResolver dependencyResolver;
         private readonly ILogHandler logHandler;
-        private ConsumerSetting configuration;
+        private MessageConsumerSettting configuration;
         private IMiddlewareExecutor middlewareExecutor;
         private Factory<IDistributionStrategy> distributionStrategyFactory;
 
@@ -35,17 +35,10 @@ namespace KafkaFlow.Consumers
             this.middlewareExecutor = middlewareExecutor;
         }
 
-        public void Initialize(ConsumerSetting eventConsumer)
+        public void Initialize(MessageConsumerSettting eventConsumer)
         {
             this.configuration = eventConsumer;
-            //var middlewares = configuration.MiddlewareConfiguration.Factories
-            //    .Select(factory => factory(dependencyResolver))
-            //    .ToList();
 
-
-            //this.middlewareExecutor = this.dependencyResolverScope.Resolver.Resolve<IMiddlewareExecutor>();
-            //this.middlewareExecutor.Initialize(middlewares);
-            //this.middlewareExecutor = new MiddlewareExecutor(middlewares);
             var middlewares = dependencyResolver.Resolves<IMessageMiddleware>().Where(x =>
             {
                 Console.WriteLine(x.ToString());
@@ -69,7 +62,10 @@ namespace KafkaFlow.Consumers
 
             middlewareExecutor.Initialize(middlewares);
 
-            this.distributionStrategyFactory = configuration.DistributionStrategyFactory;
+            this.distributionStrategy = eventConsumer.DistributionStrategy;
+            this.distributionStrategy.Initialize(this.workers.AsReadOnly());
+
+            //this.distributionStrategyFactory = configuration.DistributionStrategyFactory;
         }
 
         public async Task StartAsync(
@@ -97,7 +93,7 @@ namespace KafkaFlow.Consumers
                             }))
                 .ConfigureAwait(false);
 
-            this.distributionStrategy = this.distributionStrategyFactory(this.dependencyResolver);
+            this.distributionStrategy = consumerClient.Parameter.DistributionStrategy;
             this.distributionStrategy.Initialize(this.workers.AsReadOnly());
         }
 

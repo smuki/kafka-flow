@@ -104,9 +104,9 @@
 
             var provider = services.BuildServiceProvider();
 
-            var bus = provider.CreateKafkaBus();
+            //var bus = provider.CreateKafkaBus();
 
-            await bus.StartAsync();
+            //await bus.StartAsync();
 
             var consumers = provider.GetRequiredService<IConsumerAccessor>();
             var producers = provider.GetRequiredService<IProducerAccessor>();
@@ -185,7 +185,7 @@
                         break;
 
                     case "exit":
-                        await bus.StopAsync();
+                        //await bus.StopAsync();
                         return;
                 }
             }

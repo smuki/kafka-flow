@@ -14,10 +14,10 @@ namespace KafkaFlow
         /// </summary>
         /// <param name="provider">Instance of <see cref="IServiceProvider"/></param>
         /// <returns><see cref="IKafkaBus"/>A KafkaFlow bus</returns>
-        public static IKafkaBus CreateKafkaBus(this IServiceProvider provider)
-        {
-            var resolver = provider.GetRequiredService<IDependencyResolver>();
-            return provider.GetRequiredService<KafkaFlowConfigurator>().CreateBus(resolver);
-        }
+        //public static IKafkaBus CreateKafkaBus(this IServiceProvider provider)
+        //{
+        //    var resolver = provider.GetRequiredService<IDependencyResolver>();
+        //    return provider.GetRequiredService<KafkaFlowConfigurator>().CreateBus(resolver);
+        //}
     }
 }

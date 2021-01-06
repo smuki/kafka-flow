@@ -28,8 +28,8 @@ namespace KafkaFlow.Configuration
                 this.brokers.ToList(),
                 this.securityInformationHandler);
 
-            configuration.AddProducers(this.producers.Select(x => x.Build(configuration)));
-            configuration.AddConsumers(this.consumers.Select(x => x.Build(configuration)));
+            //configuration.AddProducers(this.producers.Select(x => x.Build(configuration)));
+            //configuration.AddConsumers(this.consumers.Select(x => x.Build(configuration)));
 
             return configuration;
         }

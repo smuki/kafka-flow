@@ -1,5 +1,6 @@
 namespace KafkaFlow.Producers
 {
+    using KafkaFlow.Configuration;
     using System;
     using System.Threading.Tasks;
 
@@ -10,6 +11,10 @@ namespace KafkaFlow.Producers
         public MessageProducerWrapper(IMessageProducer producer)
         {
             this.producer = producer;
+        }
+        public void Initialize(MessageProducerSettting configuration)
+        {
+
         }
 
         public string ProducerName => this.producer.ProducerName;

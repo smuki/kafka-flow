@@ -22,16 +22,16 @@ namespace KafkaFlow.Configuration
         {
             var configuration = new KafkaConfiguration();
 
-            configuration.AddClusters(this.clusters.Select(x => x.Build(configuration)));
+            //configuration.AddClusters(this.clusters.Select(x => x.Build(configuration)));
 
-            this.dependencyConfigurator.AddSingleton<IProducerAccessor>(
-                resolver => new ProducerAccessor(
-                    configuration.Clusters
-                        .SelectMany(x => x.Producers)
-                        .Select(
-                            producer => new MessageProducer(
-                                resolver,
-                                producer))));
+            //this.dependencyConfigurator.AddSingleton<IProducerAccessor>(
+            //    resolver => new ProducerAccessor(
+            //        configuration.Clusters
+            //            .SelectMany(x => x.Producers)
+            //            .Select(
+            //                producer => new MessageProducer(
+            //                    resolver,
+            //                    producer))));
 
             return configuration;
         }

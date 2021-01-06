@@ -17,7 +17,7 @@
     },
     "KafkaFlow.Sample": {
       "commandName": "Project",
-      "commandLineArgs": " --ZERO_CONF_FILE=/rpt.json",
+      "commandLineArgs": " --ZERO_CONF_FILE=/mq.json",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

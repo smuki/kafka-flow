@@ -55,22 +55,22 @@ namespace KafkaFlow.Configuration
             return this;
         }
 
-        public ProducerConfiguration Build(ClusterConfiguration clusterConfiguration)
-        {
-            this.producerConfig ??= new ProducerConfig();
-            this.producerConfig.StatisticsIntervalMs = this.statisticsInterval;
+        //public ProducerConfiguration Build(ClusterConfiguration clusterConfiguration)
+        //{
+        //    this.producerConfig ??= new ProducerConfig();
+        //    this.producerConfig.StatisticsIntervalMs = this.statisticsInterval;
 
-            this.producerConfig.ReadSecurityInformation(clusterConfiguration);
+        //    this.producerConfig.ReadSecurityInformation(clusterConfiguration);
 
-            var configuration = new ProducerConfiguration(
-                clusterConfiguration,
-                this.name,
-                this.topic,
-                this.acks,
-                this.producerConfig,
-                this.statisticsHandlers);
+        //    var configuration = new ProducerConfiguration(
+        //        clusterConfiguration,
+        //        this.name,
+        //        this.topic,
+        //        this.acks,
+        //        this.producerConfig,
+        //        this.statisticsHandlers);
 
-            return configuration;
-        }
+        //    return configuration;
+        //}
     }
 }

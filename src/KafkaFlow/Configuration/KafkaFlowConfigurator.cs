@@ -36,16 +36,16 @@ namespace KafkaFlow.Configuration
         /// </summary>
         /// <param name="resolver">The <see cref="IDependencyResolver"/> to be used by the framework</param>
         /// <returns></returns>
-        public IKafkaBus CreateBus(IDependencyResolver resolver)
-        {
-            var scope = resolver.CreateScope();
+        //public IKafkaBus CreateBus(IDependencyResolver resolver)
+        //{
+        //    var scope = resolver.CreateScope();
 
-            return new KafkaBus(
-                scope.Resolver,
-                scope.Resolver.Resolve<IConsumerManager>(),
-                scope.Resolver.Resolve<IProducerAccessor>(),
-                scope.Resolver.Resolve<ILogHandler>(),
-                this.configuration);
-        }
+        //    return new KafkaBus(
+        //        scope.Resolver,
+        //        scope.Resolver.Resolve<IConsumerManager>(),
+        //        scope.Resolver.Resolve<IProducerAccessor>(),
+        //        scope.Resolver.Resolve<ILogHandler>(),
+        //        this.configuration);
+        //}
     }
 }

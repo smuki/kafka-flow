@@ -34,7 +34,6 @@ namespace KafkaFlow.Configuration
         public ConsumerConfigurationBuilder(IDependencyConfigurator dependencyConfigurator)
         {
             this.DependencyConfigurator = dependencyConfigurator;
-            //this.middlewareConfigurationBuilder = new ConsumerMiddlewareConfigurationBuilder(dependencyConfigurator);
         }
 
         public IConsumerConfigurationBuilder SetParameter(string name, string value)

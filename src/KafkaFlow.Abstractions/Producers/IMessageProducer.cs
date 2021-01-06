@@ -1,5 +1,6 @@
 namespace KafkaFlow.Producers
 {
+    using KafkaFlow.Configuration;
     using System;
     using System.Threading.Tasks;
 
@@ -15,6 +16,7 @@ namespace KafkaFlow.Producers
     /// </summary>
     public interface IMessageProducer
     {
+        void Initialize(MessageProducerSettting configuration);
         /// <summary>
         /// Gets the unique producer's name defined in the configuration
         /// </summary>

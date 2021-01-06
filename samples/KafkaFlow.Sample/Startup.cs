@@ -312,9 +312,12 @@ namespace Zero.Boot.Launcher
             var xx =provider.GetServices(eventHandlerType);
             Console.WriteLine(xx.ToString());
 
+            var bus=provider.GetRequiredService<IKafkaBus>();
+            bus.StartAsync();
+
             app.Use((context, next) =>
             {
-                const string producerName = "PrintConsole";
+                const string producerName = "master";
 
                 var producers = provider.GetRequiredService<IProducerAccessor>();
 
@@ -336,9 +339,9 @@ namespace Zero.Boot.Launcher
                 return next();
             });
 
-            var bus = provider.CreateKafkaBus();
+            //var bus = provider.CreateKafkaBus();
 
-            bus.StartAsync();
+            //bus.StartAsync();
 
             //设置CultureInfo
             var zh = new CultureInfo("zh-CN");

@@ -4,7 +4,7 @@ namespace KafkaFlow.Configuration
     using System.Collections.Generic;
     using Confluent.Kafka;
 
-    public class ConsumerConfiguration:ConsumerSetting
+    public class ConsumerConfiguration: MessageConsumerSettting
     {
         private readonly ConsumerConfig consumerConfig;
 //        private int workerCount;
@@ -27,8 +27,8 @@ namespace KafkaFlow.Configuration
                 throw new ArgumentNullException(nameof(consumerConfig.GroupId));
             }
 
-            base.DistributionStrategyFactory =
-                distributionStrategyFactory ?? throw new ArgumentNullException(nameof(distributionStrategyFactory));
+            //base.DistributionStrategyFactory =
+            //    distributionStrategyFactory ?? throw new ArgumentNullException(nameof(distributionStrategyFactory));
             this.AutoStoreOffsets = autoStoreOffsets;
             this.AutoCommitInterval = autoCommitInterval;
             this.Topics = topics ?? throw new ArgumentNullException(nameof(topics));

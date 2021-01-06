@@ -9,14 +9,14 @@ namespace KafkaFlow.Consumers
     public class MessageConsumer : IMessageConsumer
     {
         private readonly IConsumerWorkerPool workerPool;
-        private readonly ConsumerSetting configuration;
+        private readonly MessageConsumerSettting configuration;
         private readonly ILogHandler logHandler;
         private readonly IConsumerClient consumerClient;
 
         public MessageConsumer(
                         IConsumerClient consumerClient,
                         IConsumerWorkerPool workerPool,
-                        ConsumerSetting configuration,
+                        MessageConsumerSettting configuration,
                         ILogHandler logHandler)
         { 
             this.workerPool = workerPool;

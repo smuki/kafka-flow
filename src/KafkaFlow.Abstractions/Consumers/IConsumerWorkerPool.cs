@@ -7,7 +7,7 @@ namespace KafkaFlow.Consumers
 
     public interface IConsumerWorkerPool
     {
-        void Initialize(ConsumerSetting eventConsumer);
+        void Initialize(MessageConsumerSettting eventConsumer);
 
         Task StartAsync(IConsumerClient consumerClient, IEnumerable<XXXTopicPartition> partitions, CancellationToken stopCancellationToken);
 

@@ -15,7 +15,7 @@
     public class KafkaConsumer: IConsumerClient
     {
 
-        private ConsumerSetting configuration;
+        private MessageConsumerSettting configuration;
         private readonly IConsumerManager consumerManager;
         private readonly ILogHandler logHandler;
         private IConsumerWorkerPool workerPool;
@@ -55,10 +55,10 @@
             }
         }
         private readonly Dictionary<string, string> _Parameter = new Dictionary<string, string>();
-        public ConsumerSetting Parameter { get { return null; } }
+        public MessageConsumerSettting Parameter { get { return this.configuration; } }
         public string MemberId { get { return this.consumer.MemberId; } }
         public IReadOnlyList<string> Subscription { get { return this.consumer.Subscription; } }
-        public void Initialize(IConsumerWorkerPool consumerWorkerPool, ConsumerSetting eventConsumer, CancellationToken busStopCancellationToken)
+        public void Initialize(IConsumerWorkerPool consumerWorkerPool, MessageConsumerSettting eventConsumer, CancellationToken busStopCancellationToken)
         {
 
             this.workerPool = consumerWorkerPool;
@@ -68,7 +68,7 @@
             //kafkaConfig["group.id"] = "12345";
 
             ConsumerConfig consumerConfig = new ConsumerConfig();
-            consumerConfig.BootstrapServers ??= "192.168.8.4:9092";
+            consumerConfig.BootstrapServers ??= eventConsumer.Brokers;
             consumerConfig.GroupId ??= "print-console-handler";
             consumerConfig.AutoOffsetReset ??= AutoOffsetReset.Latest;
             consumerConfig.MaxPollIntervalMs ??= 10000;
@@ -95,10 +95,10 @@
                 })
                 .SetStatisticsHandler((consumer, statistics) =>
                 {
-                   // foreach (var handler in configuration.StatisticsHandlers)
-                   // {
-                   //     handler.Invoke(statistics);
-                   // }
+                    //foreach (var handler in configuration.StatisticsHandlers)
+                    //{
+                    //    handler.Invoke(statistics);
+                    //}
                 });
         }
         public long Position(XXXTopicPartition offsets)
@@ -198,10 +198,10 @@
         {
             consumer = this.consumerBuilder.Build();
             this.consumerManager.AddOrUpdate(new MessageConsumer(this, this.workerPool, this.configuration, this.logHandler));
-            Console.WriteLine(this.configuration["Topics"]);
+            Console.WriteLine("Topic-->" + this.configuration.Topic);
             //this.configuration["Topics"] = ;
             List<string> xx = new List<string>();
-            xx.Add("test-topic");
+            xx.Add(configuration.Topic);
            // consumer.Subscribe("test-topic");
             consumer.Subscribe(xx.AsEnumerable<string>());
 
@@ -215,9 +215,11 @@
                         {
                             try
                             {
+                                NLogger.Info("Consume-before");
+
                                 var message = consumer.Consume(this.stopCancellationTokenSource.Token);
                                 
-                                NLogger.Debug("Consume");
+                                NLogger.Info("Consume-after");
 
                                 var headers = new MessageHeaders();
                                 foreach (var header in message.Message.Headers)
@@ -238,6 +240,8 @@
                             }
                             catch (KafkaException ex) when (ex.Error.IsFatal)
                             {
+                                NLogger.Info("Kafka fatal error occurred.Trying to restart in 5 seconds", ex);
+
                                 this.logHandler.Error("Kafka fatal error occurred. Trying to restart in 5 seconds", ex, null);
 
                                 await this.workerPool.StopAsync().ConfigureAwait(false);
@@ -250,6 +254,7 @@
                             catch (Exception ex)
                             {
                                 this.logHandler.Warning("Error consuming message from Kafka", ex);
+                                NLogger.Info("Error consuming message from Kafka", ex);
                             }
                         }
 

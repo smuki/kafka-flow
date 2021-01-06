@@ -5,22 +5,19 @@ namespace KafkaFlow.Configuration
     using Confluent.Kafka;
     using Acks = KafkaFlow.Acks;
 
-    public class ProducerConfiguration: ProducerSetting
+    public class ProducerConfiguration: MessageProducerSettting
     {
         public ProducerConfiguration(
             ClusterConfiguration cluster,
-            string name,
-            string defaultTopic,
             Acks? acks,
             ProducerConfig baseProducerConfig,
             IReadOnlyList<Action<string>> statisticsHandlers)
         {
             this.Cluster = cluster ?? throw new ArgumentNullException(nameof(cluster));
-            this.Name = name;
-            this.DefaultTopic = defaultTopic;
-            this.Acks = acks;
-            this.BaseProducerConfig = baseProducerConfig;
-            this.StatisticsHandlers = statisticsHandlers;
+            //this.DefaultTopic = defaultTopic;
+            //this.Acks = acks;
+            //this.BaseProducerConfig = baseProducerConfig;
+            //this.StatisticsHandlers = statisticsHandlers;
         }
 
         public ClusterConfiguration Cluster { get; }
