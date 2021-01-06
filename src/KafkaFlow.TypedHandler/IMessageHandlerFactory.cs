@@ -7,8 +7,8 @@ namespace KafkaFlow.TypedHandler
     using System.Reflection;
     using Volte.Data.VolteDi;
 
-    public interface IHandlerTypeMapping
+    public interface IMessageHandlerFactory
     {
-        public ICollection<IMessageHandler> GetHandlers(Type eventType);
+        public ICollection<IMessageHandler> GetMessageHandlers(Type eventType);
     }
 }

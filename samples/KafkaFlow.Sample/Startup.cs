@@ -262,7 +262,7 @@ namespace Zero.Boot.Launcher
             }
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddSingleton<IHandlerTypeMapping, HandlerTypeMapping>();
+            services.AddSingleton<IMessageHandlerFactory, DefaultMessageHandlerFactory>();
 
             services.AddMvc(options => options.EnableEndpointRouting = true);
 

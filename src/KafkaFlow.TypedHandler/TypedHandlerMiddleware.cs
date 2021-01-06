@@ -9,17 +9,17 @@ namespace KafkaFlow.TypedHandler
     [Middleware(MiddlewareType = MiddlewareType.Consumer,Priority =110)]
     public class TypedHandlerMiddleware : IMessageMiddleware
     {
-        private readonly IHandlerTypeMapping HandlerMapping;
+        private readonly IMessageHandlerFactory HandlerMapping;
 
         public TypedHandlerMiddleware(
-            IHandlerTypeMapping HandlerMapping)
+            IMessageHandlerFactory HandlerMapping)
         {
             this.HandlerMapping = HandlerMapping;
         }
 
         public async Task Invoke(IMessageContext context, MiddlewareDelegate next)
         {
-            var handlerType = HandlerMapping.GetHandlers(context.Message.GetType());
+            var handlerType = HandlerMapping.GetMessageHandlers(context.Message.GetType());
 
             if (handlerType == null || handlerType.Count == 0)
             {
