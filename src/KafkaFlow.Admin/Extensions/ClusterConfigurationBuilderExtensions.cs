@@ -35,14 +35,14 @@
                         .WithWorkersCount(1)
                         .WithBufferSize(1)
                         .WithAutoOffsetReset(AutoOffsetReset.Latest)
-                        .AddMiddlewares(
-                            middlewares => middlewares
-                                .AddSerializer<ProtobufMessageSerializer>()
-                                //.AddTypedHandlers(
-                                //    handlers => handlers
-                                //        .AddHandlersFromAssemblyOf<ResetConsumerOffsetHandler>()
-                                //        )
-                                )
+                        //.AddMiddlewares(
+                        //    middlewares => middlewares
+                        //        .AddSerializer<ProtobufMessageSerializer>()
+                        //        //.AddTypedHandlers(
+                        //        //    handlers => handlers
+                        //        //        .AddHandlersFromAssemblyOf<ResetConsumerOffsetHandler>()
+                        //        //        )
+                        //        )
                 );
         }
 

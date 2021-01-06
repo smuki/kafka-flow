@@ -12,7 +12,7 @@ namespace KafkaFlow.Configuration
     {
         private readonly List<string> topics = new List<string>();
         private readonly List<Action<string>> statisticsHandlers = new List<Action<string>>();
-        private readonly IConsumerMiddlewareConfigurationBuilder middlewareConfigurationBuilder;
+        //private readonly IConsumerMiddlewareConfigurationBuilder middlewareConfigurationBuilder;
         private readonly Dictionary<string,string> _dict = new Dictionary<string,string>();
 
         private ConsumerConfig consumerConfig;
@@ -34,7 +34,7 @@ namespace KafkaFlow.Configuration
         public ConsumerConfigurationBuilder(IDependencyConfigurator dependencyConfigurator)
         {
             this.DependencyConfigurator = dependencyConfigurator;
-            this.middlewareConfigurationBuilder = new ConsumerMiddlewareConfigurationBuilder(dependencyConfigurator);
+            //this.middlewareConfigurationBuilder = new ConsumerMiddlewareConfigurationBuilder(dependencyConfigurator);
         }
 
         public IConsumerConfigurationBuilder SetParameter(string name, string value)
@@ -142,11 +142,11 @@ namespace KafkaFlow.Configuration
             return this;
         }
 
-        public IConsumerConfigurationBuilder AddMiddlewares(Action<IConsumerMiddlewareConfigurationBuilder> middlewares)
-        {
-            middlewares(this.middlewareConfigurationBuilder);
-            return this;
-        }
+        //public IConsumerConfigurationBuilder AddMiddlewares(Action<IConsumerMiddlewareConfigurationBuilder> middlewares)
+        //{
+        //    middlewares(this.middlewareConfigurationBuilder);
+        //    return this;
+        //}
 
         public IConsumerConfigurationBuilder WithStatisticsHandler(Action<string> statisticsHandler)
         {

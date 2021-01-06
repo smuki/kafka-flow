@@ -119,7 +119,7 @@ namespace KafkaFlow.Configuration
         /// </summary>
         /// <param name="middlewares">A handler to register middlewares</param>
         /// <returns></returns>
-        IConsumerConfigurationBuilder AddMiddlewares(Action<IConsumerMiddlewareConfigurationBuilder> middlewares);
+//        IConsumerConfigurationBuilder AddMiddlewares(Action<IConsumerMiddlewareConfigurationBuilder> middlewares);
 
         /// <summary>
         /// Adds a handler for the Kafka consumer statistics

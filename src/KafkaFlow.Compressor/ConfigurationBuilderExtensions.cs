@@ -11,12 +11,12 @@
         /// <summary>
         /// Registers a middleware to decompress the message
         /// </summary>
-        public static IConsumerMiddlewareConfigurationBuilder AddCompressor<T>(this IConsumerMiddlewareConfigurationBuilder middlewares)
-            where T : class, IMessageCompressor
-        {
-            middlewares.DependencyConfigurator.AddTransient<T>();
-            return middlewares.AddCompressor(resolver => resolver.Resolve<T>());
-        }
+        //public static IConsumerMiddlewareConfigurationBuilder AddCompressor<T>(this IConsumerMiddlewareConfigurationBuilder middlewares)
+        //    where T : class, IMessageCompressor
+        //{
+        //    middlewares.DependencyConfigurator.AddTransient<T>();
+        //    return middlewares.AddCompressor(resolver => resolver.Resolve<T>());
+        //}
 
         /// <summary>
         /// Registers a middleware to decompress the message
@@ -24,13 +24,13 @@
         /// <param name="middlewares"></param>
         /// <param name="factory">A factory to create the <see cref="IMessageCompressor"/> instance</param>
         /// <returns></returns>
-        public static IConsumerMiddlewareConfigurationBuilder AddCompressor<T>(
-            this IConsumerMiddlewareConfigurationBuilder middlewares,
-            Factory<T> factory)
-            where T : class, IMessageCompressor
-        {
-            return middlewares.Add(resolver => new CompressorConsumerMiddleware(factory(resolver)));
-        }
+        //public static IConsumerMiddlewareConfigurationBuilder AddCompressor<T>(
+        //    this IConsumerMiddlewareConfigurationBuilder middlewares,
+        //    Factory<T> factory)
+        //    where T : class, IMessageCompressor
+        //{
+        //    return middlewares.Add(resolver => new CompressorConsumerMiddleware(factory(resolver)));
+        //}
 
         /// <summary>
         /// Registers a middleware to compress the message
