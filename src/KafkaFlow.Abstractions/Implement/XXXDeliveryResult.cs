@@ -10,8 +10,8 @@ namespace KafkaFlow
     {
         public XXXDeliveryResult(IMessageHeaders headers, byte[] Payload) : base(headers, Payload)
         {
-            this.Status = PersistenceStatus.NotPersisted;
+            this.Status = XXXPersistenceStatus.NotPersisted;
         }
-        public PersistenceStatus Status { get; set; }
+        public XXXPersistenceStatus Status { get; set; }
     }
 }
