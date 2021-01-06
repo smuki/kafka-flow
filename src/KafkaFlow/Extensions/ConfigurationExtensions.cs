@@ -3,7 +3,6 @@ namespace KafkaFlow
     using System;
     using Confluent.Kafka;
     using KafkaFlow.Configuration;
-    using KafkaFlow.Consumers;
     using SaslMechanism = KafkaFlow.Configuration.SaslMechanism;
     using SecurityProtocol = KafkaFlow.Configuration.SecurityProtocol;
     using SslEndpointIdentificationAlgorithm = KafkaFlow.Configuration.SslEndpointIdentificationAlgorithm;
