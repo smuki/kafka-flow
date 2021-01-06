@@ -235,24 +235,36 @@ namespace KafkaFlow.Producers
         {
             
             NLogger.Debug("InternalProduce send....");
+            try
+            {
 
-            this.EnsureProducer().Produce(context.Topic, CreateMessage(context),
-                    report =>
-                    {
-                        var result = XXXUtil.XXXDeliveryResult(report);
 
-                        if (report.Error.IsFatal)
+                this.EnsureProducer().Produce(context.Topic, CreateMessage(context),
+                        report =>
                         {
-                            NLogger.Debug("Error....");
+                            var result = XXXUtil.XXXDeliveryResult(report);
 
-                            this.InvalidateProducer(report.Error, result);
-                        }
+                            if (result.Error.IsFatal
+                            || result.Error.IsBrokerError
+                            || result.Error.IsLocalError)
+                            {
+                                NLogger.Debug("Error....");
+                                NLogger.Debug("Error...."+ result.Error.Reason);
 
-                        context.Offset = report.Offset;
-                        context.Partition = report.Partition;
+                                this.InvalidateProducer(report.Error, result);
+                            }
 
-                        deliveryHandler(result);
-                    });
+                            context.Offset = report.Offset;
+                            context.Partition = report.Partition;
+
+                            deliveryHandler(result);
+                        });
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            NLogger.Debug("InternalProduce after send....");
+
         }
 
         private static Message<byte[], byte[]> CreateMessage(IMessageContext context)
