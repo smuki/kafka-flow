@@ -36,24 +36,24 @@
         /// Registers a middleware to compress the message
         /// </summary>
         /// <typeparam name="T">A class that implements <see cref="IMessageCompressor"/></typeparam>
-        public static IProducerMiddlewareConfigurationBuilder AddCompressor<T>(this IProducerMiddlewareConfigurationBuilder middlewares)
-            where T : class, IMessageCompressor
-        {
-            middlewares.DependencyConfigurator.AddTransient<T>();
-            return middlewares.AddCompressor(resolver => resolver.Resolve<T>());
-        }
+        //public static IProducerMiddlewareConfigurationBuilder AddCompressor<T>(this IProducerMiddlewareConfigurationBuilder middlewares)
+        //    where T : class, IMessageCompressor
+        //{
+        //    middlewares.DependencyConfigurator.AddTransient<T>();
+        //    return middlewares.AddCompressor(resolver => resolver.Resolve<T>());
+        //}
 
         /// <summary>
         /// Registers a middleware to compress the message
         /// </summary>
         /// <param name="middlewares"></param>
         /// <param name="factory">A factory to create the <see cref="IMessageCompressor"/> instance</param>
-        public static IProducerMiddlewareConfigurationBuilder AddCompressor<T>(
-            this IProducerMiddlewareConfigurationBuilder middlewares,
-            Factory<T> factory)
-            where T : class, IMessageCompressor
-        {
-            return middlewares.Add(resolver => new CompressorProducerMiddleware(factory(resolver)));
-        }
+      //  public static IProducerMiddlewareConfigurationBuilder AddCompressor<T>(
+        //    this IProducerMiddlewareConfigurationBuilder middlewares,
+        //    Factory<T> factory)
+        //    where T : class, IMessageCompressor
+        //{
+        //    return middlewares.Add(resolver => new CompressorProducerMiddleware(factory(resolver)));
+        //}
     }
 }
