@@ -38,9 +38,11 @@
                         .AddMiddlewares(
                             middlewares => middlewares
                                 .AddSerializer<ProtobufMessageSerializer>()
-                                .AddTypedHandlers(
-                                    handlers => handlers
-                                        .AddHandlersFromAssemblyOf<ResetConsumerOffsetHandler>()))
+                                //.AddTypedHandlers(
+                                //    handlers => handlers
+                                //        .AddHandlersFromAssemblyOf<ResetConsumerOffsetHandler>()
+                                //        )
+                                )
                 );
         }
 
