@@ -18,7 +18,7 @@ namespace KafkaFlow.Configuration
         /// <param name="name">The producer name used to get its instance</param>
         /// <param name="producer">A handler to configure the producer</param>
         /// <returns></returns>
-        IClusterConfigurationBuilder AddProducer(string name, Action<IProducerConfigurationBuilder> producer);
+        //IClusterConfigurationBuilder AddProducer(string name, Action<IProducerConfigurationBuilder> producer);
 
     }
 }
