@@ -3,7 +3,7 @@ namespace KafkaFlow.Configuration
     using System;
     using System.Collections.Generic;
     using Confluent.Kafka;
-    using Acks = KafkaFlow.Acks;
+    //using Acks = KafkaFlow.Acks;
 
     public class ProducerConfiguration: MessageProducerSettting
     {
@@ -27,27 +27,27 @@ namespace KafkaFlow.Configuration
         public ProducerConfig GetKafkaConfig()
         {
             this.BaseProducerConfig.BootstrapServers = string.Join(",", this.Cluster.Brokers);
-            this.BaseProducerConfig.Acks = ParseAcks(this.Acks);
+            //this.BaseProducerConfig.Acks = ParseAcks(this.Acks);
 
             return this.BaseProducerConfig;
         }
 
-        private static Confluent.Kafka.Acks? ParseAcks(Acks? acks)
-        {
-            switch (acks)
-            {
-                case KafkaFlow.Acks.Leader:
-                    return Confluent.Kafka.Acks.Leader;
+        //private static Confluent.Kafka.Acks? ParseAcks(Acks? acks)
+        //{
+        //    switch (acks)
+        //    {
+        //        case KafkaFlow.Acks.Leader:
+        //            return Confluent.Kafka.Acks.Leader;
 
-                case KafkaFlow.Acks.All:
-                    return Confluent.Kafka.Acks.All;
+        //        case KafkaFlow.Acks.All:
+        //            return Confluent.Kafka.Acks.All;
 
-                case KafkaFlow.Acks.None:
-                    return Confluent.Kafka.Acks.None;
+        //        case KafkaFlow.Acks.None:
+        //            return Confluent.Kafka.Acks.None;
 
-                default:
-                    return null;
-            }
-        }
+        //        default:
+        //            return null;
+        //    }
+        //}
     }
 }
