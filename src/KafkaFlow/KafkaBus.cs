@@ -11,17 +11,14 @@ namespace KafkaFlow
     using KafkaFlow.Producers;
     using Volte.Data.VolteDi;
 
-    //using Microsoft.Extensions.Configuration;
 
     [Injection(InjectionType = InjectionType.Auto, Lifetime = InjectionLifetime.Singleton)]
     public class KafkaBus : IKafkaBus
     {
         private readonly IDependencyResolver dependencyResolver;
-        //private readonly KafkaConfiguration configuration;
         private readonly IConsumerManager consumerManager;
         private readonly ILogHandler logHandler;
         private readonly IList<IConsumerClient> consumers = new List<IConsumerClient>();
-        //private readonly IConfiguration config;
 
         public KafkaBus(
             IDependencyResolver dependencyResolver,
@@ -29,11 +26,8 @@ namespace KafkaFlow
             ILogHandler logHandler)
         {
             this.dependencyResolver = dependencyResolver;
-            //this.configuration = configuration;
             this.consumerManager = consumerManager;
             this.logHandler = logHandler;
-            //this.Producers = accessor;
-            //this.config = config;
         }
 
         public IConsumerAccessor Consumers => this.consumerManager;
