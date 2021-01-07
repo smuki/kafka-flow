@@ -11,8 +11,8 @@ namespace KafkaFlow.Configuration
         public string Name { get; set; }
         public string Brokers { get; set; }
         public string Topic { get; set; }
+
         private readonly Dictionary<string, string> _Parameter = new Dictionary<string, string>();
-        //public Acks? Acks { get; set; }
         public IReadOnlyList<Action<string>> StatisticsHandlers { get; set; }
         public string this[string name]
         {
@@ -32,7 +32,6 @@ namespace KafkaFlow.Configuration
                 return _Parameter;
             }
         }
-
         public MessageProducerSettting()
         {
 
