@@ -18,11 +18,9 @@ namespace KafkaFlow.Configuration
 
         public IDependencyConfigurator DependencyConfigurator { get; }
 
-        public ClusterConfiguration Build(KafkaConfiguration kafkaConfiguration)
+        public ClusterConfiguration Build()
         {
             var configuration = new ClusterConfiguration(
-                kafkaConfiguration,
-                this.brokers.ToList(),
                 this.securityInformationHandler);
 
             return configuration;

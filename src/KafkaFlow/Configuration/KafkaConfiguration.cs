@@ -1,13 +1,13 @@
-namespace KafkaFlow.Configuration
-{
-    using System.Collections.Generic;
+//namespace KafkaFlow.Configuration
+//{
+//    using System.Collections.Generic;
 
-    public class KafkaConfiguration
-    {
-        private readonly List<ClusterConfiguration> clusters = new List<ClusterConfiguration>();
+//    public class KafkaConfiguration
+//    {
+//        private readonly List<ClusterConfiguration> clusters = new List<ClusterConfiguration>();
 
-        public IReadOnlyCollection<ClusterConfiguration> Clusters => this.clusters;
+//        public IReadOnlyCollection<ClusterConfiguration> Clusters => this.clusters;
 
-        public void AddClusters(IEnumerable<ClusterConfiguration> configurations) => this.clusters.AddRange(configurations);
-    }
-}
+//        public void AddClusters(IEnumerable<ClusterConfiguration> configurations) => this.clusters.AddRange(configurations);
+//    }
+//}

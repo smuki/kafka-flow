@@ -1,12 +1,7 @@
 namespace KafkaFlow.Configuration
 {
-    using KafkaFlow.Consumers;
-    using KafkaFlow.Dependency;
-    using KafkaFlow.Producers;
-    using KafkaFlow.Serializer;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
 
     public class KafkaConfigurationBuilder : IKafkaConfigurationBuilder
     {
@@ -18,11 +13,11 @@ namespace KafkaFlow.Configuration
             this.dependencyConfigurator = dependencyConfigurator;
         }
 
-        public KafkaConfiguration Build()
-        {
-            var configuration = new KafkaConfiguration();
-            return configuration;
-        }
+        //public KafkaConfiguration Build()
+        //{
+        //    var configuration = new KafkaConfiguration();
+        //    return configuration;
+        //}
 
         public IKafkaConfigurationBuilder AddCluster(Action<IClusterConfigurationBuilder> cluster)
         {

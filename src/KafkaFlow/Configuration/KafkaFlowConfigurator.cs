@@ -1,18 +1,13 @@
 namespace KafkaFlow.Configuration
 {
-    using System;
-    using System.Linq;
-    using KafkaFlow.Consumers;
-    using KafkaFlow.Producers;
     using KafkaFlow.Dependency;
+    using System;
 
     /// <summary>
     /// A class to configure KafkaFlow
     /// </summary>
     public class KafkaFlowConfigurator
     {
-        private readonly KafkaConfiguration configuration;
-
         /// <summary>
         /// Creates a <see cref="KafkaFlowConfigurator"/> instance
         /// </summary>
@@ -22,13 +17,7 @@ namespace KafkaFlow.Configuration
             IDependencyConfigurator dependencyConfigurator,
             Action<IKafkaConfigurationBuilder> kafka)
         {
-            var builder = new KafkaConfigurationBuilder(dependencyConfigurator);
-
-            kafka(builder);
-
-            this.configuration = builder.Build();
-
-            dependencyConfigurator.AddSingleton<KafkaConfiguration>();
+            //dependencyConfigurator.AddSingleton<KafkaConfiguration>();
         }
     }
 }
