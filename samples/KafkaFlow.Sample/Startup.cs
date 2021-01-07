@@ -188,35 +188,7 @@ namespace Zero.Boot.Launcher
                 kafka => kafka
                     .AddCluster(
                         cluster => cluster
-                            .WithBrokers(new[] { "192.168.8.4:9092" })
                             .EnableAdminMessages("kafka-flow.admin", Guid.NewGuid().ToString())
-                            .AddProducer(
-                                producerName,
-                                producer => producer
-                                    .DefaultTopic("test-topic")
-                                    //.AddMiddlewares(
-                                    //    middlewares => middlewares
-                                    //        .AddSerializer<ProtobufMessageSerializer>()
-                                    //)
-                                    //.WithAcks(Acks.All)
-                            )
-                            .AddConsumer(
-                                consumer => consumer
-                                    .Topic("test-topic")
-                                    .WithGroupId("print-console-handler")
-                                    .WithName(consumerName)
-                                    .WithBufferSize(100)
-                                    .WithWorkersCount(20)
-                                    .WithAutoOffsetReset(AutoOffsetReset.Latest)
-                            //.AddMiddlewares(
-                            //    middlewares => middlewares
-                            //        .AddSerializer<ProtobufMessageSerializer>()
-                            //        .AddTypedHandlers(
-                            //            handlers => handlers
-                            //                .AddHandler<PrintConsoleHandler>()
-                            //                .AddHandler<PrintConsoleHandler2>())
-                            //)
-                            )
                     )
             );
 
