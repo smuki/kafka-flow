@@ -3,7 +3,9 @@ namespace KafkaFlow.Producers
     using KafkaFlow.Configuration;
     using System.Collections.Generic;
     using System.Linq;
+    using Volte.Data.VolteDi;
 
+    [Injection(InjectionType = InjectionType.Auto,Lifetime =InjectionLifetime.Singleton)]
     public class ProducerAccessor : IProducerAccessor
     {
         private Dictionary<string, IMessageProducer> producers;
