@@ -27,19 +27,14 @@ namespace KafkaFlow.Producers
         public MessageProducer(IDependencyResolver dependencyResolver)
         {
             // Create middlewares instances inside a scope to allow scoped injections in producer middlewares
-
             this.dependencyResolverScope = dependencyResolver.CreateScope();
-
             this.middlewareExecutor = this.dependencyResolverScope.Resolver.Resolve<IMiddlewareExecutor>();
 
             var middlewares = dependencyResolver.Resolves<IMessageMiddleware>().Where(x =>
             {
-                Console.WriteLine(x.ToString());
-
                 var injectionAttribute = x.GetType().GetCustomAttribute<MiddlewareAttribute>();
                 if (injectionAttribute != null)
                 {
-                    Console.WriteLine(injectionAttribute.MiddlewareType);
                     return injectionAttribute.MiddlewareType == MiddlewareType.Producer;
                 }
                 return false;
@@ -113,13 +108,11 @@ namespace KafkaFlow.Producers
                         this.InternalProduce((ProducerMessageContext)context,
                             report =>
                             {
-                                Console.WriteLine(report.Status);
-
                                 if (report.Error.IsError)
                                 {
-                                    Console.WriteLine("error");
-                                //completionSource.SetException(new ProduceException<byte[], byte[]>(report.Error, report));
-                                completionSource.SetException(new Exception(report.Error.ToString()));
+                                    NLogger.Error($"error{report.Error.Reason}");
+                                    //completionSource.SetException(new ProduceException<byte[], byte[]>(report.Error, report));
+                                    completionSource.SetException(new Exception(report.Error.ToString()));
                                 }
                                 else
                                 {
@@ -259,39 +252,32 @@ namespace KafkaFlow.Producers
             ProducerMessageContext context,
             Action<XXXDeliveryReport> deliveryHandler)
         {
-            
             NLogger.Info("InternalProduce send....");
-            try
-            {
 
+            this.EnsureProducer().Produce(context.Topic, CreateMessage(context),
+                    report =>
+                    {
+                        var result = XXXUtil.XXXDeliveryResult(report);
 
-                this.EnsureProducer().Produce(context.Topic, CreateMessage(context),
-                        report =>
+                        if (result.Error.IsFatal
+                        || result.Error.IsBrokerError
+                        || result.Error.IsLocalError)
                         {
-                            var result = XXXUtil.XXXDeliveryResult(report);
+                            NLogger.Info("Error....");
+                            NLogger.Info("Error...." + result.Error.Reason);
 
-                            if (result.Error.IsFatal
-                            || result.Error.IsBrokerError
-                            || result.Error.IsLocalError)
-                            {
-                                NLogger.Info("Error....");
-                                NLogger.Info("Error...."+ result.Error.Reason);
+                            this.InvalidateProducer(report.Error, result);
+                        }
 
-                                this.InvalidateProducer(report.Error, result);
-                            }
+                        NLogger.Info("Offset=" + report.Offset);
+                        NLogger.Info("Partition=" + report.Partition);
 
-                            NLogger.Info("Offset=" + report.Offset);
-                            NLogger.Info("Partition=" + report.Partition);
+                        context.Offset = report.Offset;
+                        context.Partition = report.Partition;
 
-                            context.Offset = report.Offset;
-                            context.Partition = report.Partition;
+                        deliveryHandler(result);
+                    });
 
-                            deliveryHandler(result);
-                        });
-            }catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
             NLogger.Info("InternalProduce after send....");
 
         }
