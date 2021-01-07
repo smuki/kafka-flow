@@ -12,32 +12,33 @@ namespace KafkaFlow.Configuration
         public string Brokers { get; set; }
         public string Topic { get; set; }
 
-        private readonly Dictionary<string, string> _Parameter = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> parameter = new Dictionary<string, string>();
         public IReadOnlyList<Action<string>> StatisticsHandlers { get; set; }
         public string this[string name]
         {
             get
             {
-                return _Parameter.TryGetValue(name, out var o) ? o : null;
+                return parameter.TryGetValue(name, out var o) ? o : null;
             }
         }
         public bool ContainsKey(string name)
         {
-            return _Parameter.ContainsKey(name);
+            return parameter.ContainsKey(name);
         }
         public Dictionary<string, string> Parameter
         {
             get
             {
-                return _Parameter;
+                return parameter;
             }
         }
         public MessageProducerSettting()
         {
 
         }
-        public MessageProducerSettting(IConfigurationSection conf)
+        public MessageProducerSettting(Dictionary<string, string> _Parameter, IConfigurationSection conf)
         {
+            this.parameter = _Parameter;
             foreach (var it in conf.GetChildren())
             {
                 if (!string.IsNullOrWhiteSpace(it.Value))
@@ -45,6 +46,8 @@ namespace KafkaFlow.Configuration
                     _Parameter[it.Key] = it.Value;
                 }
             }
+            this.Topic = this["topic"];
+            this.Brokers = this["servers"];
         }
     }
 }
