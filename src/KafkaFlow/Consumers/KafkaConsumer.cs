@@ -78,6 +78,7 @@
             {
                 consumerConfig.AutoOffsetReset ??= AutoOffsetReset.Latest;
             }
+
             if (eventConsumer.ContainsKey("MaxPollIntervalMs"))
             {
                 consumerConfig.MaxPollIntervalMs ??= Util.ToInt(eventConsumer["MaxPollIntervalMs"]);
@@ -86,6 +87,7 @@
             {
                 consumerConfig.MaxPollIntervalMs ??= 10000;
             }
+
             if (eventConsumer.ContainsKey("StatisticsIntervalMs"))
             {
                 consumerConfig.StatisticsIntervalMs ??= Util.ToInt(eventConsumer["StatisticsIntervalMs"]);
@@ -161,13 +163,13 @@
         }
         private void OnPartitionRevoked(IReadOnlyCollection<TopicPartitionOffset> topicPartitions)
         {
-            NLogger.Warn($"Partitions revoked {JsonSerializer.Serialize(this.GetConsumerLogInfo(topicPartitions.Select(x => x.TopicPartition)))}");
+            NLogger.Info($"Partition Revoked {JsonSerializer.Serialize(this.GetConsumerLogInfo(topicPartitions.Select(x => x.TopicPartition)))}");
             this.workerPool.StopAsync().GetAwaiter().GetResult();
         }
 
         private void OnPartitionAssigned(IConsumer<byte[], byte[]> consumer, IReadOnlyCollection<TopicPartition> partitions)
         {
-            NLogger.Info($"Partitions assigned { JsonSerializer.Serialize(this.GetConsumerLogInfo(partitions))}");
+            NLogger.Info($"Partition Assigned { JsonSerializer.Serialize(this.GetConsumerLogInfo(partitions))}");
             this.workerPool.StartAsync(this, XXXUtil.TopicPartition(partitions), this.stopCancellationTokenSource.Token).GetAwaiter().GetResult();
         }
         private object GetConsumerLogInfo(IEnumerable<TopicPartition> partitions) => new
