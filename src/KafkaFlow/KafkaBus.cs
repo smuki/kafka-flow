@@ -10,7 +10,7 @@ namespace KafkaFlow
     using KafkaFlow.Consumers;
     using KafkaFlow.Producers;
     using Volte.Data.VolteDi;
-
+    using Volte.Utils;
 
     [Injection(InjectionType = InjectionType.Auto, Lifetime = InjectionLifetime.Singleton)]
     public class KafkaBus : IKafkaBus
@@ -67,7 +67,7 @@ namespace KafkaFlow
             }
             catch(Exception ex)
             {
-                Console.WriteLine(ex);
+                NLogger.Error(ex);
 
             }
             //foreach (var vvv in config.GetSection("eventbus").GetChildren())
