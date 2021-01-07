@@ -9,7 +9,6 @@ namespace KafkaFlow.Configuration
         private readonly Func<SecurityInformation> securityInformationHandler;
 
         public ClusterConfiguration(
-            //KafkaConfiguration kafka,
             Func<SecurityInformation> securityInformationHandler)
         {
             this.securityInformationHandler = securityInformationHandler;
