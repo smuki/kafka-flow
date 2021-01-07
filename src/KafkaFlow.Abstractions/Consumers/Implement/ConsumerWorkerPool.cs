@@ -14,7 +14,7 @@ namespace KafkaFlow.Consumers
     [Injection(InjectionType = InjectionType.Both)]
     public class ConsumerWorkerPool : IConsumerWorkerPool
     {
-        private readonly IDependencyResolver dependencyResolver;
+        private readonly IVolteServiceResolver dependencyResolver;
         private readonly IMiddlewareExecutor middlewareExecutor;
         private MessageConsumerSettting configuration;
         private List<IConsumerWorker> workers = new List<IConsumerWorker>();
@@ -22,7 +22,7 @@ namespace KafkaFlow.Consumers
         private OffsetManager offsetManager;
 
         public ConsumerWorkerPool(
-            IDependencyResolver dependencyResolver,
+            IVolteServiceResolver dependencyResolver,
             IMiddlewareExecutor middlewareExecutor)
         {
             this.dependencyResolver = dependencyResolver;

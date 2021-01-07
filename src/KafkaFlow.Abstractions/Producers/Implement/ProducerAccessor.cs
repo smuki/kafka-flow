@@ -9,9 +9,9 @@ namespace KafkaFlow.Producers
     public class ProducerAccessor : IProducerAccessor
     {
         private Dictionary<string, IMessageProducer> producers;
-        private IDependencyResolver dependencyResolver;
+        private IVolteServiceResolver dependencyResolver;
 
-        public ProducerAccessor(IDependencyResolver dependencyResolver)
+        public ProducerAccessor(IVolteServiceResolver dependencyResolver)
         {
             this.dependencyResolver = dependencyResolver;
         }

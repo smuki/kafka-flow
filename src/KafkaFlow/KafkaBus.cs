@@ -15,12 +15,12 @@ namespace KafkaFlow
     [Injection(InjectionType = InjectionType.Auto, Lifetime = InjectionLifetime.Singleton)]
     public class KafkaBus : IKafkaBus
     {
-        private readonly IDependencyResolver dependencyResolver;
+        private readonly IVolteServiceResolver dependencyResolver;
         private readonly IConsumerManager consumerManager;
         private readonly IList<IConsumerClient> consumers = new List<IConsumerClient>();
 
         public KafkaBus(
-            IDependencyResolver dependencyResolver,
+            IVolteServiceResolver dependencyResolver,
             IConsumerManager consumerManager)
         {
             this.dependencyResolver = dependencyResolver;

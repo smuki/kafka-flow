@@ -18,13 +18,13 @@ namespace KafkaFlow.Producers
     {
         private MessageProducerSettting configuration;
         private IMiddlewareExecutor middlewareExecutor;
-        private IDependencyResolverScope dependencyResolverScope;
+        private IVolteServiceScope dependencyResolverScope;
 
         private volatile IProducer<byte[], byte[]> producer;
         private readonly object producerCreationSync = new object();
 
 
-        public MessageProducer(IDependencyResolver dependencyResolver)
+        public MessageProducer(IVolteServiceResolver dependencyResolver)
         {
             // Create middlewares instances inside a scope to allow scoped injections in producer middlewares
             this.dependencyResolverScope = dependencyResolver.CreateScope();

@@ -7,7 +7,6 @@ using System.Net.Mime;
 using System.Reflection;
 using System.Text;
 using KafkaFlow;
-using KafkaFlow.Microsoft.DependencyInjection;
 using KafkaFlow.Producers;
 using KafkaFlow.Sample;
 using KafkaFlow.TypedHandler;
@@ -17,7 +16,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
@@ -227,7 +225,7 @@ namespace Zero.Boot.Launcher
                 NLogger.Info("HealthChecks =[Disabled]");
             }
             
-            new MicrosoftDependencyConfigurator(services);
+            new VolteServiceCollection(services);
 
             //var x1=services.ToList<ServiceDescriptor>();
             //foreach (var x in services.ToList<ServiceDescriptor>())

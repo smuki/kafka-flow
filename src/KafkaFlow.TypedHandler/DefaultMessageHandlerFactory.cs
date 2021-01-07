@@ -10,17 +10,17 @@ namespace KafkaFlow.TypedHandler
     public class DefaultMessageHandlerFactory : IMessageHandlerFactory
     {
         private readonly ConcurrentDictionary<Type, ICollection<IMessageHandler>> _messageHandlers = new ConcurrentDictionary<Type, ICollection<IMessageHandler>>();
-        private readonly IVolteDiServiceProvider VolteDiServiceProvider;
+        private readonly IVolteServiceResolver VolteDiServiceProvider;
 
         public DefaultMessageHandlerFactory(
-            IVolteDiServiceProvider VolteDiServiceProvider)
+            IVolteServiceResolver VolteDiServiceProvider)
         {
             this.VolteDiServiceProvider = VolteDiServiceProvider;
         }
         public ICollection<IMessageHandler> GetMessageHandler(Type eventType)
         {
             var eventHandlerType = typeof(IMessageHandler<>).MakeGenericType(eventType);
-            return VolteDiServiceProvider.ServiceProvider.GetGenericTypeServices(eventHandlerType).Cast<IMessageHandler>().ToArray();
+            return VolteDiServiceProvider.GetGenericTypeServices(eventHandlerType).Cast<IMessageHandler>().ToArray();
         }
         public ICollection<IMessageHandler> GetMessageHandlers(Type eventType)
         {
