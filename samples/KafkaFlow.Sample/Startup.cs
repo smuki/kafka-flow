@@ -7,6 +7,7 @@ using System.Net.Mime;
 using System.Reflection;
 using System.Text;
 using KafkaFlow;
+using KafkaFlow.Microsoft.DependencyInjection;
 using KafkaFlow.Producers;
 using KafkaFlow.Sample;
 using KafkaFlow.TypedHandler;
@@ -184,13 +185,13 @@ namespace Zero.Boot.Launcher
 
             const string consumerName = "test";
 
-            services.AddKafka(
-                kafka => kafka
-                    .AddCluster(
-                        cluster => cluster
-                            .EnableAdminMessages("kafka-flow.admin", Guid.NewGuid().ToString())
-                    )
-            );
+            //services.AddKafka(
+            //    kafka => kafka
+            //        .AddCluster(
+            //            cluster => cluster
+            //                .EnableAdminMessages("kafka-flow.admin", Guid.NewGuid().ToString())
+            //        )
+            //);
 
             services.UseKafkaFlow();
 
@@ -253,6 +254,9 @@ namespace Zero.Boot.Launcher
             {
                 NLogger.Info("HealthChecks =[Disabled]");
             }
+            
+            new MicrosoftDependencyConfigurator(services);
+
             var x1=services.ToList<ServiceDescriptor>();
             foreach (var x in services.ToList<ServiceDescriptor>())
             {
