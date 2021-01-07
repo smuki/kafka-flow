@@ -199,11 +199,7 @@
                         {
                             try
                             {
-                                NLogger.Info("Consume-before");
-
                                 var message = consumer.Consume(this.stopCancellationTokenSource.Token);
-                                
-                                NLogger.Info("Consume-after");
 
                                 var headers = new MessageHeaders();
                                 foreach (var header in message.Message.Headers)
