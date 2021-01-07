@@ -15,11 +15,7 @@ namespace KafkaFlow.Producers
         {
             this.dependencyResolver = dependencyResolver;
         }
-        //public ProducerAccessor(IEnumerable<IMessageProducer> producers)
-        //{
 
-        //    this.producers = producers.ToDictionary(x => x.ProducerName);
-        //}
         public void Initialize(IReadOnlyCollection<MessageProducerSettting> Producers)
         {
             this.producers = Producers.Select(
