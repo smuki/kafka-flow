@@ -20,11 +20,5 @@ namespace KafkaFlow.Configuration
         /// <returns></returns>
         IClusterConfigurationBuilder AddProducer(string name, Action<IProducerConfigurationBuilder> producer);
 
-        /// <summary>
-        /// Adds a consumer to the cluster
-        /// </summary>
-        /// <param name="consumer">A handler to configure the consumer</param>
-        /// <returns></returns>
-        IClusterConfigurationBuilder AddConsumer(Action<IConsumerConfigurationBuilder> consumer);
     }
 }
