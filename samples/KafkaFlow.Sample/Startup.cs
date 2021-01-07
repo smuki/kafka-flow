@@ -229,25 +229,25 @@ namespace Zero.Boot.Launcher
             
             new MicrosoftDependencyConfigurator(services);
 
-            var x1=services.ToList<ServiceDescriptor>();
-            foreach (var x in services.ToList<ServiceDescriptor>())
-            {
+            //var x1=services.ToList<ServiceDescriptor>();
+            //foreach (var x in services.ToList<ServiceDescriptor>())
+            //{
 
-                if (x.ServiceType != null && x.ServiceType.ToString().IndexOf("IMessageHandler")>0)
-                {
-                    Console.WriteLine("---->####################");
-                    Console.WriteLine("---->####################");
-                    Console.WriteLine("---->####################");
-                    Console.WriteLine("---->####################");
-                    Console.WriteLine(x.ServiceType);
-                    Console.WriteLine("---->####################");
-                    Console.WriteLine(x.ServiceType);
-                    Console.WriteLine(x.ImplementationType);
-                    Console.WriteLine("---->####################");
-                    Console.WriteLine("");
+            //    if (x.ServiceType != null && x.ServiceType.ToString().IndexOf("IMessageHandler")>0)
+            //    {
+            //        Console.WriteLine("---->####################");
+            //        Console.WriteLine("---->####################");
+            //        Console.WriteLine("---->####################");
+            //        Console.WriteLine("---->####################");
+            //        Console.WriteLine(x.ServiceType);
+            //        Console.WriteLine("---->####################");
+            //        Console.WriteLine(x.ServiceType);
+            //        Console.WriteLine(x.ImplementationType);
+            //        Console.WriteLine("---->####################");
+            //        Console.WriteLine("");
 
-                }
-            }
+            //    }
+            //}
 
         }
 
