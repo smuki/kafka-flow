@@ -19,31 +19,7 @@
         {
             cluster.DependencyConfigurator.AddSingleton<IAdminProducer, AdminProducer>();
 
-            return cluster
-                .AddProducer<AdminProducer>(
-                    producer => producer
-                        .DefaultTopic(adminTopic)
-                        //.AddMiddlewares(
-                        //    middlewares => middlewares
-                        //        .AddSerializer<ProtobufMessageSerializer>()
-                        //)
-                        )
-                .AddConsumer(
-                    consumer => consumer
-                        .Topic(adminTopic)
-                        .WithGroupId($"{adminConsumerGroup}-{Environment.MachineName}-{Convert.ToBase64String(Guid.NewGuid().ToByteArray())}")
-                        .WithWorkersCount(1)
-                        .WithBufferSize(1)
-                        .WithAutoOffsetReset(AutoOffsetReset.Latest)
-                        //.AddMiddlewares(
-                        //    middlewares => middlewares
-                        //        .AddSerializer<ProtobufMessageSerializer>()
-                        //        //.AddTypedHandlers(
-                        //        //    handlers => handlers
-                        //        //        .AddHandlersFromAssemblyOf<ResetConsumerOffsetHandler>()
-                        //        //        )
-                        //        )
-                );
+            return cluster;
         }
 
         public static IClusterConfigurationBuilder EnableAdminMessages(
