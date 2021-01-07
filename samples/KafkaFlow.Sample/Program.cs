@@ -43,7 +43,7 @@
                                     //    middlewares => middlewares
                                     //        .AddSerializer<ProtobufMessageSerializer>()
                                     //)
-                                    .WithAcks(Acks.All)
+                                    //.WithAcks(Acks.All)
                             )
                             .AddConsumer(
                                 consumer => consumer
