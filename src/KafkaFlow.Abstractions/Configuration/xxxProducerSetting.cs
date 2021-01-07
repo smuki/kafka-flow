@@ -9,7 +9,7 @@ namespace KafkaFlow.Configuration
 
         public string DefaultTopic { get; set; }
 
-        public Acks? Acks { get; set; }
+        //public Acks? Acks { get; set; }
 
         public IReadOnlyList<Action<string>> StatisticsHandlers { get; set; }
     }
