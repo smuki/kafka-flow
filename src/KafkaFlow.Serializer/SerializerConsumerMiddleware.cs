@@ -52,7 +52,6 @@
             {
                 throw new InvalidOperationException($"{nameof(context.Message)} must be a byte array to be deserialized and it is '{context.Message.GetType().FullName}'");
             }
-            Console.WriteLine("SerializerConsumerMiddleware");
 
             context.TransformMessage(this.serializer.Deserialize(rawData, messageType));
 
