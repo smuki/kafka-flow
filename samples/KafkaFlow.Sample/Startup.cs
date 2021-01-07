@@ -166,38 +166,10 @@ namespace Zero.Boot.Launcher
             NLogger.Debug(UseAssembly);
             StringBuilder ScanClass = new StringBuilder();
             ScanClass.AppendLine();
-            /*
-            services.Scan(scan =>
-                    scan.FromAssemblies(_Assembly)
-                    .AddClasses(classes =>
-                        classes.Where(t => {
-                            ScanClass.AppendLine(t.Name);
-                            return true;
-                        })
-                        )
-                    .AsSelf()
-                    .AsImplementedInterfaces()
-                    .WithTransientLifetime());
-            */
-
-
-            const string producerName = "PrintConsole";
-
-            const string consumerName = "test";
-
-            //services.AddKafka(
-            //    kafka => kafka
-            //        .AddCluster(
-            //            cluster => cluster
-            //                .EnableAdminMessages("kafka-flow.admin", Guid.NewGuid().ToString())
-            //        )
-            //);
 
             services.UseKafkaFlow();
 
-
             services.LoadInjection(_Assembly.ToArray<Assembly>());
-
 
             string ZERO_ELSA = _config["ZERO_ELSA"] ?? string.Empty;
            

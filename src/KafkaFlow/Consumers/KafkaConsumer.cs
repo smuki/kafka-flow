@@ -18,7 +18,7 @@
         private MessageConsumerSettting configuration;
         private readonly IConsumerManager consumerManager;
         private IConsumerWorkerPool workerPool;
-        private readonly CancellationToken busStopCancellationToken;
+        private CancellationToken busStopCancellationToken;
 
         private ConsumerBuilder<byte[], byte[]> consumerBuilder;
 
@@ -60,9 +60,7 @@
 
             this.workerPool = consumerWorkerPool;
             this.configuration = eventConsumer;
-            //var kafkaConfig = configuration.GetKafkaConfig();
-            var kafkaConfig= new Dictionary<string, string>();
-            //kafkaConfig["group.id"] = "12345";
+            this.busStopCancellationToken = busStopCancellationToken;
 
             ConsumerConfig consumerConfig = new ConsumerConfig();
             consumerConfig.BootstrapServers ??= eventConsumer.Brokers;
@@ -117,9 +115,9 @@
         }
         public List<XXXTopicPartitionOffset> OffsetsForTimes(IEnumerable<XXXTopicPartitionTimestamp> timestampsToSearch, TimeSpan timeout)
         {
+            Console.WriteLine("OffsetsForTimes...");
             var tps = this.consumer.OffsetsForTimes(XXXUtil.TopicPartitionTimestamp(timestampsToSearch), timeout);
             return XXXUtil.TopicPartitionOffset(tps).ToList();
-            Console.WriteLine("OffsetsForTimes...");
         }
         
         public void Commit(IEnumerable<XXXTopicPartitionOffset> offsets)
