@@ -6,7 +6,6 @@ namespace KafkaFlow.Configuration
     public class KafkaConfigurationBuilder : IKafkaConfigurationBuilder
     {
         private readonly IDependencyConfigurator dependencyConfigurator;
-        private readonly List<ClusterConfigurationBuilder> clusters = new List<ClusterConfigurationBuilder>();
 
         public KafkaConfigurationBuilder(IDependencyConfigurator dependencyConfigurator)
         {
@@ -15,12 +14,6 @@ namespace KafkaFlow.Configuration
 
         public IKafkaConfigurationBuilder AddCluster(Action<IClusterConfigurationBuilder> cluster)
         {
-            //var builder = new ClusterConfigurationBuilder(this.dependencyConfigurator);
-
-            //cluster(builder);
-
-            //this.clusters.Add(builder);
-
             return this;
         }
     }
