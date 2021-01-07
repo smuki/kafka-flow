@@ -7,7 +7,7 @@ namespace KafkaFlow.Configuration
     public class ClusterConfiguration
     {
         private readonly Func<SecurityInformation> securityInformationHandler;
-        private readonly List<ProducerConfiguration> producers = new List<ProducerConfiguration>();
+        //private readonly List<ProducerConfiguration> producers = new List<ProducerConfiguration>();
         private readonly List<ConsumerConfiguration> consumers = new List<ConsumerConfiguration>();
 
         public ClusterConfiguration(
@@ -20,7 +20,7 @@ namespace KafkaFlow.Configuration
         }
 
         public KafkaConfiguration Kafka { get; }
-        public IReadOnlyCollection<ProducerConfiguration> Producers => this.producers.AsReadOnly();
+        //public IReadOnlyCollection<ProducerConfiguration> Producers => this.producers.AsReadOnly();
 
         public IReadOnlyCollection<ConsumerConfiguration> Consumers => this.consumers.AsReadOnly();
 
