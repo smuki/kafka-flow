@@ -252,7 +252,7 @@ namespace KafkaFlow.Producers
             ProducerMessageContext context,
             Action<XXXDeliveryReport> deliveryHandler)
         {
-            NLogger.Info("InternalProduce send....");
+            NLogger.Debug("Internal Produce Send.");
 
             this.EnsureProducer().Produce(context.Topic, CreateMessage(context),
                     report =>
@@ -263,14 +263,14 @@ namespace KafkaFlow.Producers
                         || result.Error.IsBrokerError
                         || result.Error.IsLocalError)
                         {
-                            NLogger.Info("Error....");
-                            NLogger.Info("Error...." + result.Error.Reason);
+                            NLogger.Error("Error....");
+                            NLogger.Error($"Error {result.Error.Reason}");
 
                             this.InvalidateProducer(report.Error, result);
                         }
 
-                        NLogger.Info("Offset=" + report.Offset);
-                        NLogger.Info("Partition=" + report.Partition);
+                        NLogger.Debug($"Offset {report.Offset}");
+                        NLogger.Debug($"Partition {report.Partition}");
 
                         context.Offset = report.Offset;
                         context.Partition = report.Partition;
@@ -278,8 +278,7 @@ namespace KafkaFlow.Producers
                         deliveryHandler(result);
                     });
 
-            NLogger.Info("InternalProduce after send....");
-
+            NLogger.Debug("Internal Produce After Send.");
         }
 
         private static Message<byte[], byte[]> CreateMessage(IMessageContext context)
