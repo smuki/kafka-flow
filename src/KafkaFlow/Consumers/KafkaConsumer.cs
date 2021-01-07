@@ -98,41 +98,34 @@
         }
         public long Position(XXXTopicPartition offsets)
         {
-            Console.WriteLine("Position...");
            return this.consumer.Position(XXXUtil.TopicPartition(offsets)).Value;
         }
         public IOffsetsWatermark GetWatermarkOffsets(XXXTopicPartition offsets)
         {
-            Console.WriteLine("GetWatermarkOffsets...");
             var wm = this.consumer.GetWatermarkOffsets(XXXUtil.TopicPartition(offsets));
             return new OffsetsWatermark(wm.High,wm.Low);
         }
         public IOffsetsWatermark QueryWatermarkOffsets(XXXTopicPartition offsets, TimeSpan timeout)
         {
             var wm = this.consumer.QueryWatermarkOffsets(XXXUtil.TopicPartition(offsets), timeout);
-            Console.WriteLine("GetWatermarkOffsets...");
             return new OffsetsWatermark(wm.High, wm.Low);
         }
         public List<XXXTopicPartitionOffset> OffsetsForTimes(IEnumerable<XXXTopicPartitionTimestamp> timestampsToSearch, TimeSpan timeout)
         {
-            Console.WriteLine("OffsetsForTimes...");
             var tps = this.consumer.OffsetsForTimes(XXXUtil.TopicPartitionTimestamp(timestampsToSearch), timeout);
             return XXXUtil.TopicPartitionOffset(tps).ToList();
         }
         
         public void Commit(IEnumerable<XXXTopicPartitionOffset> offsets)
         {
-            Console.WriteLine("Commit...");
             this.consumer.Commit(XXXUtil.TopicPartitionOffset(offsets));
         }
         public void Pause(IEnumerable<XXXTopicPartition> offsets)
         {
-            Console.WriteLine("Pause...");
             this.consumer.Pause(XXXUtil.TopicPartition(offsets));
         }
         public void Resume(IEnumerable<XXXTopicPartition> offsets)
         {
-            Console.WriteLine("Resume...");
             this.consumer.Resume(XXXUtil.TopicPartition(offsets));
         }
       
@@ -153,7 +146,6 @@
 
             this.workerPool.StartAsync(this, XXXUtil.TopicPartition(partitions), this.stopCancellationTokenSource.Token).GetAwaiter().GetResult();
         }
-
         private object GetConsumerLogInfo(IEnumerable<TopicPartition> partitions) => new
         {
             this.configuration.GroupId,
@@ -193,13 +185,10 @@
         {
             consumer = this.consumerBuilder.Build();
             this.consumerManager.AddOrUpdate(new MessageConsumer(this, this.workerPool, this.configuration));
-            Console.WriteLine("Topic-->" + this.configuration.Topic);
-            //this.configuration["Topics"] = ;
+            NLogger.Info("Topic : " + this.configuration.Topic);
             List<string> xx = new List<string>();
             xx.Add(configuration.Topic);
-           // consumer.Subscribe("test-topic");
             consumer.Subscribe(xx.AsEnumerable<string>());
-
 
             this.backgroundTask = Task.Factory.StartNew(
                 async () =>
