@@ -54,7 +54,7 @@ namespace KafkaFlow.IntegrationTests.Core
                     });
 
             var host = builder.Build();
-            var bus = host.Services.CreateKafkaBus();
+            var bus = host.Services.GetRequiredService<IKafkaBus>();
             bus.StartAsync().GetAwaiter().GetResult();
             //Wait partition assignment
             Thread.Sleep(10000);
@@ -64,151 +64,151 @@ namespace KafkaFlow.IntegrationTests.Core
 
         private static void SetupServices(HostBuilderContext context, IServiceCollection services)
         {
-            var brokers = context.Configuration.GetValue<string>("Kafka:Brokers");
+            //var brokers = context.Configuration.GetValue<string>("Kafka:Brokers");
 
-            services.AddKafka(
-                kafka => kafka
-                    .UseLogHandler<TraceLogHandler>()
-                    .AddCluster(
-                        cluster => cluster
-                            .WithBrokers(brokers.Split(';'))
-                            .AddConsumer(
-                                consumer => consumer
-                                    .Topic(ProtobufTopicName)
-                                    .WithGroupId("consumer-protobuf")
-                                    .WithBufferSize(100)
-                                    .WithWorkersCount(10)
-                                    .WithAutoOffsetReset(AutoOffsetReset.Latest)
-                                    .AddMiddlewares(
-                                        middlewares => middlewares
-                                            .AddSingleTypeSerializer<TestMessage1, ProtobufMessageSerializer>()
-                                            .AddTypedHandlers(
-                                                handlers =>
-                                                    handlers
-                                                        .WithHandlerLifetime(InstanceLifetime.Singleton)
-                                                        .AddHandler<MessageHandler>())
-                                    )
-                            )
-                            .AddConsumer(
-                                consumer => consumer
-                                    .Topic(JsonTopicName)
-                                    .WithGroupId("consumer-json")
-                                    .WithBufferSize(100)
-                                    .WithWorkersCount(10)
-                                    .WithAutoOffsetReset(AutoOffsetReset.Latest)
-                                    .AddMiddlewares(
-                                        middlewares => middlewares
-                                            .AddSerializer<JsonMessageSerializer>()
-                                            .AddTypedHandlers(
-                                                handlers =>
-                                                    handlers
-                                                        .WithHandlerLifetime(InstanceLifetime.Singleton)
-                                                        .AddHandlersFromAssemblyOf<MessageHandler>())
-                                    )
-                            )
-                            .AddConsumer(
-                                consumer => consumer
-                                    .Topics(GzipTopicName)
-                                    .WithGroupId("consumer-gzip")
-                                    .WithBufferSize(100)
-                                    .WithWorkersCount(10)
-                                    .WithAutoOffsetReset(AutoOffsetReset.Latest)
-                                    .AddMiddlewares(
-                                        middlewares => middlewares
-                                            //.AddCompressor<GzipMessageCompressor>()
-                                            .Add<GzipMiddleware>()
-                                    )
-                            )
-                            .AddConsumer(
-                                consumer => consumer
-                                    .Topics(JsonGzipTopicName)
-                                    .WithGroupId("consumer-json-gzip")
-                                    .WithBufferSize(100)
-                                    .WithWorkersCount(10)
-                                    .WithAutoOffsetReset(AutoOffsetReset.Latest)
-                                    .AddMiddlewares(
-                                        middlewares => middlewares
-                                            //.AddCompressor(r => new GzipMessageCompressor())
-                                            .AddSerializer(r => new JsonMessageSerializer())
-                                            .AddTypedHandlers(
-                                                handlers =>
-                                                    handlers
-                                                        .WithHandlerLifetime(InstanceLifetime.Singleton)
-                                                        .AddHandler<MessageHandler>())
-                                    )
-                            )
-                            .AddConsumer(
-                                consumer => consumer
-                                    .Topics(ProtobufGzipTopicName, ProtobufGzipTopicName2)
-                                    .WithGroupId("consumer-protobuf-gzip")
-                                    .WithBufferSize(100)
-                                    .WithWorkersCount(10)
-                                    .WithAutoOffsetReset(AutoOffsetReset.Latest)
-                                    .WithAutoCommitIntervalMs(1)
-                                    .AddMiddlewares(
-                                        middlewares => middlewares
-                                            //.AddCompressor<GzipMessageCompressor>()
-                                            .AddSerializer<ProtobufMessageSerializer>()
-                                            .AddTypedHandlers(
-                                                handlers =>
-                                                    handlers
-                                                        .WithHandlerLifetime(InstanceLifetime.Singleton)
-                                                        .AddHandler<MessageHandler>())
-                                    )
-                            )
-                            .AddProducer<JsonProducer>(
-                                producer => producer
-                                    .DefaultTopic(JsonTopicName)
-                                    .AddMiddlewares(
-                                        middlewares => middlewares
-                                            .AddSerializer<JsonMessageSerializer>()
-                                    )
-                            )
-                            .AddProducer<JsonGzipProducer>(
-                                producer => producer
-                                    .DefaultTopic(JsonGzipTopicName)
-                                    .AddMiddlewares(
-                                        middlewares => middlewares
-                                            .AddSerializer<JsonMessageSerializer>()
-                                            //.AddCompressor<GzipMessageCompressor>()
-                                    )
-                            )
-                            .AddProducer<ProtobufProducer>(
-                                producer => producer
-                                    .DefaultTopic(ProtobufTopicName)
-                                    .AddMiddlewares(
-                                        middlewares => middlewares
-                                            .AddSingleTypeSerializer<TestMessage1, ProtobufMessageSerializer>()
-                                    )
-                            )
-                            .AddProducer<ProtobufGzipProducer>(
-                                producer => producer
-                                    .DefaultTopic(ProtobufGzipTopicName)
-                                    .AddMiddlewares(
-                                        middlewares => middlewares
-                                            .AddSerializer<ProtobufMessageSerializer>()
-                                            //.AddCompressor<GzipMessageCompressor>()
-                                    )
-                            )
-                            .AddProducer<ProtobufGzipProducer2>(
-                                producer => producer
-                                    .DefaultTopic(ProtobufGzipTopicName2)
-                                    .AddMiddlewares(
-                                        middlewares => middlewares
-                                            .AddSerializer(r => new ProtobufMessageSerializer())
-                                            //.AddCompressor(r => new GzipMessageCompressor())
-                                    )
-                            )
-                            .AddProducer<GzipProducer>(
-                                producer => producer
-                                    .DefaultTopic(GzipTopicName)
-                                    //.AddMiddlewares(
-                                       // middlewares => middlewares
-                                            //.AddCompressor<GzipMessageCompressor>()
-                                    //)
-                            )
-                    )
-            );
+            //services.AddKafka(
+            //    kafka => kafka
+            //        .UseLogHandler<TraceLogHandler>()
+            //        .AddCluster(
+            //            cluster => cluster
+            //                .WithBrokers(brokers.Split(';'))
+            //                .AddConsumer(
+            //                    consumer => consumer
+            //                        .Topic(ProtobufTopicName)
+            //                        .WithGroupId("consumer-protobuf")
+            //                        .WithBufferSize(100)
+            //                        .WithWorkersCount(10)
+            //                        .WithAutoOffsetReset(AutoOffsetReset.Latest)
+            //                        .AddMiddlewares(
+            //                            middlewares => middlewares
+            //                                .AddSingleTypeSerializer<TestMessage1, ProtobufMessageSerializer>()
+            //                                .AddTypedHandlers(
+            //                                    handlers =>
+            //                                        handlers
+            //                                            .WithHandlerLifetime(InstanceLifetime.Singleton)
+            //                                            .AddHandler<MessageHandler>())
+            //                        )
+            //                )
+            //                .AddConsumer(
+            //                    consumer => consumer
+            //                        .Topic(JsonTopicName)
+            //                        .WithGroupId("consumer-json")
+            //                        .WithBufferSize(100)
+            //                        .WithWorkersCount(10)
+            //                        .WithAutoOffsetReset(AutoOffsetReset.Latest)
+            //                        .AddMiddlewares(
+            //                            middlewares => middlewares
+            //                                .AddSerializer<JsonMessageSerializer>()
+            //                                .AddTypedHandlers(
+            //                                    handlers =>
+            //                                        handlers
+            //                                            .WithHandlerLifetime(InstanceLifetime.Singleton)
+            //                                            .AddHandlersFromAssemblyOf<MessageHandler>())
+            //                        )
+            //                )
+            //                .AddConsumer(
+            //                    consumer => consumer
+            //                        .Topics(GzipTopicName)
+            //                        .WithGroupId("consumer-gzip")
+            //                        .WithBufferSize(100)
+            //                        .WithWorkersCount(10)
+            //                        .WithAutoOffsetReset(AutoOffsetReset.Latest)
+            //                        .AddMiddlewares(
+            //                            middlewares => middlewares
+            //                                //.AddCompressor<GzipMessageCompressor>()
+            //                                .Add<GzipMiddleware>()
+            //                        )
+            //                )
+            //                .AddConsumer(
+            //                    consumer => consumer
+            //                        .Topics(JsonGzipTopicName)
+            //                        .WithGroupId("consumer-json-gzip")
+            //                        .WithBufferSize(100)
+            //                        .WithWorkersCount(10)
+            //                        .WithAutoOffsetReset(AutoOffsetReset.Latest)
+            //                        .AddMiddlewares(
+            //                            middlewares => middlewares
+            //                                //.AddCompressor(r => new GzipMessageCompressor())
+            //                                .AddSerializer(r => new JsonMessageSerializer())
+            //                                .AddTypedHandlers(
+            //                                    handlers =>
+            //                                        handlers
+            //                                            .WithHandlerLifetime(InstanceLifetime.Singleton)
+            //                                            .AddHandler<MessageHandler>())
+            //                        )
+            //                )
+            //                .AddConsumer(
+            //                    consumer => consumer
+            //                        .Topics(ProtobufGzipTopicName, ProtobufGzipTopicName2)
+            //                        .WithGroupId("consumer-protobuf-gzip")
+            //                        .WithBufferSize(100)
+            //                        .WithWorkersCount(10)
+            //                        .WithAutoOffsetReset(AutoOffsetReset.Latest)
+            //                        .WithAutoCommitIntervalMs(1)
+            //                        .AddMiddlewares(
+            //                            middlewares => middlewares
+            //                                //.AddCompressor<GzipMessageCompressor>()
+            //                                .AddSerializer<ProtobufMessageSerializer>()
+            //                                .AddTypedHandlers(
+            //                                    handlers =>
+            //                                        handlers
+            //                                            .WithHandlerLifetime(InstanceLifetime.Singleton)
+            //                                            .AddHandler<MessageHandler>())
+            //                        )
+            //                )
+            //                .AddProducer<JsonProducer>(
+            //                    producer => producer
+            //                        .DefaultTopic(JsonTopicName)
+            //                        .AddMiddlewares(
+            //                            middlewares => middlewares
+            //                                .AddSerializer<JsonMessageSerializer>()
+            //                        )
+            //                )
+            //                .AddProducer<JsonGzipProducer>(
+            //                    producer => producer
+            //                        .DefaultTopic(JsonGzipTopicName)
+            //                        .AddMiddlewares(
+            //                            middlewares => middlewares
+            //                                .AddSerializer<JsonMessageSerializer>()
+            //                                //.AddCompressor<GzipMessageCompressor>()
+            //                        )
+            //                )
+            //                .AddProducer<ProtobufProducer>(
+            //                    producer => producer
+            //                        .DefaultTopic(ProtobufTopicName)
+            //                        .AddMiddlewares(
+            //                            middlewares => middlewares
+            //                                .AddSingleTypeSerializer<TestMessage1, ProtobufMessageSerializer>()
+            //                        )
+            //                )
+            //                .AddProducer<ProtobufGzipProducer>(
+            //                    producer => producer
+            //                        .DefaultTopic(ProtobufGzipTopicName)
+            //                        .AddMiddlewares(
+            //                            middlewares => middlewares
+            //                                .AddSerializer<ProtobufMessageSerializer>()
+            //                                //.AddCompressor<GzipMessageCompressor>()
+            //                        )
+            //                )
+            //                .AddProducer<ProtobufGzipProducer2>(
+            //                    producer => producer
+            //                        .DefaultTopic(ProtobufGzipTopicName2)
+            //                        .AddMiddlewares(
+            //                            middlewares => middlewares
+            //                                .AddSerializer(r => new ProtobufMessageSerializer())
+            //                                //.AddCompressor(r => new GzipMessageCompressor())
+            //                        )
+            //                )
+            //                .AddProducer<GzipProducer>(
+            //                    producer => producer
+            //                        .DefaultTopic(GzipTopicName)
+            //                        //.AddMiddlewares(
+            //                           // middlewares => middlewares
+            //                                //.AddCompressor<GzipMessageCompressor>()
+            //                        //)
+            //                )
+            //        )
+            //);
 
             services.AddSingleton<JsonProducer>();
             services.AddSingleton<JsonGzipProducer>();
