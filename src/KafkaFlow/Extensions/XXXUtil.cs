@@ -13,7 +13,6 @@ namespace KafkaFlow
         {
             return new XXXTopicPartitionOffset(tpo.Topic, tpo.Partition.Value, tpo.Offset.Value);
         }
-
         public static XXXTopicPartition TopicPartition(TopicPartition tp)
         {
             return new XXXTopicPartition(tp.Topic, tp.Partition.Value);
@@ -22,7 +21,6 @@ namespace KafkaFlow
         {
             return new TopicPartitionOffset(tpo.Topic, new Partition(tpo.Partition), new Offset(tpo.Offset));
         }
-
         public static TopicPartition TopicPartition(XXXTopicPartition tp)
         {
             return new TopicPartition(tp.Topic, tp.Partition);
@@ -69,7 +67,6 @@ namespace KafkaFlow
             List<TopicPartitionOffset> xxx = new List<TopicPartitionOffset>();
             foreach (XXXTopicPartitionOffset item in tp)
             {
-                Console.WriteLine("\nTopic=" + item.Topic + " Partition=" + item.Partition + " Offset=" + item.Offset);
                 xxx.Add(new TopicPartitionOffset(item.Topic, new Partition(item.Partition), new Offset(item.Offset)));
             }
             return xxx;
@@ -79,7 +76,6 @@ namespace KafkaFlow
             List<TopicPartitionOffset> xxx = new List<TopicPartitionOffset>();
             foreach (XXXTopicPartitionOffset item in tp)
             {
-                Console.WriteLine("\nTopic=" + item.Topic + " Partition=" + item.Partition + " Offset=" + item.Offset);
                 xxx.Add(new TopicPartitionOffset(item.Topic, new Partition(item.Partition), new Offset(item.Offset)));
             }
             return xxx.AsReadOnly();
@@ -141,7 +137,6 @@ namespace KafkaFlow
             List<XXXTopicPartitionOffset> xxx = new List<XXXTopicPartitionOffset>();
             foreach (TopicPartitionOffset item in tp)
             {
-                Console.WriteLine("\nTopic=" + item.Topic + " Partition=" + item.Partition + " Offset=" + item.Offset);
                 xxx.Add(new XXXTopicPartitionOffset(item.Topic, item.Partition, item.Offset));
             }
             return xxx.AsReadOnly();
