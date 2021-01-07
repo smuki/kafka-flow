@@ -21,18 +21,6 @@ namespace KafkaFlow.Configuration
         public KafkaConfiguration Build()
         {
             var configuration = new KafkaConfiguration();
-
-            //configuration.AddClusters(this.clusters.Select(x => x.Build(configuration)));
-
-            //this.dependencyConfigurator.AddSingleton<IProducerAccessor>(
-            //    resolver => new ProducerAccessor(
-            //        configuration.Clusters
-            //            .SelectMany(x => x.Producers)
-            //            .Select(
-            //                producer => new MessageProducer(
-            //                    resolver,
-            //                    producer))));
-
             return configuration;
         }
 
