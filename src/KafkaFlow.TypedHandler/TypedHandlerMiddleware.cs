@@ -1,41 +1,35 @@
 namespace KafkaFlow.TypedHandler
 {
+    using System;
+    using System.Linq;
     using System.Threading.Tasks;
+    using Volte.Data.VolteDi;
 
-    internal class TypedHandlerMiddleware : IMessageMiddleware
+    [Injection(InjectionType = InjectionType.Auto)]
+    [Middleware(MiddlewareType = MiddlewareType.Consumer,Priority =110)]
+    public class TypedHandlerMiddleware : IMessageMiddleware
     {
-        private readonly IDependencyResolver dependencyResolver;
-        private readonly TypedHandlerConfiguration configuration;
+        private readonly IMessageHandlerFactory HandlerMapping;
 
         public TypedHandlerMiddleware(
-            IDependencyResolver dependencyResolver,
-            TypedHandlerConfiguration configuration)
+            IMessageHandlerFactory HandlerMapping)
         {
-            this.dependencyResolver = dependencyResolver;
-            this.configuration = configuration;
+            this.HandlerMapping = HandlerMapping;
         }
 
         public async Task Invoke(IMessageContext context, MiddlewareDelegate next)
         {
-            using (var scope = this.dependencyResolver.CreateScope())
+            var handlerType = HandlerMapping.GetMessageHandlers(context.Message.GetType());
+
+            if (handlerType == null || handlerType.Count == 0)
             {
-                var handlerType = this.configuration.HandlerMapping.GetHandlerType(context.Message.GetType());
-
-                if (handlerType == null)
-                {
-                    return;
-                }
-
-                var handler = scope.Resolver.Resolve(handlerType);
-
-                await HandlerExecutor
-                    .GetExecutor(context.Message.GetType())
-                    .Execute(
-                        handler,
-                        context,
-                        context.Message)
-                    .ConfigureAwait(false);
+                return;
             }
+            var tasks = handlerType.Select(h =>
+           {
+               return HandlerExecutor.GetExecutor(context.Message.GetType()).Execute(h, context, context.Message);
+           });
+            await Task.WhenAll(tasks);
 
             await next(context);
         }

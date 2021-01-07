@@ -2,7 +2,7 @@ namespace KafkaFlow.Serializer
 {
     using System;
 
-    internal class SingleMessageTypeResolver<TMessage> : IMessageTypeResolver
+    public class SingleMessageTypeResolver<TMessage> : IMessageTypeResolver
     {
         public Type OnConsume(IMessageContext context) => typeof(TMessage);
 

@@ -3,10 +3,12 @@
     using System;
     using System.Text;
     using System.Text.Json;
+    using Volte.Data.VolteDi;
 
     /// <summary>
     /// A message serializer using System.Text.Json library
     /// </summary>
+    [Injection(InjectionType = InjectionType.Auto)]
     public class JsonMessageSerializer : IMessageSerializer
     {
         private readonly JsonSerializerOptions options;

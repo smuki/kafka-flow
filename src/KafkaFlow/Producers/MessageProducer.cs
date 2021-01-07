@@ -8,30 +8,51 @@ namespace KafkaFlow.Producers
     using KafkaFlow.Configuration;
     using KafkaFlow.Middleware;
     using KafkaFlow.Dependency;
+    using Volte.Utils;
+    using Volte.Data.VolteDi;
+    using System.Reflection;
+    using System.Collections.Generic;
 
-    internal class MessageProducer : IMessageProducer, IDisposable
+    [Injection(InjectionType = InjectionType.Auto)]
+    public class MessageProducer : IMessageProducer, IDisposable
     {
-        private readonly ProducerConfiguration configuration;
-        private readonly MiddlewareExecutor middlewareExecutor;
-        private readonly IDependencyResolverScope dependencyResolverScope;
+        private MessageProducerSettting configuration;
+        private IMiddlewareExecutor middlewareExecutor;
+        private IVolteServiceScope dependencyResolverScope;
 
         private volatile IProducer<byte[], byte[]> producer;
         private readonly object producerCreationSync = new object();
 
-        public MessageProducer(
-            IDependencyResolver dependencyResolver,
-            ProducerConfiguration configuration)
-        {
-            this.configuration = configuration;
 
+        public MessageProducer(IVolteServiceResolver dependencyResolver)
+        {
             // Create middlewares instances inside a scope to allow scoped injections in producer middlewares
             this.dependencyResolverScope = dependencyResolver.CreateScope();
+            this.middlewareExecutor = this.dependencyResolverScope.Resolver.Resolve<IMiddlewareExecutor>();
 
-            var middlewares = this.configuration.MiddlewareConfiguration.Factories
-                .Select(factory => factory(this.dependencyResolverScope.Resolver))
-                .ToList();
+            var middlewares = dependencyResolver.Resolves<IMessageMiddleware>().Where(x =>
+            {
+                var injectionAttribute = x.GetType().GetCustomAttribute<MiddlewareAttribute>();
+                if (injectionAttribute != null)
+                {
+                    return injectionAttribute.MiddlewareType == MiddlewareType.Producer;
+                }
+                return false;
+            })
+          .ToList();
 
-            this.middlewareExecutor = new MiddlewareExecutor(middlewares);
+            middlewares.Sort((x, y) =>
+            {
+                var injectionAttributex = x.GetType().GetCustomAttribute<MiddlewareAttribute>();
+                var injectionAttributey = y.GetType().GetCustomAttribute<MiddlewareAttribute>();
+                return injectionAttributex.Priority.CompareTo(injectionAttributey.Priority);
+            });
+
+            this.middlewareExecutor.Initialize(middlewares);
+        }
+        public void Initialize(MessageProducerSettting configuration)
+        {
+            this.configuration = configuration;
         }
 
         public string ProducerName => this.configuration.Name;
@@ -60,12 +81,12 @@ namespace KafkaFlow.Producers
             object message,
             IMessageHeaders headers = null)
         {
-            if (string.IsNullOrWhiteSpace(this.configuration.DefaultTopic))
+            if (string.IsNullOrWhiteSpace(this.configuration.Topic))
             {
                 throw new InvalidOperationException($"There is no default topic defined for producer {this.ProducerName}");
             }
 
-            return this.ProduceAsync(this.configuration.DefaultTopic, partitionKey, message, headers);
+            return this.ProduceAsync(this.configuration.Topic, partitionKey, message, headers);
         }
 
         public void Produce(
@@ -81,22 +102,29 @@ namespace KafkaFlow.Producers
                 context =>
                 {
                     var completionSource = new TaskCompletionSource<byte>();
+                    try
+                    {
 
-                    this.InternalProduce((ProducerMessageContext)context,
-                        report =>
-                        {
-                            if (report.Error.IsError)
+                        this.InternalProduce((ProducerMessageContext)context,
+                            report =>
                             {
-                                //completionSource.SetException(new ProduceException<byte[], byte[]>(report.Error, report));
-                                completionSource.SetException(new Exception(report.Error.ToString()));
-                            }
-                            else
-                            {
-                                completionSource.SetResult(0);
-                            }
+                                if (report.Error.IsError)
+                                {
+                                    NLogger.Error($"error{report.Error.Reason}");
+                                    //completionSource.SetException(new ProduceException<byte[], byte[]>(report.Error, report));
+                                    completionSource.SetException(new Exception(report.Error.ToString()));
+                                }
+                                else
+                                {
+                                    completionSource.SetResult(0);
+                                }
 
-                            deliveryHandler?.Invoke(report);
-                        });
+                                deliveryHandler?.Invoke(report);
+                            });
+                    }catch(Exception ex)
+                    {
+                        NLogger.Error(ex);
+                    }
 
                     return completionSource.Task;
                 });
@@ -108,12 +136,12 @@ namespace KafkaFlow.Producers
             IMessageHeaders headers = null,
             Action<XXXDeliveryReport> deliveryHandler = null)
         {
-            if (string.IsNullOrWhiteSpace(this.configuration.DefaultTopic))
+            if (string.IsNullOrWhiteSpace(this.configuration.Topic))
             {
                 throw new InvalidOperationException($"There is no default topic defined for producer {this.ProducerName}");
             }
 
-            this.Produce(this.configuration.DefaultTopic, partitionKey, message, headers, deliveryHandler);
+            this.Produce(this.configuration.Topic, partitionKey, message, headers, deliveryHandler);
         }
 
         private IProducer<byte[], byte[]> EnsureProducer()
@@ -129,8 +157,32 @@ namespace KafkaFlow.Producers
                 {
                     return this.producer;
                 }
+                Dictionary<string, string> Parameter = this.configuration.Parameter;
 
-                return this.producer = new ProducerBuilder<byte[], byte[]>(this.configuration.GetKafkaConfig()).SetErrorHandler(
+                ProducerConfig _producerConfig = new ProducerConfig();
+
+                _producerConfig.BootstrapServers = this.configuration.Brokers;
+                if (configuration.ContainsKey("Acks"))
+                {
+                    if (configuration["Acks"] == "Leader")
+                    {
+                        _producerConfig.Acks = Confluent.Kafka.Acks.Leader;
+                    }
+                    else if (configuration["Acks"] == "All")
+                    {
+                        _producerConfig.Acks = Confluent.Kafka.Acks.All;
+                    }
+                    else if (configuration["Acks"] == "None")
+                    {
+                        _producerConfig.Acks = Confluent.Kafka.Acks.None;
+                    }
+                }
+                else
+                {
+                    _producerConfig.Acks = Confluent.Kafka.Acks.Leader;
+                }
+
+                return this.producer = new ProducerBuilder<byte[], byte[]>(_producerConfig).SetErrorHandler(
                         (p, error) =>
                         {
                             if (error.IsFatal)
@@ -139,7 +191,7 @@ namespace KafkaFlow.Producers
                             }
                             else
                             {
-                                this.dependencyResolverScope.Resolver.Resolve<ILogHandler>().Warning("Kafka Producer Error", new { Error = error });
+                                NLogger.Warn("Kafka Producer Error {error}");
                             }
                         })
                     .SetStatisticsHandler((producer, statistics) =>
@@ -165,8 +217,7 @@ namespace KafkaFlow.Producers
             xerror.IsError = error.IsError;
             xerror.IsFatal = error.IsFatal;
 
-            this.dependencyResolverScope.Resolver.Resolve<ILogHandler>()
-                .Error("Kafka produce fatal error occurred. The producer will be recreated",
+             NLogger.Error("Kafka produce fatal error occurred. The producer will be recreated",
                     result is null ? new XXXProduceException(xerror) : new XXXProduceException(xerror, result),
                     new { Error = error });
         }
@@ -179,7 +230,7 @@ namespace KafkaFlow.Producers
             {
                 var result2 = await this.EnsureProducer().ProduceAsync(context.Topic, CreateMessage(context)).ConfigureAwait(false);
 
-                result = Util.XXXDeliveryResult(result2);
+                result = XXXUtil.XXXDeliveryResult(result2);
             }
             catch (ProduceException<byte[], byte[]> e)
             {
@@ -201,21 +252,33 @@ namespace KafkaFlow.Producers
             ProducerMessageContext context,
             Action<XXXDeliveryReport> deliveryHandler)
         {
+            NLogger.Debug("Internal Produce Send.");
+
             this.EnsureProducer().Produce(context.Topic, CreateMessage(context),
                     report =>
                     {
-                        var result = Util.XXXDeliveryResult(report);
+                        var result = XXXUtil.XXXDeliveryResult(report);
 
-                        if (report.Error.IsFatal)
+                        if (result.Error.IsFatal
+                        || result.Error.IsBrokerError
+                        || result.Error.IsLocalError)
                         {
+                            NLogger.Error("Error....");
+                            NLogger.Error($"Error {result.Error.Reason}");
+
                             this.InvalidateProducer(report.Error, result);
                         }
+
+                        NLogger.Debug($"Offset {report.Offset}");
+                        NLogger.Debug($"Partition {report.Partition}");
 
                         context.Offset = report.Offset;
                         context.Partition = report.Partition;
 
                         deliveryHandler(result);
                     });
+
+            NLogger.Debug("Internal Produce After Send.");
         }
 
         private static Message<byte[], byte[]> CreateMessage(IMessageContext context)

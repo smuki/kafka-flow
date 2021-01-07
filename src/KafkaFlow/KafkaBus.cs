@@ -5,68 +5,97 @@ namespace KafkaFlow
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using global::Microsoft.Extensions.Configuration;
     using KafkaFlow.Configuration;
     using KafkaFlow.Consumers;
     using KafkaFlow.Producers;
-    using Microsoft.Extensions.Configuration;
+    using Volte.Data.VolteDi;
+    using Volte.Utils;
 
-    internal class KafkaBus : IKafkaBus
+    [Injection(InjectionType = InjectionType.Auto, Lifetime = InjectionLifetime.Singleton)]
+    public class KafkaBus : IKafkaBus
     {
-        private readonly IDependencyResolver dependencyResolver;
-        private readonly KafkaConfiguration configuration;
+        private readonly IVolteServiceResolver dependencyResolver;
         private readonly IConsumerManager consumerManager;
-        private readonly ILogHandler logHandler;
-        private readonly IList<KafkaConsumer> consumers = new List<KafkaConsumer>();
-        private readonly IConfiguration config;
+        private readonly IList<IConsumerClient> consumers = new List<IConsumerClient>();
 
         public KafkaBus(
-            IDependencyResolver dependencyResolver,
-            IConsumerManager consumerManager,
-            IProducerAccessor accessor,
-            ILogHandler logHandler,
-        //IConfiguration config,
-        KafkaConfiguration configuration)
+            IVolteServiceResolver dependencyResolver,
+            IConsumerManager consumerManager)
         {
             this.dependencyResolver = dependencyResolver;
-            this.configuration = configuration;
             this.consumerManager = consumerManager;
-            this.logHandler = logHandler;
-            this.Producers = accessor;
-            //this.config = config;
         }
 
         public IConsumerAccessor Consumers => this.consumerManager;
 
         public IProducerAccessor Producers { get; }
-       
+
         public async Task Initialize(CancellationToken stopCancellationToken = default)
         {
+            try
+            {
+
+
+                var xx = dependencyResolver.Resolve<ClusterSettting>();
+                
+                var ProducerAccessor = dependencyResolver.Resolve<IProducerAccessor>();
+                ProducerAccessor.Initialize(xx.Producers);
+                foreach (var ccc in xx.Consumers)
+                {
+
+                    var dependencyScope = this.dependencyResolver.CreateScope();
+
+                    var consumerWorkerPool = dependencyResolver.Resolve<IConsumerWorkerPool>();
+                    consumerWorkerPool.Initialize(ccc);
+
+                    var consumer = dependencyScope.Resolver.Resolve<IConsumerClient>("Kafka");
+                    consumer.Initialize(consumerWorkerPool, ccc, stopCancellationToken);
+
+                    //var consumer = new KafkaConsumer(
+                    //     vconsumerConfiguration,
+                    //     this.consumerManager,
+                    //     this.logHandler,
+                    //     consumerWorkerPool,
+                    //     stopCancellationToken);
+
+                    this.consumers.Add(consumer);
+
+                    await consumer.StartAsync().ConfigureAwait(false);
+
+                }
+            }
+            catch(Exception ex)
+            {
+                NLogger.Error(ex);
+
+            }
             //foreach (var vvv in config.GetSection("eventbus").GetChildren())
-            //{
+            ////{
 
-                var dependencyScope = this.dependencyResolver.CreateScope();
-                ConsumerSetting vconsumerConfiguration = new ConsumerSetting();
+            //    var dependencyScope = this.dependencyResolver.CreateScope();
 
-                //var consumerWorkerPool = new ConsumerWorkerPool(
-                //    dependencyScope.Resolver,
-                //    vconsumerConfiguration,
-                //    this.logHandler
-                //    );
-                //var consumer = dependencyScope.Resolver.Resolve<IConsumerClient>("Kafka");
-                //consumer.Initialize(vconsumerConfiguration);
+            //    ConsumerSetting vconsumerConfiguration = new ConsumerSetting();
+            //    vconsumerConfiguration.ConsumerName = "asdfasdfasdf";
+            //    //vconsumerConfiguration.Build(vvv);
+            //    var consumerWorkerPool = dependencyResolver.Resolve<IConsumerWorkerPool>();
+            //    consumerWorkerPool.Initialize(vconsumerConfiguration);
 
-                //var consumer = new KafkaConsumer(
-                //     vconsumerConfiguration,
-                //     this.consumerManager,
-                //     this.logHandler,
-                //     consumerWorkerPool,
-                //     stopCancellationToken);
+            //    var consumer = dependencyScope.Resolver.Resolve<IConsumerClient>("Kafka");
+            //    consumer.Initialize(consumerWorkerPool, vconsumerConfiguration, stopCancellationToken);
 
-                //this.consumers.Add(consumer);
+            //    //var consumer = new KafkaConsumer(
+            //    //     vconsumerConfiguration,
+            //    //     this.consumerManager,
+            //    //     this.logHandler,
+            //    //     consumerWorkerPool,
+            //    //     stopCancellationToken);
 
-                //await consumer.StartAsync().ConfigureAwait(false);
+            //    this.consumers.Add(consumer);
 
-                // Console.WriteLine("Key = " + v.Key);
+            //    await consumer.StartAsync().ConfigureAwait(false);
+
+            // Console.WriteLine("Key = " + v.Key);
             //}
             await Task.CompletedTask;
         }
@@ -74,23 +103,29 @@ namespace KafkaFlow
         {
             await this.Initialize(stopCancellationToken);
 
-            foreach (var consumerConfiguration in this.configuration.Clusters.SelectMany(cl => cl.Consumers))
-            {
-                var dependencyScope = this.dependencyResolver.CreateScope();
+            //foreach (var consumerConfiguration in this.configuration.Clusters.SelectMany(cl => cl.Consumers))
+            //{
+            //    var dependencyScope = this.dependencyResolver.CreateScope();
 
-                var consumerWorkerPool = new ConsumerWorkerPool(dependencyScope.Resolver, consumerConfiguration, this.logHandler);
+            //    var consumerWorkerPool = dependencyResolver.Resolve<IConsumerWorkerPool>();
+            //    consumerWorkerPool.Initialize(consumerConfiguration);
 
-                var consumer = new KafkaConsumer(
-                    consumerConfiguration,
-                    this.consumerManager,
-                    this.logHandler,
-                    consumerWorkerPool,
-                    stopCancellationToken);
+            //    var consumer = dependencyScope.Resolver.Resolve<IConsumerClient>("Kafka");
+            //    consumer.Initialize(consumerWorkerPool, consumerConfiguration, stopCancellationToken);
 
-                this.consumers.Add(consumer);
+            //    //var consumerWorkerPool = new ConsumerWorkerPool(dependencyScope.Resolver, consumerConfiguration, this.logHandler);
 
-                await consumer.StartAsync().ConfigureAwait(false);
-            }
+            //    //var consumer = new KafkaConsumer(
+            //    //    consumerConfiguration,
+            //    //    this.consumerManager,
+            //    //    this.logHandler,
+            //    //    consumerWorkerPool,
+            //    //    stopCancellationToken);
+
+            //    //this.consumers.Add(consumer);
+
+            //    //await consumer.StartAsync().ConfigureAwait(false);
+            //}
         }
 
         public Task StopAsync()

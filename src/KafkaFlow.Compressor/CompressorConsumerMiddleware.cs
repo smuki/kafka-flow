@@ -2,10 +2,12 @@
 {
     using System;
     using System.Threading.Tasks;
+    using Volte.Data.VolteDi;
 
     /// <summary>
     /// Middleware to decompress the messages when consuming
     /// </summary>
+    [Middleware(MiddlewareType=MiddlewareType.Consumer)]
     public class CompressorConsumerMiddleware : IMessageMiddleware
     {
         private readonly IMessageCompressor compressor;

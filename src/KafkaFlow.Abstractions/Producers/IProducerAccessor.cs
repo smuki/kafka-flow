@@ -1,5 +1,6 @@
 namespace KafkaFlow.Producers
 {
+    using KafkaFlow.Configuration;
     using System.Collections.Generic;
 
     /// <summary>
@@ -7,6 +8,8 @@ namespace KafkaFlow.Producers
     /// </summary>
     public interface IProducerAccessor
     {
+        void Initialize(IReadOnlyCollection<MessageProducerSettting> Producers);
+
         /// <summary>
         /// Gets a producer by its name
         /// </summary>
