@@ -19,7 +19,6 @@ namespace KafkaFlow.Configuration
         /// <param name="topicName">Topic name</param>
         /// <returns></returns>
         IConsumerConfigurationBuilder Topic(string topicName);
-        IConsumerConfigurationBuilder SetParameter(string Topic,string topicName);
 
         /// <summary>
         /// Sets the topics that will be used to read the messages
