@@ -18,17 +18,19 @@ namespace KafkaFlow.Configuration
 
             foreach (var cluster in config.GetSection("eventbus").GetChildren())
             {
-                string topic = cluster.Get("topic");
-                string servers = cluster.Get("servers");
+                Dictionary<string, string> parameter = new Dictionary<string, string>();
+                foreach (var it in cluster.GetChildren())
+                {
+                    if (!string.IsNullOrWhiteSpace(it.Value))
+                    {
+                        parameter[it.Key] = it.Value;
+                    }
+                }
 
-                MessageProducerSettting MessageProducer = new MessageProducerSettting(cluster.GetSection("producer"));
-                MessageProducer.Topic = topic;
-                MessageProducer.Brokers = servers;
+                MessageProducerSettting MessageProducer = new MessageProducerSettting(parameter,cluster.GetSection("producer"));
                 MessageProducer.Name = cluster.Key;
 
-                MessageConsumerSettting MessageConsumer = new MessageConsumerSettting(cluster.GetSection("consumer"));
-                MessageConsumer.Topic = topic;
-                MessageConsumer.Brokers = servers;
+                MessageConsumerSettting MessageConsumer = new MessageConsumerSettting(parameter,cluster.GetSection("consumer"));
                 MessageConsumer.Name = cluster.Key;
 
                 producers.Add(MessageProducer);
