@@ -33,22 +33,7 @@
                 kafka => kafka
                     .AddCluster(
                         cluster => cluster
-                            //.WithBrokers(new[] { "192.168.8.4:9092" })
                             .EnableAdminMessages("kafka-flow.admin", Guid.NewGuid().ToString())
-                            .AddProducer(
-                                producerName,
-                                producer => producer
-                                    .DefaultTopic("test-topic")
-                                    //.AddMiddlewares(
-                                    //    middlewares => middlewares
-                                    //        .AddSerializer<ProtobufMessageSerializer>()
-                                    //)
-                                    //.WithAcks(Acks.All)
-                            )
-                            //.AddConsumer(
-                            //    consumer => consumer
-                            //        .WithAutoOffsetReset(AutoOffsetReset.Latest)
-                            //)
                     )
             );
 
