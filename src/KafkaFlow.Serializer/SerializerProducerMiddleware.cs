@@ -36,7 +36,6 @@
         public Task Invoke(IMessageContext context, MiddlewareDelegate next)
         {
             this.typeResolver.OnProduce(context);
-            Console.WriteLine("SerializerProducerMiddleware");
             var data = this.serializer.Serialize(context.Message);
             
             context.TransformMessage(data);
