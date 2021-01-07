@@ -8,7 +8,7 @@ namespace KafkaFlow.Configuration
 
     public class ClusterConfigurationBuilder : IClusterConfigurationBuilder
     {
-        private readonly List<ProducerConfigurationBuilder> producers = new List<ProducerConfigurationBuilder>();
+        //private readonly List<ProducerConfigurationBuilder> producers = new List<ProducerConfigurationBuilder>();
 
         private IEnumerable<string> brokers;
         private Func<SecurityInformation> securityInformationHandler;
@@ -41,11 +41,11 @@ namespace KafkaFlow.Configuration
 
         public IClusterConfigurationBuilder AddProducer(string name, Action<IProducerConfigurationBuilder> producer)
         {
-            var builder = new ProducerConfigurationBuilder(this.DependencyConfigurator, name);
+            //var builder = new ProducerConfigurationBuilder(this.DependencyConfigurator, name);
 
-            producer(builder);
+            //producer(builder);
 
-            this.producers.Add(builder);
+            //this.producers.Add(builder);
 
             return this;
         }
