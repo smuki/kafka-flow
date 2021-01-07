@@ -6,8 +6,6 @@ namespace KafkaFlow.Configuration
 
     public class ClusterConfigurationBuilder : IClusterConfigurationBuilder
     {
-        private Func<SecurityInformation> securityInformationHandler;
-
         public ClusterConfigurationBuilder(IDependencyConfigurator dependencyConfigurator)
         {
             this.DependencyConfigurator = dependencyConfigurator;
@@ -15,12 +13,5 @@ namespace KafkaFlow.Configuration
 
         public IDependencyConfigurator DependencyConfigurator { get; }
 
-        public ClusterConfiguration Build()
-        {
-            var configuration = new ClusterConfiguration(
-                this.securityInformationHandler);
-
-            return configuration;
-        }
     }
 }

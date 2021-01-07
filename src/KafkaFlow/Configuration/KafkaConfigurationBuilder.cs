@@ -15,11 +15,11 @@ namespace KafkaFlow.Configuration
 
         public IKafkaConfigurationBuilder AddCluster(Action<IClusterConfigurationBuilder> cluster)
         {
-            var builder = new ClusterConfigurationBuilder(this.dependencyConfigurator);
+            //var builder = new ClusterConfigurationBuilder(this.dependencyConfigurator);
 
-            cluster(builder);
+            //cluster(builder);
 
-            this.clusters.Add(builder);
+            //this.clusters.Add(builder);
 
             return this;
         }
