@@ -13,12 +13,11 @@ namespace KafkaFlow.Configuration
 
         public IReadOnlyCollection<MessageConsumerSettting> Consumers => this.consumers.AsReadOnly();
 
-        public ClusterSettting( IConfiguration config)
+        public ClusterSettting(IConfiguration config)
         {
 
             foreach (var cluster in config.GetSection("eventbus").GetChildren())
             {
-
                 string topic = cluster.Get("topic");
                 string servers = cluster.Get("servers");
 
