@@ -41,7 +41,7 @@ namespace KafkaFlow
         }
         
         /// <summary>
-        /// Gets an enumerator that iterates through <see cref="Headers"/>
+        /// Gets an enumerator that iterates through
         /// </summary>
         /// <returns></returns>
         public IEnumerator<KeyValuePair<string, byte[]>> GetEnumerator()

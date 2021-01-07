@@ -38,5 +38,9 @@ namespace KafkaFlow.Consumers
         {
             return obj is OffsetsWatermark other && this.Equals(other);
         }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

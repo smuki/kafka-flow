@@ -5,15 +5,12 @@ namespace KafkaFlow.Middleware
     using System.Linq;
     using System.Threading.Tasks;
     using Volte.Data.VolteDi;
+    using Volte.Utils;
 
     [Injection(InjectionType = InjectionType.Auto)]
     public class MiddlewareExecutor : IMiddlewareExecutor
     {
         private IReadOnlyList<IMessageMiddleware> middlewares;
-        //public MiddlewareExecutor(IDependencyResolver dependencyResolver)
-        //{
-        //    middlewares = dependencyResolver.Resolves<IMessageMiddleware>().ToList();
-        //}
         public void Initialize(IReadOnlyList<IMessageMiddleware> middlewares)
         {
             this.middlewares = middlewares;
@@ -22,10 +19,10 @@ namespace KafkaFlow.Middleware
         public Task Execute(IMessageContext context, Func<IMessageContext, Task> nextOperation)
         {
             int i = 0;
-            foreach(var x in middlewares)
+            NLogger.Debug("Middleware: ");
+            foreach (var x in middlewares)
             {
-                Console.Write(i+" : ");
-                Console.WriteLine(x);
+                NLogger.Debug("   " + i + " : " + x.ToString());
                 i++;
             }
             return this.ExecuteDefinition(0, context, nextOperation);
@@ -40,9 +37,6 @@ namespace KafkaFlow.Middleware
             {
                 return nextOperation(context);
             }
-
-            Console.WriteLine("MiddlewareExecutor.Execute - " + this.middlewares.Count);
-
             return this.middlewares[index].Invoke(context, nextContext => this.ExecuteDefinition(index + 1, nextContext.Clone(), nextOperation));
         }
     }

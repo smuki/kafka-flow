@@ -20,8 +20,6 @@ namespace KafkaFlow.TypedHandler
         public ICollection<IMessageHandler> GetMessageHandler(Type eventType)
         {
             var eventHandlerType = typeof(IMessageHandler<>).MakeGenericType(eventType);
-            Console.WriteLine("eventType--->" + eventType.ToString());
-            Console.WriteLine("HandlerTypeMapping--->" + eventHandlerType.ToString());
             return VolteDiServiceProvider.ServiceProvider.GetGenericTypeServices(eventHandlerType).Cast<IMessageHandler>().ToArray();
         }
         public ICollection<IMessageHandler> GetMessageHandlers(Type eventType)

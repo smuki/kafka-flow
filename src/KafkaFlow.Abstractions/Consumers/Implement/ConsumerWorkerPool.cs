@@ -35,12 +35,9 @@ namespace KafkaFlow.Consumers
 
             var middlewares = dependencyResolver.Resolves<IMessageMiddleware>().Where(x =>
             {
-                Console.WriteLine(x.ToString());
-
                 var injectionAttribute = x.GetType().GetCustomAttribute<MiddlewareAttribute>();
                 if (injectionAttribute != null)
                 {
-                    Console.WriteLine(injectionAttribute.MiddlewareType);
                     return injectionAttribute.MiddlewareType == MiddlewareType.Consumer;
                 }
                 return false;

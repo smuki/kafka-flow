@@ -59,8 +59,6 @@ namespace KafkaFlow.Consumers
                         {
                             var message = await this.messagesBuffer.Reader.ReadAsync(this.stopCancellationTokenSource.Token).ConfigureAwait(false);
                             
-                            Console.WriteLine("pull a queue message");
-
                             var context = new ConsumerMessageContext(
                                 new MessageContextConsumer(this.consumerClient, this.offsetManager, message, this.stopCancellationTokenSource.Token),
                                 message,
@@ -85,19 +83,18 @@ namespace KafkaFlow.Consumers
                                 this.onMessageFinishedHandler?.Invoke();
                             }
                         }
-                        catch (OperationCanceledException)
+                        catch (OperationCanceledException ex)
                         {
+                            NLogger.Warn(ex);
                             // Ignores the exception
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine(ex.ToString());
-
+                            NLogger.Error(ex);
                             //**TODO** Ignores the exception
-                            Console.Write(".");
                         }
                     }
-                    Console.Write("Stop-ConsumerWorker");
+                    NLogger.Info("Stop-ConsumerWorker");
                 },
                 CancellationToken.None,
                 TaskCreationOptions.LongRunning,
