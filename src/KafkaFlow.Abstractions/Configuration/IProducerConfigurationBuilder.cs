@@ -24,7 +24,7 @@ namespace KafkaFlow.Configuration
         /// </summary>
         /// <param name="acks"></param>
         /// <returns></returns>
-        IProducerConfigurationBuilder WithAcks(Acks acks);
+        //IProducerConfigurationBuilder WithAcks(Acks acks);
 
         /// <summary>
         /// Adds a handler for the Kafka producer statistics
