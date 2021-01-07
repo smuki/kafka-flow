@@ -18,7 +18,7 @@ namespace KafkaFlow.Consumers
             IConsumerClient consumerClient,
             TimeSpan autoCommitInterval)
         {
-            NLogger.Info("autoCommitInterval   =" + autoCommitInterval.TotalSeconds);
+            NLogger.Info($"AutoCommitInterval {autoCommitInterval.TotalSeconds} second(s)");
 
             this.consumerClient = consumerClient;
             this.commitTimer = new Timer( _ => this.CommitHandler(), null, autoCommitInterval, autoCommitInterval);
@@ -26,10 +26,8 @@ namespace KafkaFlow.Consumers
 
         private void CommitHandler()
         {
-
             if (!this.offsetsToCommit.Any())
             {
-                NLogger.Info("CommitHandler...is empty");
                 return;
             }
 
@@ -38,7 +36,7 @@ namespace KafkaFlow.Consumers
 
             try
             {
-                NLogger.Info("Commiting Offsets...");
+                NLogger.Info($"#Commiting Offsets#");
                 this.consumerClient.Commit(offsets.Values);
             }
             catch (Exception e)
@@ -52,7 +50,6 @@ namespace KafkaFlow.Consumers
             this.commitTimer.Dispose();
             this.CommitHandler();
         }
-
         public void StoreOffset(XXXTopicPartitionOffset tpo)
         {
             this.offsetsToCommit.AddOrUpdate((tpo.Topic, tpo.Partition), tpo, (k, v) => tpo);
