@@ -63,6 +63,10 @@ namespace KafkaFlow.Configuration
             {
                 this.AutoStoreOffsets = Util.ToBoolean(this["AutoStoreOffsets"]);
             }
+            else
+            {
+                this.AutoStoreOffsets = true;
+            }
             if (this.ContainsKey("WorkerCount"))
             {
                 this.WorkerCount = Util.ToInt(this["WorkerCount"]);
