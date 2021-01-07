@@ -12,7 +12,7 @@ namespace KafkaFlow.Configuration
         public string Brokers { get; set; }
         public string Topic { get; set; }
         private readonly Dictionary<string, string> _Parameter = new Dictionary<string, string>();
-        public Acks? Acks { get; set; }
+        //public Acks? Acks { get; set; }
         public IReadOnlyList<Action<string>> StatisticsHandlers { get; set; }
         public string this[string name]
         {
@@ -29,7 +29,6 @@ namespace KafkaFlow.Configuration
         {
             get
             {
-
                 return _Parameter;
             }
         }
@@ -40,8 +39,13 @@ namespace KafkaFlow.Configuration
         }
         public MessageProducerSettting(IConfigurationSection conf)
         {
-            //this.ConsumerName = conf.Get("ConsumerName");
-            //this.WorkerCount = Util.ToInt(conf.Get("WorkerCount"));
+            foreach (var it in conf.GetChildren())
+            {
+                if (!string.IsNullOrWhiteSpace(it.Value))
+                {
+                    _Parameter[it.Key] = it.Value;
+                }
+            }
         }
     }
 }
