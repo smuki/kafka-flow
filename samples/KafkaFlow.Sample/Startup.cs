@@ -265,15 +265,17 @@ namespace Zero.Boot.Launcher
 
             app.Use((context, next) =>
             {
-                const string producerName = "master";
+                for (int i = 0; i < 1000; i++)
+                {
+                    const string producerName = "master";
 
-                var producers = provider.GetRequiredService<IProducerAccessor>();
+                    var producers = provider.GetRequiredService<IProducerAccessor>();
 
-                var msg = new TestMessage { Text = $"Message: {Guid.NewGuid()}" };
-                producers[producerName].Produce(Guid.NewGuid().ToString(), msg);
+                    var msg = new TestMessage { Text = $"Message:{i}-{Guid.NewGuid()}" };
+                    producers[producerName].Produce(Guid.NewGuid().ToString(), msg);
 
-                NLogger.Info("producers a message");
-
+                    NLogger.Info("producers a message");
+                }
                 return next();
             });
 
