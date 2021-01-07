@@ -271,25 +271,11 @@ namespace Zero.Boot.Launcher
 
                 var msg = new TestMessage { Text = $"Message: {Guid.NewGuid()}" };
                 producers[producerName].Produce(Guid.NewGuid().ToString(), msg);
-                Console.WriteLine("producers a message");
-                //var eventPublisher = context.RequestServices.GetRequiredService<IEventPublisher>();
 
-                //eventPublisher.Publish(new PageViewEvent()
-                //{
-                //    Path = "tigger Publish->..." + context.Request.Path.Value,
-                //});
-
-                //eventPublisher.Publish(new PageViewEvent()
-                //{
-                //    Path = context.Request.Path.Value,
-                //});
+                NLogger.Info("producers a message");
 
                 return next();
             });
-
-            //var bus = provider.CreateKafkaBus();
-
-            //bus.StartAsync();
 
             //设置CultureInfo
             var zh = new CultureInfo("zh-CN");
