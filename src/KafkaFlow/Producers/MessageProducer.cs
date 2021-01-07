@@ -198,7 +198,7 @@ namespace KafkaFlow.Producers
                             }
                             else
                             {
-                                this.dependencyResolverScope.Resolver.Resolve<ILogHandler>().Warning("Kafka Producer Error", new { Error = error });
+                                NLogger.Warn("Kafka Producer Error {error}");
                             }
                         })
                     .SetStatisticsHandler((producer, statistics) =>
@@ -224,8 +224,7 @@ namespace KafkaFlow.Producers
             xerror.IsError = error.IsError;
             xerror.IsFatal = error.IsFatal;
 
-            this.dependencyResolverScope.Resolver.Resolve<ILogHandler>()
-                .Error("Kafka produce fatal error occurred. The producer will be recreated",
+             NLogger.Error("Kafka produce fatal error occurred. The producer will be recreated",
                     result is null ? new XXXProduceException(xerror) : new XXXProduceException(xerror, result),
                     new { Error = error });
         }

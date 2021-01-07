@@ -13,7 +13,6 @@ namespace KafkaFlow.Consumers
     {
         private readonly MessageConsumerSettting configuration;
         private readonly IOffsetManager offsetManager;
-        private readonly ILogHandler logHandler;
         private readonly IMiddlewareExecutor middlewareExecutor;
 
         private CancellationTokenSource stopCancellationTokenSource;
@@ -28,14 +27,12 @@ namespace KafkaFlow.Consumers
             int workerId,
             MessageConsumerSettting configuration,
             IOffsetManager offsetManager,
-            ILogHandler logHandler,
             IMiddlewareExecutor middlewareExecutor)
         {
             this.Id = workerId;
             this.consumerClient = consumerClient;
             this.configuration = configuration;
             this.offsetManager = offsetManager;
-            this.logHandler = logHandler;
             this.middlewareExecutor = middlewareExecutor;
             this.messagesBuffer = Channel.CreateBounded<IntermediateMessage>(configuration.BufferSize);
         }
@@ -76,7 +73,7 @@ namespace KafkaFlow.Consumers
                             }
                             catch (Exception ex)
                             {
-                                this.logHandler.Error("Error executing consumer", ex, context);
+                                NLogger.Error("Error executing consumer", ex, context);
                             }
                             finally
                             {

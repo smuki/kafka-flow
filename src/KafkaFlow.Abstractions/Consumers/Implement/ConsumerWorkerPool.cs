@@ -15,7 +15,6 @@ namespace KafkaFlow.Consumers
     public class ConsumerWorkerPool : IConsumerWorkerPool
     {
         private readonly IDependencyResolver dependencyResolver;
-        private readonly ILogHandler logHandler;
         private MessageConsumerSettting configuration;
         private IMiddlewareExecutor middlewareExecutor;
         private Factory<IDistributionStrategy> distributionStrategyFactory;
@@ -27,11 +26,9 @@ namespace KafkaFlow.Consumers
 
         public ConsumerWorkerPool(
             IDependencyResolver dependencyResolver,
-            IMiddlewareExecutor middlewareExecutor,
-            ILogHandler logHandler)
+            IMiddlewareExecutor middlewareExecutor)
         {
             this.dependencyResolver = dependencyResolver;
-            this.logHandler = logHandler;
             this.middlewareExecutor = middlewareExecutor;
         }
 
@@ -73,7 +70,7 @@ namespace KafkaFlow.Consumers
             IEnumerable<XXXTopicPartition> partitions,
             CancellationToken stopCancellationToken = default)
         {
-            this.offsetManager = new OffsetManager(new OffsetCommitter(consumerClient, this.configuration.AutoCommitInterval, this.logHandler), partitions);
+            this.offsetManager = new OffsetManager(new OffsetCommitter(consumerClient, this.configuration.AutoCommitInterval), partitions);
 
             await Task.WhenAll(
                     Enumerable.Range(0, this.configuration.WorkerCount).Select(
@@ -84,7 +81,6 @@ namespace KafkaFlow.Consumers
                                     workerId,
                                     this.configuration,
                                     this.offsetManager,
-                                    this.logHandler,
                                     this.middlewareExecutor);
 
                                 this.workers.Add(worker);

@@ -17,17 +17,14 @@ namespace KafkaFlow
     {
         private readonly IDependencyResolver dependencyResolver;
         private readonly IConsumerManager consumerManager;
-        private readonly ILogHandler logHandler;
         private readonly IList<IConsumerClient> consumers = new List<IConsumerClient>();
 
         public KafkaBus(
             IDependencyResolver dependencyResolver,
-            IConsumerManager consumerManager,
-            ILogHandler logHandler)
+            IConsumerManager consumerManager)
         {
             this.dependencyResolver = dependencyResolver;
             this.consumerManager = consumerManager;
-            this.logHandler = logHandler;
         }
 
         public IConsumerAccessor Consumers => this.consumerManager;

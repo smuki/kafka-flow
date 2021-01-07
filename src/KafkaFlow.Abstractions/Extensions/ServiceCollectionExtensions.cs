@@ -15,8 +15,6 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             var consumerManager = new ConsumerManager();
 
-            services.AddTransient(typeof(ILogHandler), typeof(NullLogHandler));
-            services.AddTransient<ILogHandler, NullLogHandler>();
             services.AddSingleton<IConsumerAccessor>(consumerManager);
             services.AddSingleton<IConsumerAccessor>(consumerManager);
             services.AddSingleton<IConsumerManager>(consumerManager);

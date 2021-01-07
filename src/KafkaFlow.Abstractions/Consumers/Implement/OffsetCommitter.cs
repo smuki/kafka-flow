@@ -8,8 +8,6 @@ namespace KafkaFlow.Consumers
 
     public class OffsetCommitter : IOffsetCommitter
     {
-        private readonly ILogHandler logHandler;
-
         private ConcurrentDictionary<(string, int), XXXTopicPartitionOffset> offsetsToCommit =
             new ConcurrentDictionary<(string, int), XXXTopicPartitionOffset>();
 
@@ -18,12 +16,10 @@ namespace KafkaFlow.Consumers
 
         public OffsetCommitter(
             IConsumerClient consumerClient,
-            TimeSpan autoCommitInterval,
-            ILogHandler logHandler)
+            TimeSpan autoCommitInterval)
         {
             NLogger.Info("autoCommitInterval   =" + autoCommitInterval.TotalSeconds);
 
-            this.logHandler = logHandler;
             this.consumerClient = consumerClient;
             this.commitTimer = new Timer( _ => this.CommitHandler(), null, autoCommitInterval, autoCommitInterval);
         }
@@ -47,7 +43,7 @@ namespace KafkaFlow.Consumers
             }
             catch (Exception e)
             {
-                this.logHandler.Error("Error Commiting Offsets", e, null);
+                NLogger.Error("Error Commiting Offsets", e, null);
             }
         }
 
