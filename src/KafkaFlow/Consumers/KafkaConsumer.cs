@@ -3,10 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text.Json;
     using System.Threading;
     using System.Threading.Tasks;
     using Confluent.Kafka;
-    using global::Microsoft.Extensions.Configuration;
     using KafkaFlow.Configuration;
     using Volte.Data.VolteDi;
     using Volte.Utils;
@@ -135,15 +135,13 @@
         }
         private void OnPartitionRevoked(IReadOnlyCollection<TopicPartitionOffset> topicPartitions)
         {
-            NLogger.Warn($"Partitions revoked {this.GetConsumerLogInfo(topicPartitions.Select(x => x.TopicPartition))}");
-
+            NLogger.Warn($"Partitions revoked {JsonSerializer.Serialize(this.GetConsumerLogInfo(topicPartitions.Select(x => x.TopicPartition)))}");
             this.workerPool.StopAsync().GetAwaiter().GetResult();
         }
 
         private void OnPartitionAssigned(IConsumer<byte[], byte[]> consumer, IReadOnlyCollection<TopicPartition> partitions)
         {
-            NLogger.Info($"Partitions assigned {this.GetConsumerLogInfo(partitions)}");
-
+            NLogger.Info($"Partitions assigned { JsonSerializer.Serialize(this.GetConsumerLogInfo(partitions))}");
             this.workerPool.StartAsync(this, XXXUtil.TopicPartition(partitions), this.stopCancellationTokenSource.Token).GetAwaiter().GetResult();
         }
         private object GetConsumerLogInfo(IEnumerable<TopicPartition> partitions) => new
