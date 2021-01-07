@@ -21,27 +21,28 @@ namespace KafkaFlow.Configuration
         public TimeSpan AutoCommitInterval { get; set; }
         public IReadOnlyList<Action<string>> StatisticsHandlers { get; set; }
 
-        private readonly Dictionary<string, string> _Parameter = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> parameter = new Dictionary<string, string>();
         public IDistributionStrategy DistributionStrategy { get; set; } 
 
         public string this[string name]
         {
             get
             {
-                return _Parameter.TryGetValue(name, out var o) ? o : null;
+                return parameter.TryGetValue(name, out var o) ? o : null;
             }
         }
         public bool ContainsKey(string name)
         {
-            return _Parameter.ContainsKey(name);
+            return parameter.ContainsKey(name);
         }
 
         public MessageConsumerSettting()
         {
 
         }
-        public MessageConsumerSettting(IConfigurationSection conf)
+        public MessageConsumerSettting(Dictionary<string, string> _Parameter, IConfigurationSection conf)
         {
+            this.parameter = _Parameter;
             foreach (var it in conf.GetChildren())
             {
                 if (!string.IsNullOrWhiteSpace(it.Value))
@@ -49,6 +50,9 @@ namespace KafkaFlow.Configuration
                     _Parameter[it.Key] = it.Value;
                 }
             }
+            this.Topic = this["topic"];
+            this.Brokers = this["servers"];
+
             if (this["DistributionStrategy"] == "FreeStrategy")
             {
                 this.DistributionStrategy = new FreeWorkerDistributionStrategy();
