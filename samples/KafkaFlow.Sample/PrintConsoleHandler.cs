@@ -4,23 +4,16 @@
     using System.Threading.Tasks;
     using KafkaFlow.TypedHandler;
     using Volte.Data.VolteDi;
+    using Volte.Utils;
 
     [Injection(InjectionType = InjectionType.Auto)]
-    public class PrintConsoleHandler : IMessageHandler<TestMessage>
+    public class PrintConsoleHandler1 : IMessageHandler<TestMessage>
     {
         static long total = 0;
         public Task Handle(IMessageContext context, TestMessage message)
         {
-            //if (total % 7 == 0)
-            //{
-                Console.WriteLine("\n#Total = " + total);
-            //}
-
             total++;
-            Console.WriteLine("---Partition***: {0} | Offset: {1} | Message: {2}",
-            context.Partition,
-            context.Offset,
-            message.Text);
+            NLogger.Info($"A1 {total} #Partition : {context.Partition} | Offset: {context.Offset} | {message.Text}");
             return Task.CompletedTask;
         }
     }
@@ -30,16 +23,8 @@
         static long total = 0;
         public Task Handle(IMessageContext context, TestMessage message)
         {
-            //if (total % 7 == 0)
-            //{
-            Console.WriteLine("\n#Total2 = " + total);
-            //}
-
             total++;
-            Console.WriteLine("###Partition***: {0} | Offset: {1} | Message: {2}",
-            context.Partition,
-            context.Offset,
-            message.Text);
+            NLogger.Info($"A2 {total} #Partition : {context.Partition} | Offset: {context.Offset} | {message.Text}");
             return Task.CompletedTask;
         }
     }
