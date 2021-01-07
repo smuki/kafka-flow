@@ -29,13 +29,13 @@
 
             const string consumerName = "test";
 
-            services.AddKafka(
-                kafka => kafka
-                    .AddCluster(
-                        cluster => cluster
-                            .EnableAdminMessages("kafka-flow.admin", Guid.NewGuid().ToString())
-                    )
-            );
+            //services.AddKafka(
+            //    kafka => kafka
+            //        .AddCluster(
+            //            cluster => cluster
+            //                .EnableAdminMessages("kafka-flow.admin", Guid.NewGuid().ToString())
+            //        )
+            //);
 
             services.UseKafkaFlow();
 
