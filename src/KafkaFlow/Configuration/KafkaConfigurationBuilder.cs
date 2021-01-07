@@ -13,12 +13,6 @@ namespace KafkaFlow.Configuration
             this.dependencyConfigurator = dependencyConfigurator;
         }
 
-        //public KafkaConfiguration Build()
-        //{
-        //    var configuration = new KafkaConfiguration();
-        //    return configuration;
-        //}
-
         public IKafkaConfigurationBuilder AddCluster(Action<IClusterConfigurationBuilder> cluster)
         {
             var builder = new ClusterConfigurationBuilder(this.dependencyConfigurator);
