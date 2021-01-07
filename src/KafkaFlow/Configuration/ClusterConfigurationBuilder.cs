@@ -9,7 +9,7 @@ namespace KafkaFlow.Configuration
     public class ClusterConfigurationBuilder : IClusterConfigurationBuilder
     {
         private readonly List<ProducerConfigurationBuilder> producers = new List<ProducerConfigurationBuilder>();
-        private readonly List<ConsumerConfigurationBuilder> consumers = new List<ConsumerConfigurationBuilder>();
+        //private readonly List<ConsumerConfigurationBuilder> consumers = new List<ConsumerConfigurationBuilder>();
 
         private IEnumerable<string> brokers;
         private Func<SecurityInformation> securityInformationHandler;
@@ -73,15 +73,15 @@ namespace KafkaFlow.Configuration
             return this;
         }
 
-        public IClusterConfigurationBuilder AddConsumer(Action<IConsumerConfigurationBuilder> consumer)
-        {
-            var builder = new ConsumerConfigurationBuilder(this.DependencyConfigurator);
+        //public IClusterConfigurationBuilder AddConsumer(Action<IConsumerConfigurationBuilder> consumer)
+        //{
+        //    var builder = new ConsumerConfigurationBuilder(this.DependencyConfigurator);
 
-            consumer(builder);
+        //    consumer(builder);
 
-            this.consumers.Add(builder);
+        //    this.consumers.Add(builder);
 
-            return this;
-        }
+        //    return this;
+        //}
     }
 }
