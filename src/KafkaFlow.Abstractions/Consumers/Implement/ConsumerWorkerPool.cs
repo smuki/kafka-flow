@@ -15,12 +15,9 @@ namespace KafkaFlow.Consumers
     public class ConsumerWorkerPool : IConsumerWorkerPool
     {
         private readonly IDependencyResolver dependencyResolver;
+        private readonly IMiddlewareExecutor middlewareExecutor;
         private MessageConsumerSettting configuration;
-        private IMiddlewareExecutor middlewareExecutor;
-        private Factory<IDistributionStrategy> distributionStrategyFactory;
-
         private List<IConsumerWorker> workers = new List<IConsumerWorker>();
-
         private IDistributionStrategy distributionStrategy;
         private OffsetManager offsetManager;
 
@@ -61,8 +58,6 @@ namespace KafkaFlow.Consumers
 
             this.distributionStrategy = eventConsumer.DistributionStrategy;
             this.distributionStrategy.Initialize(this.workers.AsReadOnly());
-
-            //this.distributionStrategyFactory = configuration.DistributionStrategyFactory;
         }
 
         public async Task StartAsync(

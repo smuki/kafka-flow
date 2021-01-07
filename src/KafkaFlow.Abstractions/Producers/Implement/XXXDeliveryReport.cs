@@ -11,6 +11,5 @@ namespace KafkaFlow
         {
         }
         public XXXError Error { get; set; }
-        public XXXTopicPartitionOffset TopicPartitionOffset { get; set; }
     }
 }

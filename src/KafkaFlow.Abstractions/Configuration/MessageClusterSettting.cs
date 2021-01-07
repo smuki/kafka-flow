@@ -8,6 +8,7 @@ namespace KafkaFlow.Configuration
     public class ClusterSettting
     {
         private readonly List<MessageProducerSettting> producers = new List<MessageProducerSettting>();
+
         private readonly List<MessageConsumerSettting> consumers = new List<MessageConsumerSettting>();
         public IReadOnlyCollection<MessageProducerSettting> Producers => this.producers.AsReadOnly();
 
@@ -15,7 +16,6 @@ namespace KafkaFlow.Configuration
 
         public ClusterSettting(IConfiguration config)
         {
-
             foreach (var cluster in config.GetSection("eventbus").GetChildren())
             {
                 Dictionary<string, string> parameter = new Dictionary<string, string>();
