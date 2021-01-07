@@ -253,11 +253,6 @@ namespace Zero.Boot.Launcher
         {
             var provider = app.ApplicationServices;
 
-            var eventHandlerType = typeof(IMessageHandler<>).MakeGenericType(typeof(TestMessage));
-
-            var xx =provider.GetServices(eventHandlerType);
-            Console.WriteLine(xx.ToString());
-
             var bus=provider.GetRequiredService<IKafkaBus>();
             bus.StartAsync();
 
