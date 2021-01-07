@@ -65,9 +65,35 @@
             ConsumerConfig consumerConfig = new ConsumerConfig();
             consumerConfig.BootstrapServers ??= eventConsumer.Brokers;
             consumerConfig.GroupId ??= "print-console-handler";
-            consumerConfig.AutoOffsetReset ??= AutoOffsetReset.Latest;
-            consumerConfig.MaxPollIntervalMs ??= 10000;
-            consumerConfig.StatisticsIntervalMs ??= 10000;
+
+            if (eventConsumer["AutoOffsetReset"] == "Earliest")
+            {
+                consumerConfig.AutoOffsetReset ??= AutoOffsetReset.Earliest;
+            }
+            else if (eventConsumer["AutoOffsetReset"] == "Error")
+            {
+                consumerConfig.AutoOffsetReset ??= AutoOffsetReset.Error;
+            }
+            else
+            {
+                consumerConfig.AutoOffsetReset ??= AutoOffsetReset.Latest;
+            }
+            if (eventConsumer.ContainsKey("MaxPollIntervalMs"))
+            {
+                consumerConfig.MaxPollIntervalMs ??= Util.ToInt(eventConsumer["MaxPollIntervalMs"]);
+            }
+            else
+            {
+                consumerConfig.MaxPollIntervalMs ??= 10000;
+            }
+            if (eventConsumer.ContainsKey("StatisticsIntervalMs"))
+            {
+                consumerConfig.StatisticsIntervalMs ??= Util.ToInt(eventConsumer["StatisticsIntervalMs"]);
+            }
+            else
+            {
+                consumerConfig.StatisticsIntervalMs ??= 10000;
+            }
 
             consumerConfig.EnableAutoOffsetStore = false;
             consumerConfig.EnableAutoCommit = false;
