@@ -53,6 +53,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zero.Boot.Internal", "..\..
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zero.Data.Util", "..\..\..\Proj\ZeroBus\src\CAP\src\Zero.Data.Util\Zero.Data.Util.csproj", "{65E681A3-AE7F-4097-8C28-B8FABEA714FA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagePipeline.Core", "MessagePipeline.Core\MessagePipeline.Core.csproj", "{2F94377B-E557-4D25-9BEC-7560816350F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -135,6 +137,10 @@ Global
 		{65E681A3-AE7F-4097-8C28-B8FABEA714FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65E681A3-AE7F-4097-8C28-B8FABEA714FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65E681A3-AE7F-4097-8C28-B8FABEA714FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F94377B-E557-4D25-9BEC-7560816350F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F94377B-E557-4D25-9BEC-7560816350F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F94377B-E557-4D25-9BEC-7560816350F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F94377B-E557-4D25-9BEC-7560816350F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -159,6 +165,7 @@ Global
 		{0EBC5EF0-C1DF-47A7-A00E-B77B8B90ADA8} = {068CB250-2804-4C7E-9490-17F432B9CE21}
 		{553277A5-4930-4C1F-8D6A-7B9CE317A77C} = {068CB250-2804-4C7E-9490-17F432B9CE21}
 		{65E681A3-AE7F-4097-8C28-B8FABEA714FA} = {068CB250-2804-4C7E-9490-17F432B9CE21}
+		{2F94377B-E557-4D25-9BEC-7560816350F1} = {068CB250-2804-4C7E-9490-17F432B9CE21}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6AE955B5-16B0-41CF-9F12-66D15B3DD1AB}
