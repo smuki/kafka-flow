@@ -10,6 +10,7 @@ namespace KafkaFlow.Consumers
     using KafkaFlow.Configuration;
     using KafkaFlow.Middleware;
     using Volte.Data.VolteDi;
+    using Volte.Utils;
 
     [Injection(InjectionType = InjectionType.Both)]
     public class ConsumerWorkerPool : IConsumerWorkerPool
@@ -73,6 +74,7 @@ namespace KafkaFlow.Consumers
                     WorkerCount = 4;
                 }
             }
+            NLogger.Info($"WorkerCount {WorkerCount}");
 
             await Task.WhenAll(Enumerable.Range(0, WorkerCount).Select(
                             workerId =>
