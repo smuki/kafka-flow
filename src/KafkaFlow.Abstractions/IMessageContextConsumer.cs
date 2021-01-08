@@ -11,7 +11,7 @@ namespace KafkaFlow
         /// <summary>
         /// The consumer unique name defined in configuration
         /// </summary>
-        string Name { get; }
+        //string Name { get; }
 
         /// <summary>
         /// A CancellationToken that is cancelled when the worker is requested to stop
