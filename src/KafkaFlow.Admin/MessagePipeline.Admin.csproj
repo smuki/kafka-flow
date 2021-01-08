@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
@@ -10,8 +10,8 @@
 
     <ItemGroup>
         <ProjectReference Include="..\KafkaFlow.Abstractions\MessagePipeline.Abstractions.csproj" />
-        <ProjectReference Include="..\KafkaFlow.Serializer.ProtoBuf\KafkaFlow.Serializer.ProtoBuf.csproj" />
-        <ProjectReference Include="..\KafkaFlow.Serializer\KafkaFlow.Serializer.csproj" />
+        <ProjectReference Include="..\KafkaFlow.Serializer.ProtoBuf\MessagePipeline.Serializer.ProtoBuf.csproj" />
+        <ProjectReference Include="..\KafkaFlow.Serializer\MessagePipeline.Serializer.csproj" />
         <ProjectReference Include="..\KafkaFlow.TypedHandler\MessagePipeline.TypedHandler.csproj" />
         <ProjectReference Include="..\KafkaFlow\MessagePipeline.Kafka.csproj" />
     </ItemGroup>

@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Confluent.Kafka" Version="1.4.4" />
+    <PackageReference Include="Confluent.Kafka" Version="1.5.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
@@ -22,8 +22,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Proj\ZeroBus\src\CAP\src\Volte.Data.VolteDi\Volte.Data.VolteDi.csproj" />
     <ProjectReference Include="..\KafkaFlow.Abstractions\MessagePipeline.Abstractions.csproj" />
-    <ProjectReference Include="..\KafkaFlow.Serializer.Json\KafkaFlow.Serializer.Json.csproj" />
-    <ProjectReference Include="..\KafkaFlow.Serializer\KafkaFlow.Serializer.csproj" />
+    <ProjectReference Include="..\KafkaFlow.Serializer.Json\MessagePipeline.Serializer.Json.csproj" />
+    <ProjectReference Include="..\KafkaFlow.Serializer\MessagePipeline.Serializer.csproj" />
     <ProjectReference Include="..\KafkaFlow.TypedHandler\MessagePipeline.TypedHandler.csproj" />
   </ItemGroup>
 

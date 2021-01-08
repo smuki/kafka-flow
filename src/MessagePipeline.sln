@@ -5,13 +5,13 @@ VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessagePipeline.Kafka", "KafkaFlow\MessagePipeline.Kafka.csproj", "{E1055352-9F5B-4980-80A3-50C335B79A16}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaFlow.Compressor.Gzip", "KafkaFlow.Compressor.Gzip\KafkaFlow.Compressor.Gzip.csproj", "{B668ACDA-5E45-4985-9D33-6EDFF9059D9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessagePipeline.Compressor.Gzip", "KafkaFlow.Compressor.Gzip\MessagePipeline.Compressor.Gzip.csproj", "{B668ACDA-5E45-4985-9D33-6EDFF9059D9A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaFlow.Serializer.Json", "KafkaFlow.Serializer.Json\KafkaFlow.Serializer.Json.csproj", "{42CFFA0D-3BF2-42F0-A1B0-BDCD30CBB470}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessagePipeline.Serializer.Json", "KafkaFlow.Serializer.Json\MessagePipeline.Serializer.Json.csproj", "{42CFFA0D-3BF2-42F0-A1B0-BDCD30CBB470}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaFlow.Serializer.ProtoBuf", "KafkaFlow.Serializer.ProtoBuf\KafkaFlow.Serializer.ProtoBuf.csproj", "{8917E0B9-A943-46FB-8E91-6E9B91F976F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessagePipeline.Serializer.ProtoBuf", "KafkaFlow.Serializer.ProtoBuf\MessagePipeline.Serializer.ProtoBuf.csproj", "{8917E0B9-A943-46FB-8E91-6E9B91F976F6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaFlow.UnitTests", "KafkaFlow.UnitTests\KafkaFlow.UnitTests.csproj", "{CE82B50F-6C03-4875-ADF5-63FD5B7F1AF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessagePipeline.UnitTests", "KafkaFlow.UnitTests\MessagePipeline.UnitTests.csproj", "{CE82B50F-6C03-4875-ADF5-63FD5B7F1AF8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{068CB250-2804-4C7E-9490-17F432B9CE21}"
 EndProject
@@ -27,23 +27,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessagePipeline.Abstraction
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessagePipeline.TypedHandler", "KafkaFlow.TypedHandler\MessagePipeline.TypedHandler.csproj", "{E47EF9E0-A1C7-4FF0-AEC5-143F52ED0FBE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaFlow.Serializer", "KafkaFlow.Serializer\KafkaFlow.Serializer.csproj", "{B7197114-B1C7-49EC-8740-1E09233B2C40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessagePipeline.Serializer", "KafkaFlow.Serializer\MessagePipeline.Serializer.csproj", "{B7197114-B1C7-49EC-8740-1E09233B2C40}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaFlow.Compressor", "KafkaFlow.Compressor\KafkaFlow.Compressor.csproj", "{D29EC709-33DE-4045-8F3B-EC6619CDB429}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessagePipeline.Compressor", "KafkaFlow.Compressor\MessagePipeline.Compressor.csproj", "{D29EC709-33DE-4045-8F3B-EC6619CDB429}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaFlow.IntegrationTests", "KafkaFlow.IntegrationTests\KafkaFlow.IntegrationTests.csproj", "{36F459F4-8323-472A-A8C5-8C9D89F92012}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessagePipeline.IntegrationTests", "KafkaFlow.IntegrationTests\MessagePipeline.IntegrationTests.csproj", "{36F459F4-8323-472A-A8C5-8C9D89F92012}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaFlow.Serializer.NewtonsoftJson", "KafkaFlow.Serializer.NewtonsoftJson\KafkaFlow.Serializer.NewtonsoftJson.csproj", "{FC622AB0-6481-4249-8D83-27BC39912103}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessagePipeline.Serializer.NewtonsoftJson", "KafkaFlow.Serializer.NewtonsoftJson\MessagePipeline.Serializer.NewtonsoftJson.csproj", "{FC622AB0-6481-4249-8D83-27BC39912103}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaFlow.Sample", "..\samples\KafkaFlow.Sample\KafkaFlow.Sample.csproj", "{E59C13AF-41E7-4DFA-B118-A65EA87F0605}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessagePipeline.Sample", "..\samples\KafkaFlow.Sample\MessagePipeline.Sample.csproj", "{E59C13AF-41E7-4DFA-B118-A65EA87F0605}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Admin", "Admin", "{58483813-0D7C-423E-8E7D-8FBF3E6CDB6D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaFlow.Admin", "KafkaFlow.Admin\KafkaFlow.Admin.csproj", "{46B6F104-D46E-4DC2-ADC2-18E76F5BBCD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessagePipeline.Admin", "KafkaFlow.Admin\MessagePipeline.Admin.csproj", "{46B6F104-D46E-4DC2-ADC2-18E76F5BBCD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KafkaFlow.Admin.WebApi", "KafkaFlow.Admin.WebApi\KafkaFlow.Admin.WebApi.csproj", "{827620D3-2258-410E-A79E-E782ED42284C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagePipeline.Admin.WebApi", "KafkaFlow.Admin.WebApi\MessagePipeline.Admin.WebApi.csproj", "{827620D3-2258-410E-A79E-E782ED42284C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KafkaFlow.Admin.WebApi.Sample", "..\samples\KafkaFlow.Admin.WebApi.Sample\KafkaFlow.Admin.WebApi.Sample.csproj", "{15C12D0C-FE8A-41F9-BBCF-5A963F05D5C7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagePipeline.Admin.WebApi.Sample", "..\samples\KafkaFlow.Admin.WebApi.Sample\MessagePipeline.Admin.WebApi.Sample.csproj", "{15C12D0C-FE8A-41F9-BBCF-5A963F05D5C7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volte.Data.VolteDi", "..\..\..\Proj\ZeroBus\src\CAP\src\Volte.Data.VolteDi\Volte.Data.VolteDi.csproj", "{4D97AB5F-D68D-4A29-AE28-F16716E379B3}"
 EndProject

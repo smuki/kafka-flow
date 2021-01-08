@@ -12,12 +12,12 @@
       <ProjectReference Include="..\..\..\..\Proj\ZeroBus\src\CAP\src\Volte.Utils\Volte.Utils.csproj" />
       <ProjectReference Include="..\..\..\..\Proj\ZeroBus\src\CAP\src\Zero.Boot.Internal\Zero.Boot.Internal.csproj" />
       <ProjectReference Include="..\..\..\..\Proj\ZeroBus\src\CAP\src\Zero.Data.Util\Zero.Data.Util.csproj" />
-      <ProjectReference Include="..\..\src\KafkaFlow.Admin\KafkaFlow.Admin.csproj" />
-      <ProjectReference Include="..\..\src\KafkaFlow.Compressor.Gzip\KafkaFlow.Compressor.Gzip.csproj" />
-      <ProjectReference Include="..\..\src\KafkaFlow.Compressor\KafkaFlow.Compressor.csproj" />
-      <ProjectReference Include="..\..\src\KafkaFlow.Serializer.Json\KafkaFlow.Serializer.Json.csproj" />
-      <ProjectReference Include="..\..\src\KafkaFlow.Serializer.ProtoBuf\KafkaFlow.Serializer.ProtoBuf.csproj" />
-      <ProjectReference Include="..\..\src\KafkaFlow.Serializer\KafkaFlow.Serializer.csproj" />
+      <ProjectReference Include="..\..\src\KafkaFlow.Admin\MessagePipeline.Admin.csproj" />
+      <ProjectReference Include="..\..\src\KafkaFlow.Compressor.Gzip\MessagePipeline.Compressor.Gzip.csproj" />
+      <ProjectReference Include="..\..\src\KafkaFlow.Compressor\MessagePipeline.Compressor.csproj" />
+      <ProjectReference Include="..\..\src\KafkaFlow.Serializer.Json\MessagePipeline.Serializer.Json.csproj" />
+      <ProjectReference Include="..\..\src\KafkaFlow.Serializer.ProtoBuf\MessagePipeline.Serializer.ProtoBuf.csproj" />
+      <ProjectReference Include="..\..\src\KafkaFlow.Serializer\MessagePipeline.Serializer.csproj" />
       <ProjectReference Include="..\..\src\KafkaFlow.TypedHandler\MessagePipeline.TypedHandler.csproj" />
       <ProjectReference Include="..\..\src\KafkaFlow\MessagePipeline.Kafka.csproj" />
     </ItemGroup>
