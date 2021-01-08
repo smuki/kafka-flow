@@ -17,14 +17,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KafkaFlow.Abstractions\KafkaFlow.Abstractions.csproj" />
+    <ProjectReference Include="..\KafkaFlow.Abstractions\MessagePipeline.Abstractions.csproj" />
     <ProjectReference Include="..\KafkaFlow.Compressor.Gzip\KafkaFlow.Compressor.Gzip.csproj" />
     <ProjectReference Include="..\KafkaFlow.Compressor\KafkaFlow.Compressor.csproj" />
     <ProjectReference Include="..\KafkaFlow.Serializer.Json\KafkaFlow.Serializer.Json.csproj" />
     <ProjectReference Include="..\KafkaFlow.Serializer.ProtoBuf\KafkaFlow.Serializer.ProtoBuf.csproj" />
     <ProjectReference Include="..\KafkaFlow.Serializer\KafkaFlow.Serializer.csproj" />
-    <ProjectReference Include="..\KafkaFlow.TypedHandler\KafkaFlow.TypedHandler.csproj" />
-    <ProjectReference Include="..\KafkaFlow\KafkaFlow.csproj" />
+    <ProjectReference Include="..\KafkaFlow.TypedHandler\MessagePipeline.TypedHandler.csproj" />
+    <ProjectReference Include="..\KafkaFlow\MessagePipeline.Kafka.csproj" />
   </ItemGroup>
 
   <ItemGroup>
