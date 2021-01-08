@@ -64,7 +64,7 @@ namespace KafkaFlow.Consumers
         {
             this.offsetManager = new OffsetManager(new OffsetCommitter(consumerClient, this.configuration.AutoCommitInterval), partitions);
 
-            int WorkerCount = configuration.WorkerCount;
+            int WorkerCount = this.configuration.WorkerCount;
             if (WorkerCount <= 0)
             {
                 WorkerCount = partitions.Count() - 1;
@@ -74,8 +74,7 @@ namespace KafkaFlow.Consumers
                 }
             }
 
-            await Task.WhenAll(
-                    Enumerable.Range(0, WorkerCount).Select(
+            await Task.WhenAll(Enumerable.Range(0, WorkerCount).Select(
                             workerId =>
                             {
                                 var worker = new ConsumerWorker(
@@ -88,8 +87,7 @@ namespace KafkaFlow.Consumers
                                 this.workers.Add(worker);
 
                                 return worker.StartAsync(stopCancellationToken);
-                            }))
-                .ConfigureAwait(false);
+                            })).ConfigureAwait(false);
 
             this.distributionStrategy = consumerClient.Parameter.DistributionStrategy;
             this.distributionStrategy.Initialize(this.workers.AsReadOnly());
