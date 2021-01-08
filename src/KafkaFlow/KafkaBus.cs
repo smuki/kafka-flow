@@ -5,7 +5,6 @@ namespace MessagePipeline
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using global::Microsoft.Extensions.Configuration;
     using MessagePipeline.Configuration;
     using MessagePipeline.Consumers;
     using MessagePipeline.Producers;
