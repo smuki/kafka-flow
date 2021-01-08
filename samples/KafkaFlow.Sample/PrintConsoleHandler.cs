@@ -12,8 +12,9 @@
         static long total = 0;
         public Task Handle(IMessageContext context, TestMessage message)
         {
+            NLogger.Info($"GroupId {context.GroupId}");
             total++;
-            NLogger.Info($"A1 {total} #Partition : {context.Partition} | Offset: {context.Offset} | {message.Text}");
+            NLogger.Info($"A1 {total} WorkerId:{context.WorkerId} #Partition : {context.Partition} | Offset: {context.Offset} | {message.Text}");
             return Task.CompletedTask;
         }
     }
@@ -23,8 +24,10 @@
         static long total = 0;
         public Task Handle(IMessageContext context, TestMessage message)
         {
+            
             total++;
-            NLogger.Info($"A2 {total} #Partition : {context.Partition} | Offset: {context.Offset} | {message.Text}");
+            NLogger.Info($"GroupId {context.GroupId}");
+            NLogger.Info($"A2 {total} WorkerId:{context.WorkerId} #Partition : {context.Partition} | Offset: {context.Offset} | {message.Text}");
             return Task.CompletedTask;
         }
     }
