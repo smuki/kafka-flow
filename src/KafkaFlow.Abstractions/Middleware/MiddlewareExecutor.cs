@@ -2,7 +2,6 @@ namespace MessagePipeline.Middleware
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
     using Volte.Data.VolteDi;
     using Volte.Utils;

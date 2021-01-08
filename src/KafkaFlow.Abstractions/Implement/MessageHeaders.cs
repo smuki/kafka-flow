@@ -2,7 +2,6 @@ namespace MessagePipeline
 {
     using System.Collections;
     using System.Collections.Generic;
-    //using Confluent.Kafka;
 
     /// <summary>
     /// Collection of message headers

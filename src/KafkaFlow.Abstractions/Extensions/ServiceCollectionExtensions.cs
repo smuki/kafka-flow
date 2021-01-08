@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Linq;
-using System.Net.Security;
-using MessagePipeline;
 using MessagePipeline.Consumers;
-using MessagePipeline.Producers;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-// ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions

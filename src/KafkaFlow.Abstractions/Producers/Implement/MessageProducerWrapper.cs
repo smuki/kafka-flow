@@ -3,7 +3,6 @@ namespace MessagePipeline.Producers
     using MessagePipeline.Configuration;
     using System;
     using System.Threading.Tasks;
-
     public class MessageProducerWrapper<TProducer> : IMessageProducer<TProducer>
     {
         private readonly IMessageProducer producer;
@@ -16,7 +15,6 @@ namespace MessagePipeline.Producers
         {
 
         }
-
         public string ProducerName => this.producer.ProducerName;
 
         public Task<XXXDeliveryResult> ProduceAsync(
@@ -35,7 +33,6 @@ namespace MessagePipeline.Producers
         {
             return this.producer.ProduceAsync(partitionKey, message, headers);
         }
-
         public void Produce(
             string topic,
             string partitionKey,
