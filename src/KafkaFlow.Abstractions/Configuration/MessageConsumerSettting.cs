@@ -75,10 +75,7 @@ namespace KafkaFlow.Configuration
             {
                 this.WorkerCount = Util.ToInt(this["WorkerCount"]);
             }
-            else
-            {
-                this.WorkerCount = 10;
-            }
+
             if (this.ContainsKey("AutoCommitInterval"))
             {
                 this.AutoCommitInterval = TimeSpan.FromSeconds(Util.ToInt(this["AutoCommitInterval"]));
@@ -88,10 +85,6 @@ namespace KafkaFlow.Configuration
                 this.AutoCommitInterval = TimeSpan.FromSeconds(5);
             }
 
-            if (this.WorkerCount <= 0 || this.WorkerCount >= 1000)
-            {
-                this.WorkerCount = 10;
-            }
             if (this.BufferSize <= 0 || this.BufferSize >= 100)
             {
                 this.BufferSize = 10;
