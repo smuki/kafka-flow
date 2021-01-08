@@ -63,9 +63,14 @@ namespace KafkaFlow.Consumers
             CancellationToken stopCancellationToken = default)
         {
             this.offsetManager = new OffsetManager(new OffsetCommitter(consumerClient, this.configuration.AutoCommitInterval), partitions);
+            int WorkerCount = partitions.Count()-1;
+            if (WorkerCount <= 0)
+            {
+                WorkerCount = 0;
+            }
 
             await Task.WhenAll(
-                    Enumerable.Range(0, this.configuration.WorkerCount).Select(
+                    Enumerable.Range(0, WorkerCount).Select(
                             workerId =>
                             {
                                 var worker = new ConsumerWorker(
