@@ -9,7 +9,6 @@ namespace KafkaFlow.Consumers
         private readonly IOffsetManager offsetManager;
         private readonly IntermediateMessage kafkaResult;
         private readonly IConsumerClient consumerClient;
-        //private ConsumerSetting configuration;
 
         public MessageContextConsumer(
             IConsumerClient consumerClient,
@@ -17,18 +16,17 @@ namespace KafkaFlow.Consumers
             IntermediateMessage kafkaResult,
             CancellationToken workerStopped)
         {
-            //this.configuration = configuration;
-            if (consumerClient != null)
-            {
-                this.Name = consumerClient.ConsumerName;
-            }
+            //if (consumerClient != null)
+            //{
+            //    this.Name = consumerClient.ConsumerName;
+            //}
             this.WorkerStopped = workerStopped;
             this.consumerClient = consumerClient;
             this.offsetManager = offsetManager;
             this.kafkaResult = kafkaResult;
         }
 
-        public string Name { get; }
+        //public string Name { get; }
 
         public CancellationToken WorkerStopped { get; }
 
