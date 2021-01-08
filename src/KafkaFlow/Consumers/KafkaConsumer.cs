@@ -6,6 +6,7 @@
     using System.Text.Json;
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Xml.Schema;
     using Confluent.Kafka;
     using KafkaFlow.Configuration;
     using Volte.Data.VolteDi;
@@ -169,6 +170,8 @@
 
         private void OnPartitionAssigned(IConsumer<byte[], byte[]> consumer, IReadOnlyCollection<TopicPartition> partitions)
         {
+            int nPartition = partitions.Count;
+            NLogger.Info($"Partition : {nPartition}");
             NLogger.Info($"Partition Assigned { JsonSerializer.Serialize(this.GetConsumerLogInfo(partitions))}");
             this.workerPool.StartAsync(this, XXXUtil.TopicPartition(partitions), this.stopCancellationTokenSource.Token).GetAwaiter().GetResult();
         }
