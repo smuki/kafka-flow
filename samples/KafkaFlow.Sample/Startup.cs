@@ -258,7 +258,7 @@ namespace Zero.Boot.Launcher
 
             app.Use((context, next) =>
             {
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 10000; i++)
                 {
                     const string producerName = "master";
 
@@ -267,8 +267,9 @@ namespace Zero.Boot.Launcher
                     var msg = new TestMessage { Text = $"Message:{i}-{Guid.NewGuid()}" };
                     producers[producerName].Produce(Guid.NewGuid().ToString(), msg);
 
-                    NLogger.Info("producers a message");
                 }
+                NLogger.Info("producers 10000 message");
+
                 return next();
             });
 
