@@ -1,28 +1,26 @@
 namespace MessagePipeline.Producers
 {
-    using System;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using Confluent.Kafka;
     using MessagePipeline.Configuration;
     using MessagePipeline.Middleware;
-    using MessagePipeline.Dependency;
-    using Volte.Utils;
-    using Volte.Data.VolteDi;
-    using System.Reflection;
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Volte.Data.VolteDi;
+    using Volte.Utils;
 
     [Injection(InjectionType = InjectionType.Auto)]
     public class MessageProducer : IMessageProducer, IDisposable
     {
+        private readonly IMiddlewareExecutor middlewareExecutor;
+        private readonly IVolteServiceScope dependencyResolverScope;
+        private readonly object producerCreationSync = new object();
         private MessageProducerSettting configuration;
-        private IMiddlewareExecutor middlewareExecutor;
-        private IVolteServiceScope dependencyResolverScope;
 
         private volatile IProducer<byte[], byte[]> producer;
-        private readonly object producerCreationSync = new object();
-
 
         public MessageProducer(IVolteServiceResolver dependencyResolver)
         {
