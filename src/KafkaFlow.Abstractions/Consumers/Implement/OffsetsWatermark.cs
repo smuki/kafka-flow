@@ -1,7 +1,6 @@
 namespace MessagePipeline.Consumers
 {
     using System;
-
     public readonly struct OffsetsWatermark : IOffsetsWatermark, IEquatable<OffsetsWatermark>
     {
         private readonly long _High;
@@ -12,7 +11,6 @@ namespace MessagePipeline.Consumers
             _High = high;
             _Low = low;
         }
-
         public long High
         {
             get
@@ -20,7 +18,6 @@ namespace MessagePipeline.Consumers
                 return _High;
             }
         }
-
         public long Low
         {
             get
@@ -28,12 +25,10 @@ namespace MessagePipeline.Consumers
                 return _Low;
             }
         }
-
         public bool Equals(OffsetsWatermark other)
         {
             return High== other.High && Low==other.Low;
         }
-
         public override bool Equals(object obj)
         {
             return obj is OffsetsWatermark other && this.Equals(other);

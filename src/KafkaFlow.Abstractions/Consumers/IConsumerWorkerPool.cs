@@ -4,7 +4,6 @@ namespace MessagePipeline.Consumers
     using System.Threading;
     using System.Threading.Tasks;
     using MessagePipeline.Configuration;
-
     public interface IConsumerWorkerPool
     {
         void Initialize(MessageConsumerSettting eventConsumer);

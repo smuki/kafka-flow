@@ -6,7 +6,6 @@ namespace MessagePipeline.Consumers
     using System.Threading.Tasks;
     using MessagePipeline.Configuration;
     using MessagePipeline.Middleware;
-    using Volte.Data.VolteDi;
     using Volte.Utils;
 
     internal class ConsumerWorker : IConsumerWorker

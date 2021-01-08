@@ -1,6 +1,5 @@
-namespace MessagePipeline
+namespace MessagePipeline.Consumers
 {
-    using MessagePipeline.Consumers;
     using System.Text;
 
     public class ConsumerMessageContext : IMessageContext

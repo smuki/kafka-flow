@@ -1,6 +1,3 @@
-
-
-
 using MessagePipeline.Configuration;
 using System;
 using System.Collections.Generic;
