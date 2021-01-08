@@ -1,4 +1,4 @@
-namespace KafkaFlow
+namespace MessagePipeline
 {
     /// <summary>
     /// Used to create a message compressor

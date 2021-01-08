@@ -1,4 +1,4 @@
-namespace KafkaFlow
+namespace MessagePipeline
 {
     using System.Collections.Generic;
 

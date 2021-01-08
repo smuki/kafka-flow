@@ -1,4 +1,4 @@
-namespace KafkaFlow.UnitTests
+namespace MessagePipeline.UnitTests
 {
     using System;
     using System.Collections.Generic;

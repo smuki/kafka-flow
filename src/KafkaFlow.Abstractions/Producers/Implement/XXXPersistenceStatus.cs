@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace KafkaFlow.Producers
+namespace MessagePipeline.Producers
 {
     public enum XXXPersistenceStatus
     {

@@ -1,4 +1,4 @@
-﻿namespace KafkaFlow.Serializer
+﻿namespace MessagePipeline.Serializer
 {
     using System;
     using System.Threading.Tasks;

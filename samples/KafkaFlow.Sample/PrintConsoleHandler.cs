@@ -1,8 +1,8 @@
-﻿namespace KafkaFlow.Sample
+﻿namespace MessagePipeline.Sample
 {
     using System;
     using System.Threading.Tasks;
-    using KafkaFlow.TypedHandler;
+    using MessagePipeline.TypedHandler;
     using Volte.Data.VolteDi;
     using Volte.Utils;
 

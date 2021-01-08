@@ -1,6 +1,6 @@
-namespace KafkaFlow.Consumers
+namespace MessagePipeline.Consumers
 {
-    using KafkaFlow.Configuration;
+    using MessagePipeline.Configuration;
     using System;
     using System.Threading;
 

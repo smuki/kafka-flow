@@ -1,4 +1,4 @@
-namespace KafkaFlow.IntegrationTests.Core.Middlewares
+namespace MessagePipeline.IntegrationTests.Core.Middlewares
 {
     using System.Threading.Tasks;
     using Handlers;

@@ -1,8 +1,8 @@
-namespace KafkaFlow.UnitTests.Compressors
+namespace MessagePipeline.UnitTests.Compressors
 {
     using System.Threading.Tasks;
     using FluentAssertions;
-    using KafkaFlow.Serializer;
+    using MessagePipeline.Serializer;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
 

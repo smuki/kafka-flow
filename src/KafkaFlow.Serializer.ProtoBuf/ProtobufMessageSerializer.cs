@@ -1,4 +1,4 @@
-﻿namespace KafkaFlow.Serializer.ProtoBuf
+﻿namespace MessagePipeline.Serializer.ProtoBuf
 {
     using System;
     using System.IO;

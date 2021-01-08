@@ -1,9 +1,9 @@
-namespace KafkaFlow.Admin
+namespace MessagePipeline.Admin
 {
     using System;
     using System.Threading.Tasks;
-    using KafkaFlow.Admin.Messages;
-    using KafkaFlow.Producers;
+    using MessagePipeline.Admin.Messages;
+    using MessagePipeline.Producers;
 
     internal class AdminProducer : IAdminProducer
     {

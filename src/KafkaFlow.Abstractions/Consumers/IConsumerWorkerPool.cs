@@ -1,9 +1,9 @@
-namespace KafkaFlow.Consumers
+namespace MessagePipeline.Consumers
 {
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
-    using KafkaFlow.Configuration;
+    using MessagePipeline.Configuration;
 
     public interface IConsumerWorkerPool
     {

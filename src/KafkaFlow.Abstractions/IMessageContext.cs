@@ -1,4 +1,4 @@
-namespace KafkaFlow
+namespace MessagePipeline
 {
     /// <summary>
     /// A context that contains the message and metadata

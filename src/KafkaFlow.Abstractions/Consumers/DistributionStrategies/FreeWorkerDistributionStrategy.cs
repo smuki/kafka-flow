@@ -1,4 +1,4 @@
-namespace KafkaFlow.Consumers.DistributionStrategies
+namespace MessagePipeline.Consumers.DistributionStrategies
 {
     using System.Collections.Generic;
     using System.Threading;

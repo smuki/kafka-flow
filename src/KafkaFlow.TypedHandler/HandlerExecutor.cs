@@ -1,4 +1,4 @@
-namespace KafkaFlow.TypedHandler
+namespace MessagePipeline.TypedHandler
 {
     using System;
     using System.Collections.Concurrent;

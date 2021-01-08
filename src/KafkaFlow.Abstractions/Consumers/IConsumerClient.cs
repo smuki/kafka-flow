@@ -1,13 +1,13 @@
 
 
 
-using KafkaFlow.Configuration;
+using MessagePipeline.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace KafkaFlow.Consumers
+namespace MessagePipeline.Consumers
 {
     /// <summary>
     /// Message queue consumer client

@@ -1,6 +1,6 @@
-namespace KafkaFlow.Producers
+namespace MessagePipeline.Producers
 {
-    using KafkaFlow.Configuration;
+    using MessagePipeline.Configuration;
     using System.Collections.Generic;
 
     /// <summary>

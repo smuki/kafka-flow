@@ -1,7 +1,7 @@
-namespace KafkaFlow.Serializer
+namespace MessagePipeline.Serializer
 {
     using System;
-    using KafkaFlow.Dependency;
+    using MessagePipeline.Dependency;
     using Volte.Data.VolteDi;
 
     /// <summary>

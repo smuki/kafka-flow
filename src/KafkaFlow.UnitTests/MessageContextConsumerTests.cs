@@ -1,4 +1,4 @@
-﻿namespace KafkaFlow.UnitTests
+﻿namespace MessagePipeline.UnitTests
 {
     using System;
     using System.Collections.Generic;
@@ -7,7 +7,7 @@
     using System.Threading;
     using Confluent.Kafka;
     using FluentAssertions;
-    using KafkaFlow.Consumers;
+    using MessagePipeline.Consumers;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]

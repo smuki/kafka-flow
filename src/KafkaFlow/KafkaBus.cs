@@ -1,4 +1,4 @@
-namespace KafkaFlow
+namespace MessagePipeline
 {
     using System;
     using System.Collections.Generic;
@@ -6,9 +6,9 @@ namespace KafkaFlow
     using System.Threading;
     using System.Threading.Tasks;
     using global::Microsoft.Extensions.Configuration;
-    using KafkaFlow.Configuration;
-    using KafkaFlow.Consumers;
-    using KafkaFlow.Producers;
+    using MessagePipeline.Configuration;
+    using MessagePipeline.Consumers;
+    using MessagePipeline.Producers;
     using Volte.Data.VolteDi;
     using Volte.Utils;
 

@@ -1,4 +1,4 @@
-namespace KafkaFlow.Dependency
+namespace MessagePipeline.Dependency
 {
     using System.Text;
 

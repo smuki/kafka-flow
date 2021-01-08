@@ -1,7 +1,7 @@
-namespace KafkaFlow.Admin
+namespace MessagePipeline.Admin
 {
     using System.Threading.Tasks;
-    using KafkaFlow.Admin.Messages;
+    using MessagePipeline.Admin.Messages;
 
     public interface IAdminProducer
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace KafkaFlow.Consumers
+namespace MessagePipeline.Consumers
 {
     public class XXXMessageMetadata
     {

@@ -1,9 +1,9 @@
-namespace KafkaFlow
+namespace MessagePipeline
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using KafkaFlow.Consumers;
-    using KafkaFlow.Producers;
+    using MessagePipeline.Consumers;
+    using MessagePipeline.Producers;
 
     /// <summary>
     /// Provides access to the kafka bus operations

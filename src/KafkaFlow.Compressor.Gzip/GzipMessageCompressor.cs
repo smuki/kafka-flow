@@ -1,4 +1,4 @@
-﻿namespace KafkaFlow.Compressor.Gzip
+﻿namespace MessagePipeline.Compressor.Gzip
 {
     using System.IO;
     using System.IO.Compression;

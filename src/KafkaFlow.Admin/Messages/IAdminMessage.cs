@@ -1,4 +1,4 @@
-namespace KafkaFlow.Admin.Messages
+namespace MessagePipeline.Admin.Messages
 {
     public interface IAdminMessage
     {

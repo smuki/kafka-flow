@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using KafkaFlow.Consumers;
-using KafkaFlow.Producers;
+using MessagePipeline.Consumers;
+using MessagePipeline.Producers;
 
-namespace KafkaFlow
+namespace MessagePipeline
 {
     public class XXXDeliveryResult : IntermediateMessage
     {

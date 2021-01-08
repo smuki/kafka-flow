@@ -1,4 +1,4 @@
-﻿namespace KafkaFlow.Compressor
+﻿namespace MessagePipeline.Compressor
 {
     using System;
     using System.Threading.Tasks;

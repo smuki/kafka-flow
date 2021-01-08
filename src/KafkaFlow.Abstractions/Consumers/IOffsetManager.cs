@@ -1,4 +1,4 @@
-namespace KafkaFlow.Consumers
+namespace MessagePipeline.Consumers
 {
     public interface IOffsetManager
     {

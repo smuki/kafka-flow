@@ -1,6 +1,6 @@
-namespace KafkaFlow
+namespace MessagePipeline
 {
-    using KafkaFlow.Consumers;
+    using MessagePipeline.Consumers;
     using System.Text;
 
     public class ConsumerMessageContext : IMessageContext

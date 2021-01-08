@@ -1,4 +1,4 @@
-﻿namespace KafkaFlow.IntegrationTests.Core.Messages
+﻿namespace MessagePipeline.IntegrationTests.Core.Messages
 {
     using System;
 

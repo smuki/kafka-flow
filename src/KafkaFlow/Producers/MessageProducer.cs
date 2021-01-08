@@ -1,13 +1,13 @@
-namespace KafkaFlow.Producers
+namespace MessagePipeline.Producers
 {
     using System;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
     using Confluent.Kafka;
-    using KafkaFlow.Configuration;
-    using KafkaFlow.Middleware;
-    using KafkaFlow.Dependency;
+    using MessagePipeline.Configuration;
+    using MessagePipeline.Middleware;
+    using MessagePipeline.Dependency;
     using Volte.Utils;
     using Volte.Data.VolteDi;
     using System.Reflection;

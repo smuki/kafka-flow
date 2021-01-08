@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace KafkaFlow
+namespace MessagePipeline
 {
     public class XXXProduceException : Exception
     {

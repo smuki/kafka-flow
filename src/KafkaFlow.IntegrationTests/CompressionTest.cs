@@ -1,4 +1,4 @@
-namespace KafkaFlow.IntegrationTests
+namespace MessagePipeline.IntegrationTests
 {
     using System;
     using System.Linq;
@@ -8,8 +8,8 @@ namespace KafkaFlow.IntegrationTests
     using Core.Middlewares.Producers;
     using global::Microsoft.Extensions.DependencyInjection;
     using global::Microsoft.VisualStudio.TestTools.UnitTesting;
-    using KafkaFlow.IntegrationTests.Core;
-    using KafkaFlow.Producers;
+    using MessagePipeline.IntegrationTests.Core;
+    using MessagePipeline.Producers;
 
     [TestClass]
     public class CompressionTest

@@ -1,4 +1,4 @@
-namespace KafkaFlow.Consumers
+namespace MessagePipeline.Consumers
 {
     using System;
     using System.Collections.Generic;
@@ -7,8 +7,8 @@ namespace KafkaFlow.Consumers
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
-    using KafkaFlow.Configuration;
-    using KafkaFlow.Middleware;
+    using MessagePipeline.Configuration;
+    using MessagePipeline.Middleware;
     using Volte.Data.VolteDi;
     using Volte.Utils;
 

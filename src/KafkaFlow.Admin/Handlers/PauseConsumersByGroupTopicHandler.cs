@@ -1,10 +1,10 @@
-namespace KafkaFlow.Admin.Handlers
+namespace MessagePipeline.Admin.Handlers
 {
     using System.Linq;
     using System.Threading.Tasks;
-    using KafkaFlow.Admin.Messages;
-    using KafkaFlow.Consumers;
-    using KafkaFlow.TypedHandler;
+    using MessagePipeline.Admin.Messages;
+    using MessagePipeline.Consumers;
+    using MessagePipeline.TypedHandler;
 
     internal class PauseConsumersByGroupTopicHandler : IMessageHandler<PauseConsumersByGroupTopic>
     {

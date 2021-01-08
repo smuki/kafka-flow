@@ -1,9 +1,9 @@
-﻿using KafkaFlow.Consumers;
+﻿using MessagePipeline.Consumers;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace KafkaFlow
+namespace MessagePipeline
 {
     public class XXXDeliveryReport : XXXDeliveryResult
     {

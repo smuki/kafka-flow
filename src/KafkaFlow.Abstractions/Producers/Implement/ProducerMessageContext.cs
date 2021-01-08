@@ -1,4 +1,4 @@
-namespace KafkaFlow
+namespace MessagePipeline
 {
     public class ProducerMessageContext : IMessageContext
     {

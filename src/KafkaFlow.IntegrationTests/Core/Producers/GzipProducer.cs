@@ -1,4 +1,4 @@
-namespace KafkaFlow.IntegrationTests.Core.Middlewares.Producers
+namespace MessagePipeline.IntegrationTests.Core.Middlewares.Producers
 {
     internal class GzipProducer
     {

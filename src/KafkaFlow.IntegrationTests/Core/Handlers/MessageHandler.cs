@@ -1,7 +1,7 @@
-namespace KafkaFlow.IntegrationTests.Core.Handlers
+namespace MessagePipeline.IntegrationTests.Core.Handlers
 {
     using System.Threading.Tasks;
-    using KafkaFlow.TypedHandler;
+    using MessagePipeline.TypedHandler;
     using Messages;
 
     public class MessageHandler : IMessageHandler<TestMessage1>

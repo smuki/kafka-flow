@@ -1,4 +1,4 @@
-namespace KafkaFlow.IntegrationTests.Core
+namespace MessagePipeline.IntegrationTests.Core
 {
     using System;
     using System.IO;
@@ -6,16 +6,16 @@ namespace KafkaFlow.IntegrationTests.Core
     using global::Microsoft.Extensions.Configuration;
     using global::Microsoft.Extensions.DependencyInjection;
     using global::Microsoft.Extensions.Hosting;
-    using KafkaFlow.Compressor;
-    using KafkaFlow.Compressor.Gzip;
-    using KafkaFlow.IntegrationTests.Core.Handlers;
-    using KafkaFlow.IntegrationTests.Core.Messages;
-    using KafkaFlow.IntegrationTests.Core.Middlewares;
-    using KafkaFlow.IntegrationTests.Core.Middlewares.Producers;
-    using KafkaFlow.Serializer;
-    using KafkaFlow.Serializer.Json;
-    using KafkaFlow.Serializer.ProtoBuf;
-    using KafkaFlow.TypedHandler;
+    using MessagePipeline.Compressor;
+    using MessagePipeline.Compressor.Gzip;
+    using MessagePipeline.IntegrationTests.Core.Handlers;
+    using MessagePipeline.IntegrationTests.Core.Messages;
+    using MessagePipeline.IntegrationTests.Core.Middlewares;
+    using MessagePipeline.IntegrationTests.Core.Middlewares.Producers;
+    using MessagePipeline.Serializer;
+    using MessagePipeline.Serializer.Json;
+    using MessagePipeline.Serializer.ProtoBuf;
+    using MessagePipeline.TypedHandler;
 
     public static class Bootstrapper
     {

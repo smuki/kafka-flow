@@ -1,4 +1,4 @@
-namespace KafkaFlow.UnitTests.Compressors
+namespace MessagePipeline.UnitTests.Compressors
 {
     using System;
     using System.Threading.Tasks;

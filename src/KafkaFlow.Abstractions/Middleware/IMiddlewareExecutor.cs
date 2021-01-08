@@ -1,4 +1,4 @@
-namespace KafkaFlow.Middleware
+namespace MessagePipeline.Middleware
 {
     using System;
     using System.Collections.Generic;

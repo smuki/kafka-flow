@@ -1,11 +1,11 @@
 ﻿using Confluent.Kafka;
-using KafkaFlow.Consumers;
-using KafkaFlow.Producers;
+using MessagePipeline.Consumers;
+using MessagePipeline.Producers;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace KafkaFlow
+namespace MessagePipeline
 {
     public class XXXUtil
     {

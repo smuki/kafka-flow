@@ -1,4 +1,4 @@
-﻿namespace KafkaFlow.Sample
+﻿namespace MessagePipeline.Sample
 {
     using System.Runtime.Serialization;
 

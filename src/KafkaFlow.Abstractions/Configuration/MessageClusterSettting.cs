@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Volte.Data.VolteDi;
 
-namespace KafkaFlow.Configuration
+namespace MessagePipeline.Configuration
 {
     [Injection(InjectionType = InjectionType.Auto)]
     public class ClusterSettting

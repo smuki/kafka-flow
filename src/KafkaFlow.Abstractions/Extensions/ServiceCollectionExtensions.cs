@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Net.Security;
-using KafkaFlow;
-using KafkaFlow.Consumers;
-using KafkaFlow.Producers;
+using MessagePipeline;
+using MessagePipeline.Consumers;
+using MessagePipeline.Producers;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 // ReSharper disable once CheckNamespace

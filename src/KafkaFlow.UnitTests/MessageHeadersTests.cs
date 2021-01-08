@@ -1,10 +1,10 @@
-namespace KafkaFlow.UnitTests
+namespace MessagePipeline.UnitTests
 {
     using System.Text;
     using Confluent.Kafka;
     using FluentAssertions;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using KafkaFlow.Dependency;
+    using MessagePipeline.Dependency;
 
     [TestClass]
     public class MessageHeadersTests

@@ -1,4 +1,4 @@
-﻿using KafkaFlow.Consumers.DistributionStrategies;
+﻿using MessagePipeline.Consumers.DistributionStrategies;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using Volte.Utils;
 
-namespace KafkaFlow.Configuration
+namespace MessagePipeline.Configuration
 {
     public class MessageConsumerSettting
     {

@@ -1,4 +1,4 @@
-namespace KafkaFlow
+namespace MessagePipeline
 {
     /// <summary>
     /// Interface that represents the low and high watermark offsets of a topic/partition

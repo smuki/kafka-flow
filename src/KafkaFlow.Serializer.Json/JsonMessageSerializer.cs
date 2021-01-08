@@ -1,4 +1,4 @@
-﻿namespace KafkaFlow.Serializer.Json
+﻿namespace MessagePipeline.Serializer.Json
 {
     using System;
     using System.Text;

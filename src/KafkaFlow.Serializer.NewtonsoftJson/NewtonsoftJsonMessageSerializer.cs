@@ -1,4 +1,4 @@
-﻿namespace KafkaFlow.Serializer.NewtonsoftJson
+﻿namespace MessagePipeline.Serializer.NewtonsoftJson
 {
     using System;
     using System.Text;

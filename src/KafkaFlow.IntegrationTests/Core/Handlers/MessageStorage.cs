@@ -1,4 +1,4 @@
-namespace KafkaFlow.IntegrationTests.Core.Handlers
+namespace MessagePipeline.IntegrationTests.Core.Handlers
 {
     using System;
     using System.Collections.Concurrent;

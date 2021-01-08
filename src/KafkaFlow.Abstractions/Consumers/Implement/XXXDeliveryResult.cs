@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace KafkaFlow.Consumers
+namespace MessagePipeline.Consumers
 {
     /// <summary>
     ///     Encapsulates the result of a successful produce request.
