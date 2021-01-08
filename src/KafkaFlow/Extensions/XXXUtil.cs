@@ -1,9 +1,7 @@
 ﻿using Confluent.Kafka;
 using MessagePipeline.Consumers;
 using MessagePipeline.Producers;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace MessagePipeline
 {
