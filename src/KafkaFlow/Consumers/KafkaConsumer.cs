@@ -1,14 +1,13 @@
 ﻿namespace MessagePipeline.Consumers
 {
+    using Confluent.Kafka;
+    using MessagePipeline.Configuration;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text.Json;
     using System.Threading;
     using System.Threading.Tasks;
-    using System.Xml.Schema;
-    using Confluent.Kafka;
-    using MessagePipeline.Configuration;
     using Volte.Data.VolteDi;
     using Volte.Utils;
 
@@ -66,7 +65,10 @@
             ConsumerConfig consumerConfig = new ConsumerConfig();
             consumerConfig.BootstrapServers ??= eventConsumer.Brokers;
             consumerConfig.GroupId ??= "print-console-handler";
-
+            if (eventConsumer.ContainsKey("GroupId"))
+            {
+                consumerConfig.GroupId ??= eventConsumer["GroupId"];
+            }
             if (eventConsumer["AutoOffsetReset"] == "Earliest")
             {
                 consumerConfig.AutoOffsetReset ??= AutoOffsetReset.Earliest;

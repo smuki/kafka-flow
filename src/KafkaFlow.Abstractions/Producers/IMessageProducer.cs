@@ -10,7 +10,6 @@ namespace MessagePipeline.Producers
     public interface IMessageProducer<TProducer> : IMessageProducer
     {
     }
-
     /// <summary>
     /// Provides access to the kafka producer
     /// </summary>

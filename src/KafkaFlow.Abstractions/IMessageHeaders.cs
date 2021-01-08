@@ -13,8 +13,6 @@ namespace MessagePipeline
         /// <param name="key">The header key.</param>
         /// <param name="value">The header value (possibly null)</param>
         void Add(string key, byte[] value);
-
-
         /// <summary>
         /// Gets the header with specified key
         /// </summary>
