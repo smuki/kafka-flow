@@ -27,17 +27,15 @@ namespace MessagePipeline.Configuration
                     }
                 }
 
-                MessageProducerSettting MessageProducer = new MessageProducerSettting(parameter,cluster.GetSection("producer"));
+                MessageProducerSettting MessageProducer = new MessageProducerSettting(parameter, cluster.GetSection("producer"));
                 MessageProducer.Name = cluster.Key;
 
-                MessageConsumerSettting MessageConsumer = new MessageConsumerSettting(parameter,cluster.GetSection("consumer"));
+                MessageConsumerSettting MessageConsumer = new MessageConsumerSettting(parameter, cluster.GetSection("consumer"));
                 MessageConsumer.Name = cluster.Key;
 
                 producers.Add(MessageProducer);
                 consumers.Add(MessageConsumer);
             }
-
-          
         }
     }
 }
