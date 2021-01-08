@@ -63,10 +63,15 @@ namespace KafkaFlow.Consumers
             CancellationToken stopCancellationToken = default)
         {
             this.offsetManager = new OffsetManager(new OffsetCommitter(consumerClient, this.configuration.AutoCommitInterval), partitions);
-            int WorkerCount = partitions.Count()-1;
+
+            int WorkerCount = configuration.WorkerCount;
             if (WorkerCount <= 0)
             {
-                WorkerCount = 0;
+                WorkerCount = partitions.Count() - 1;
+                if (WorkerCount <= 0)
+                {
+                    WorkerCount = 4;
+                }
             }
 
             await Task.WhenAll(
