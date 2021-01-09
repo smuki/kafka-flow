@@ -11,7 +11,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KafkaFlow.Abstractions\MessagePipeline.Abstractions.csproj" />
+    <ProjectReference Include="..\KafkaFlow.Abstractions\MessagePipeline.Core.csproj" />
+    <ProjectReference Include="..\MessagePipeline.Core\MessagePipeline.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

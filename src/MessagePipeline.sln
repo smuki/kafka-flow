@@ -23,7 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Serialization", "Serializat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Compression", "Compression", "{0A782A83-B66D-4B99-9BE2-2B18AAD2E03C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessagePipeline.Abstractions", "KafkaFlow.Abstractions\MessagePipeline.Abstractions.csproj", "{88808771-56BE-422B-94DC-7AB070F64E98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessagePipeline.Core", "KafkaFlow.Abstractions\MessagePipeline.Core.csproj", "{88808771-56BE-422B-94DC-7AB070F64E98}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessagePipeline.TypedHandler", "KafkaFlow.TypedHandler\MessagePipeline.TypedHandler.csproj", "{E47EF9E0-A1C7-4FF0-AEC5-143F52ED0FBE}"
 EndProject
@@ -53,7 +53,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zero.Boot.Internal", "..\..
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zero.Data.Util", "..\..\..\Proj\ZeroBus\src\CAP\src\Zero.Data.Util\Zero.Data.Util.csproj", "{65E681A3-AE7F-4097-8C28-B8FABEA714FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagePipeline.Core", "MessagePipeline.Core\MessagePipeline.Core.csproj", "{2F94377B-E557-4D25-9BEC-7560816350F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessagePipeline.Abstractions", "MessagePipeline.Core\MessagePipeline.Abstractions.csproj", "{2F94377B-E557-4D25-9BEC-7560816350F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

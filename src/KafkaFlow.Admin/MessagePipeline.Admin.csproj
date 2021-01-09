@@ -9,7 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\KafkaFlow.Abstractions\MessagePipeline.Abstractions.csproj" />
+        <ProjectReference Include="..\KafkaFlow.Abstractions\MessagePipeline.Core.csproj" />
         <ProjectReference Include="..\KafkaFlow.Serializer.ProtoBuf\MessagePipeline.Serializer.ProtoBuf.csproj" />
         <ProjectReference Include="..\KafkaFlow.Serializer\MessagePipeline.Serializer.csproj" />
         <ProjectReference Include="..\KafkaFlow.TypedHandler\MessagePipeline.TypedHandler.csproj" />

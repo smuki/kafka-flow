@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KafkaFlow.Abstractions\MessagePipeline.Abstractions.csproj" />
+    <ProjectReference Include="..\KafkaFlow.Abstractions\MessagePipeline.Core.csproj" />
     <ProjectReference Include="..\KafkaFlow.Compressor.Gzip\MessagePipeline.Compressor.Gzip.csproj" />
     <ProjectReference Include="..\KafkaFlow.Compressor\MessagePipeline.Compressor.csproj" />
     <ProjectReference Include="..\KafkaFlow.Serializer.Json\MessagePipeline.Serializer.Json.csproj" />

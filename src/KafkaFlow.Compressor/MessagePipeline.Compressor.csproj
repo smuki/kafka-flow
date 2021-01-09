@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KafkaFlow.Abstractions\MessagePipeline.Abstractions.csproj" />
+    <ProjectReference Include="..\KafkaFlow.Abstractions\MessagePipeline.Core.csproj" />
     <ProjectReference Include="..\KafkaFlow.Compressor.Gzip\MessagePipeline.Compressor.Gzip.csproj" />
   </ItemGroup>
 
