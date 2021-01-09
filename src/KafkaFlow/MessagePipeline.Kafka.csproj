@@ -16,7 +16,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0" />
-    <PackageReference Include="System.Threading.Channels" Version="4.7.1" />
+    <PackageReference Include="System.Threading.Channels" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
