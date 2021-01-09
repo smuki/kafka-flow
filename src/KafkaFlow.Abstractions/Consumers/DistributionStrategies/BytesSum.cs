@@ -10,7 +10,7 @@ namespace MessagePipeline.Consumers.DistributionStrategies
     /// This algorithm is fast and creates a good work balance. Messages with the same partition key are always delivered in the same worker, so, message order is guaranteed
     /// Set an optimal message buffer value to avoid idle workers (it will depends how many messages with the same partition key are consumed)
     /// </summary>
-    public class BytesSumDistributionStrategy : IDistributionStrategy
+    public class BytesSum : IDistributionStrategy
     {
         private IReadOnlyList<IWorker> workers;
 

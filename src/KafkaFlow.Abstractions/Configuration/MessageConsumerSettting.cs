@@ -55,11 +55,11 @@ namespace MessagePipeline.Configuration
 
             if (this["DistributionStrategy"] == "FreeStrategy")
             {
-                this.DistributionStrategy = new FreeWorkerDistributionStrategy();
+                this.DistributionStrategy = new FreeWorker();
             }
             else
             {
-                this.DistributionStrategy = new BytesSumDistributionStrategy();
+                this.DistributionStrategy = new BytesSum();
             }
             this.ConsumerName = conf.Get("ConsumerName");
             this.WorkerCount = Util.ToInt(conf.Get("WorkerCount"));
