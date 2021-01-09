@@ -250,8 +250,6 @@ namespace MessagePipeline.Producers
             ProducerMessageContext context,
             Action<XXXDeliveryReport> deliveryHandler)
         {
-            NLogger.Debug("Internal Produce Send.");
-
             this.EnsureProducer().Produce(context.Topic, CreateMessage(context),
                     report =>
                     {
@@ -263,12 +261,11 @@ namespace MessagePipeline.Producers
                         {
                             NLogger.Error("Error....");
                             NLogger.Error($"Error {result.Error.Reason}");
+                            NLogger.Debug($"Offset {report.Offset}");
+                            NLogger.Debug($"Partition {report.Partition}");
 
                             this.InvalidateProducer(report.Error, result);
                         }
-
-                        NLogger.Debug($"Offset {report.Offset}");
-                        NLogger.Debug($"Partition {report.Partition}");
 
                         context.Offset = report.Offset;
                         context.Partition = report.Partition;
@@ -276,7 +273,6 @@ namespace MessagePipeline.Producers
                         deliveryHandler(result);
                     });
 
-            NLogger.Debug("Internal Produce After Send.");
         }
 
         private static Message<byte[], byte[]> CreateMessage(IMessageContext context)
