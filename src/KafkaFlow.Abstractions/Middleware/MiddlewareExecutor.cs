@@ -17,13 +17,6 @@ namespace MessagePipeline.Middleware
 
         public Task Execute(IMessageContext context, Func<IMessageContext, Task> nextOperation)
         {
-            int i = 0;
-            NLogger.Debug("Middleware: ");
-            foreach (var x in middlewares)
-            {
-                NLogger.Debug("   " + i + " : " + x.ToString());
-                i++;
-            }
             return this.ExecuteDefinition(0, context, nextOperation);
         }
 
