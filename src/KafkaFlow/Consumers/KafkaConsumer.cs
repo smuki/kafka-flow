@@ -106,7 +106,7 @@
             this.consumerBuilder = new ConsumerBuilder<byte[], byte[]>(consumerConfig);
 
             this.consumerBuilder
-                .SetPartitionsAssignedHandler((consumer, partitions) => this.OnPartitionAssigned(consumer, partitions))
+                .SetPartitionsAssignedHandler((consumer, partitions) => this.OnPartitionAssigned(partitions))
                 .SetPartitionsRevokedHandler((consumer, partitions) => this.OnPartitionRevoked(partitions))
                 .SetErrorHandler((p, error) =>
                 {
@@ -170,7 +170,7 @@
             this.workerPool.StopAsync().GetAwaiter().GetResult();
         }
 
-        private void OnPartitionAssigned(IConsumer<byte[], byte[]> consumer, IReadOnlyCollection<TopicPartition> partitions)
+        private void OnPartitionAssigned(IReadOnlyCollection<TopicPartition> partitions)
         {
             int nPartition = partitions.Count;
             NLogger.Info($"Partition : {nPartition}");
