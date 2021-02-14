@@ -5,7 +5,6 @@ namespace MessagePipeline.Consumers
     using Volte.Data.VolteDi;
 
     [Injection(InjectionType = InjectionType.Auto,Lifetime =InjectionLifetime.Singleton)]
-
     public class ConsumerManager : IConsumerManager
     {
         private readonly ConcurrentDictionary<string, IMessageConsumer> consumers = new ConcurrentDictionary<string, IMessageConsumer>();
