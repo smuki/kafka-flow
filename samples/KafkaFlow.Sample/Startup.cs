@@ -169,7 +169,7 @@ namespace Zero.Boot.Launcher
 
             services.LoadInjection(_Assembly.ToArray<Assembly>());
 
-            string ZERO_ELSA = _config["ZERO_ELSA"] ?? string.Empty;
+            //string ZERO_ELSA = _config["ZERO_ELSA"] ?? string.Empty;
            
             VolteDiServiceProvider.Registered(services);
 
@@ -196,12 +196,6 @@ namespace Zero.Boot.Launcher
                 }
                 NLogger.Info("PathMatch =["+ sAPI_PATH_PREFIX + "]");
                 NLogger.Info("AppPath =["+ sAPP_PATH + "]");
-
-                //services.UseZeroApi(x =>
-                // {
-                //     x.APIPathMatch = sAPI_PATH_PREFIX;
-                //     x.AppPath = "/"+ sAPP_PATH;
-                // });
             }
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -226,26 +220,6 @@ namespace Zero.Boot.Launcher
             }
             
             new VolteServiceCollection(services);
-
-            //var x1=services.ToList<ServiceDescriptor>();
-            //foreach (var x in services.ToList<ServiceDescriptor>())
-            //{
-
-            //    if (x.ServiceType != null && x.ServiceType.ToString().IndexOf("IMessageHandler")>0)
-            //    {
-            //        Console.WriteLine("---->####################");
-            //        Console.WriteLine("---->####################");
-            //        Console.WriteLine("---->####################");
-            //        Console.WriteLine("---->####################");
-            //        Console.WriteLine(x.ServiceType);
-            //        Console.WriteLine("---->####################");
-            //        Console.WriteLine(x.ServiceType);
-            //        Console.WriteLine(x.ImplementationType);
-            //        Console.WriteLine("---->####################");
-            //        Console.WriteLine("");
-
-            //    }
-            //}
 
         }
 
