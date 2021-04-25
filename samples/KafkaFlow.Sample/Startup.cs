@@ -28,9 +28,7 @@ namespace Zero.Boot.Launcher
 {
     public class Startup
     {
-        //private readonly IHostingEnvironment _env;
         private readonly IConfiguration _config;
-        //////private readonly ILoggerFactory _loggerFactory;
         private string ZERO_ENABLE_SERVICE = "";
         private string sAPI_PATH_PREFIX = "";
         public Startup(IConfiguration config)
@@ -58,43 +56,17 @@ namespace Zero.Boot.Launcher
                 LogManager.LoadConfiguration($@"nlog-prd.config");
             }
 
-            //services.AddSingleton<WorkflowHostService>();
-
             string ZERO_MAX_CONCURRENT_REQUESTS = _config["ZERO_MAX_CONCURRENT_REQUESTS"] ?? "2";
             string ZERO_REQUEST_QUEUE_LIMIT = _config["ZERO_REQUEST_QUEUE_LIMIT"] ?? "10";
 
             NLogger.Info("MaxConcurrentRequests(ZERO_MAX_CONCURRENT_REQUESTS) = [" + ZERO_MAX_CONCURRENT_REQUESTS + "]");
             NLogger.Info("RequestQueueLimit(ZERO_REQUEST_QUEUE_LIMIT) = [" + ZERO_REQUEST_QUEUE_LIMIT + "]");
 
-            //if (Util.ToInt(ZERO_MAX_CONCURRENT_REQUESTS) > 1)
-            //{
-            //    NLogger.Info("QueuePolicy: Enabled");
-
-            //    services.AddQueuePolicy(options =>
-            //    {
-            //        //最大并发请求数
-            //        options.MaxConcurrentRequests = Util.ToInt(ZERO_MAX_CONCURRENT_REQUESTS);
-            //        //请求队列长度限制
-            //        options.RequestQueueLimit = Util.ToInt(ZERO_REQUEST_QUEUE_LIMIT);
-            //    });
-            //}
-            //else
-            //{
-            //    NLogger.Info("QueuePolicy: Disabled");
-            //}
         
             string ZERO_REDIS = _config["ZERO_REDIS"] ?? string.Empty;
             string ZERO_REDIS_DB = _config["ZERO_REDIS_DB"] ?? string.Empty;
             NLogger.Info("RedisClient (ZERO_REDIS) = [" + ZERO_REDIS+"]");
 
-            //if (!string.IsNullOrEmpty(ZERO_REDIS))
-            //{
-            //    NLogger.Info("Using CSRedisClient - " + ZERO_REDIS);
-
-            //    services.AddScoped<ICacheService, RedisCache>();
-            //    var csredis = new CSRedis.CSRedisClient(ZERO_REDIS);
-            //    RedisHelper.Initialization(csredis);//初始化
-            //}
             VolteDiOptions _opt = new VolteDiOptions();
             List<string> aDir = new List<string>();
             string ZERO_ADDONS_DIR = _config["ZERO_ADDONS_DIR"] ?? string.Empty;
@@ -142,11 +114,7 @@ namespace Zero.Boot.Launcher
             _opt.AssemblyNames = new string[] { "*" };
 
             NLogger.Info("Scan classes ...");
-             IList<Assembly> _Assembly = AssemblyLoader.LoadAssembly(_opt).ToList();
-
-            //VolteDiLoader _VolteDiLoader = new VolteDiLoader();
-
-            //IList<Assembly> _Assembly = _VolteDiLoader.LoadAssembly(_opt).Where(u => (u.FullName.Contains(".CAP") || u.FullName.Contains("Zero.") || u.FullName.Contains("Volte.") || u.FullName.Contains("Zero.Common") || u.FullName.Contains("ADM0") || u.FullName.Contains("1084") || u.FullName.Contains("1074") || u.FullName.Contains("Kafka.MySql"))).ToList();
+            IList<Assembly> _Assembly = AssemblyLoader.LoadAssembly(_opt).ToList();
 
             StringBuilder UseAssembly = new StringBuilder();
             UseAssembly.AppendLine("\nUse Assembly:");
@@ -169,8 +137,6 @@ namespace Zero.Boot.Launcher
 
             services.LoadInjection(_Assembly.ToArray<Assembly>());
 
-            //string ZERO_ELSA = _config["ZERO_ELSA"] ?? string.Empty;
-           
             VolteDiServiceProvider.Registered(services);
 
             sAPI_PATH_PREFIX = _config["ZERO_API_PATH_PREFIX"];
@@ -265,12 +231,6 @@ namespace Zero.Boot.Launcher
                 SupportedUICultures = supportedCultures
             });
 
-            //app.MystiqueRoute();
-            //app.UseHangfireServer(new BackgroundJobServerOptions
-            //{
-            //    Queues = new[] { "critical", "default" },
-            //    TaskScheduler = null
-            //});
 
             if (ZERO_ENABLE_SERVICE.IndexOf("ZERO_EVENTBUS") >= 0)
             {
@@ -280,25 +240,6 @@ namespace Zero.Boot.Launcher
                 {
                     NLogger.Info("Configure AddApi.....");
                 }
-            }
-
-            if (ZERO_ENABLE_SERVICE.IndexOf("ZERO_API") >= 0)
-            {
-                NLogger.Info("Web API Setting");
-
-                //if (provider.GetService<ActivityOptions>() != null)
-                //{
-                //    app.UseMiddleware<ActivityMiddleware>();
-                //    app.UseMiddleware<FileUpMiddleware>();
-                //}
-                //else
-                //{
-                //    NLogger.Info("Web API ActivityOptions Is Null");
-                //}
-            }
-            else
-            {
-                NLogger.Info("Web API disabled");
             }
 
             string sDirectory = _config["ZERO_WEB_ROOT"];
@@ -334,12 +275,6 @@ namespace Zero.Boot.Launcher
             }
 
             app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
-            {
-                //endpoints.MapHealthChecks("/health");
-                //endpoints.MapDynamicControllerRoute<TranslationTransformer>("{area}/{controller=Home}/{action=Index}/{id?}");
-            });
 
             string ZERO_HEALTH_CHECKS = _config["ZERO_HEALTH_CHECKS"];
             NLogger.Info("Health Checks (ZERO_HEALTH_CHECKS)=" + ZERO_HEALTH_CHECKS);
