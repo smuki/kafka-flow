@@ -10,7 +10,7 @@ namespace MessagePipeline.IntegrationTests.Core.Handlers
 
     public static class MessageStorage
     {
-        private const int timeoutSec = 5;
+        private const int timeoutSec = 8;
         private static readonly ConcurrentBag<ITestMessage> testMessages = new ConcurrentBag<ITestMessage>();
         private static readonly ConcurrentBag<(long, int)> versions = new ConcurrentBag<(long, int)>();
         private static readonly ConcurrentBag<byte[]> byteMessages = new ConcurrentBag<byte[]>();
@@ -66,7 +66,7 @@ namespace MessagePipeline.IntegrationTests.Core.Handlers
             {
                 if (DateTime.Now.Subtract(start).Seconds > timeoutSec)
                 {
-                    Assert.Fail("Message not received");
+                    Assert.Fail("Message (byte[]) not received");
                     return;
                 }
 
