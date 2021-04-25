@@ -106,11 +106,11 @@ namespace MessagePipeline.Consumers
 
         public async Task StopAsync()
         {
-            if (this.stopCancellationTokenSource.Token.CanBeCanceled)
+            if (this.stopCancellationTokenSource != null && !this.stopCancellationTokenSource.IsCancellationRequested)
             {
                 this.stopCancellationTokenSource.Cancel();
+                this.stopCancellationTokenSource.Dispose();
             }
-
             await this.backgroundTask.ConfigureAwait(false);
             this.backgroundTask.Dispose();
         }
